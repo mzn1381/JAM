@@ -1,0 +1,35 @@
+{
+  "classifier_hint": "Rules (apply in order of priority):\n1) If the message contains BOTH a greeting/chitchat AND a request or question, ignore the greeting/chitchat part and classify based on the request only (never choose greeting/chitchat in this case).\n2) If the current message is a short follow-up that supplies missing information, confirms a value, or corrects a previous request (e.g., a lone phone number, national code, date, or a 'yes/no' answer to a clarification question), inherit the SAME category from the immediately preceding turn in the conversation history — do not re-evaluate intent from scratch.\n3) Classify as 'action' if the user expresses an intent to EXECUTE, PERFORM, TRIGGER, BOOK, REGISTER, or RETRIEVE something concrete — regardless of which specific service or task it is. The exact task type is irrelevant at this stage; only the execution intent matters.\n4) Classify as 'rag' if the user asks a question seeking information, explanation, comparison, definition, condition, or general knowledge — including questions about how a supported service works — with NO explicit execution request.\n5) Classify as 'greeting' only if the entire message is a standalone salutation with no request or question attached.\n6) Classify as 'chitchat' only if the entire message is social small talk, an opinion, a joke, or casual banter with no execution intent and no informational question.\n7) If none of the above rules apply confidently, classify as 'unknown' rather than guessing.\n8) Missing details (e.g., city, plate number, contact name) in an 'action' request must NOT change its classification — incomplete data is resolved by a downstream component, not here.",
+  "categories": [
+    {
+      "name": "action",
+      "description": "The user intends to execute, perform, book, register, retrieve, or otherwise trigger a concrete task or service call. The specific service type is intentionally NOT resolved at this stage.",
+      "extra_prompt_hints": "\n- Strong signals: explicit execution/imperative verbs such as بگیر, چک کن, استعلام کن, ثبت‌نام کن, بساز, پیدا کن, رزرو کن, نوبت بگیر, تنظیم کن, ارسال کن, زنگ بزن, اضافه کن, انجام بده, لغو کن, حذف کن, نشون بده.\n- Missing required data (e.g., no city, no plate number, no contact name) does NOT disqualify a message from being 'action' — classify it as action regardless, since slot completion is handled later.\n- A bare follow-up value with no verb (e.g., «تهران», «۰۹۱۲۱۲۳۴۵۶۷», «فردا ساعت ۵») is 'action' ONLY IF the previous turn was already classified as action (per Rule 2); otherwise treat as 'unknown'.\n- Do NOT attempt to guess which downstream service (booking, device command, inquiry, registration, etc.) is involved — that determination belongs to a later stage.\n",
+      "apis": []
+    },
+    {
+      "name": "rag",
+      "description": "The user asks an informational, explanatory, comparative, or general knowledge question intended to be answered from the knowledge base, with no execution request.",
+      "extra_prompt_hints": "\n- Strong signals: interrogative/explanatory phrasing such as چیست, چگونه, چطور کار می‌کند, تفاوت ... چیه, شرایط ... چیست, مزایا/معایب, راهنمای.\n- A question ABOUT a supported service (e.g., «پذیرش۲۴ چیه؟», «شرایط ثبت‌نام در آراد چیه؟») is 'rag', even though the same service also has an 'action' counterpart — the deciding factor is the ABSENCE of an execution verb.\n- If a single message both asks a question AND requests execution (e.g., «شرایط ثبت‌نام چیه، اگه اوکیه ثبت‌نامم کن»), classify as 'action', since execution intent takes precedence over the informational part.\n",
+      "apis": []
+    },
+    {
+      "name": "greeting",
+      "description": "A standalone greeting or salutation with no accompanying request or question.",
+      "extra_prompt_hints": "\n- Examples: «سلام», «درود», «صبح بخیر», «خداحافظ», «شب بخیر».\n- If combined with any request (e.g., «سلام، خلافی بگیر»), this rule does NOT apply — classify by the request instead (see Rule 1).\n",
+      "apis": []
+    },
+    {
+      "name": "chitchat",
+      "description": "Standalone social small talk, opinions, or jokes with no execution intent and no informational question.",
+      "extra_prompt_hints": "\n- Examples: «چه خبر؟», «حوصله ندارم», «یه جوک بگو», «امروز حالت چطوره؟».\n- Simple courtesy replies with no new request (e.g., «مرسی», «خیلی ممنون», «باشه») also belong here.\n- Never use this category for inquiries (استعلام) or knowledge questions — see 'action' and 'rag' respectively.\n",
+      "apis": []
+    },
+    {
+      "name": "unknown",
+      "description": "Intent cannot be confidently determined as action, rag, greeting, or chitchat based on the current message and available conversation history.",
+      "extra_prompt_hints": "\n- Use this category rather than forcing an uncertain guess into another category.\n- Typical case: a bare value or fragment (e.g., a lone number or name) with no prior conversation context to anchor it.\n",
+      "apis": []
+    }
+  ]
+}

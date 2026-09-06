@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Set-Alarm Output",
+  "description": "Schema for validating LLM output for setting alarms",
+  "oneOf": [
+    {
+      "title": "Valid Alarm",
+      "type": "object",
+      "required": ["intent", "alarm", "source_text"],
+      "properties": {
+        "intent": { "type": "string", "const": "set_alarm" },
+        "alarm": {
+          "type": "object",
+          "required": ["hour", "minutes"],
+          "properties": {
+            "hour": { "type": "integer", "minimum": 0, "maximum": 23 },
+            "minutes": { "type": "integer", "minimum": 0, "maximum": 59 },
+            "message": { "type": "string" },
+            "days": {
+              "type": "array",
+              "items": { "type": "integer", "minimum": 1, "maximum": 7 }
+            },
+            "vibrate": { "type": "boolean" },
+            "ringtone": { "type": "string" },
+            "skipUI": { "type": "boolean" },
+            "isPersistent": { "type": "boolean" },
+            "countdownMillis": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "source_text": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "title": "Missing Required Fields",
+      "type": "object",
+      "required": ["intent", "missing", "message_to_user", "source_text"],
+      "properties": {
+        "intent": { "type": "string", "const": "set_alarm" },
+        "missing": {
+          "type": "array",
+          "items": { "enum": ["hour", "minutes"] },
+          "minItems": 1
+        },
+        "message_to_user": { "type": "string", "minLength": 1 },
+        "source_text": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "title": "Non-Alarm Request",
+      "type": "object",
+      "required": ["intent", "message_to_user", "source_text"],
+      "properties": {
+        "intent": { "type": "string", "const": "none" },
+        "message_to_user": { "type": "string", "minLength": 1 },
+        "source_text": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+name: Assistant Web -> Build, Push & Deploy
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/assistant-release.yml'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/assistant-release.yml'
+  workflow_dispatch:
+    inputs:
+      version_override:
+        description: >-
+          Optional version tag such as assistant-v1.2.3.
+          Leave empty to increment the latest patch version.
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  validate:
+    name: Validate assistant web build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web release
+        run: npm run build
+
+      - name: Upload web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pishkar-assistant-web
+          path: mobile/dist-web
+          retention-days: 14
+
+  build-and-push-assistant:
+    name: Build and push assistant web image
+    needs: validate
+    if: |
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.new_version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate next version
+        id: version
+        env:
+          VERSION_OVERRIDE: ${{ inputs.version_override || '' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "$VERSION_OVERRIDE" ]]; then
+            if [[ ! "$VERSION_OVERRIDE" =~ ^assistant-v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid version: $VERSION_OVERRIDE"
+              echo "Expected format: assistant-v1.2.3"
+              exit 1
+            fi
+
+            if git rev-parse --verify --quiet "refs/tags/$VERSION_OVERRIDE"; then
+              echo "Tag already exists: $VERSION_OVERRIDE"
+              exit 1
+            fi
+
+            NEW_VERSION="$VERSION_OVERRIDE"
+          else
+            LATEST_TAG=$(git tag -l "assistant-v*.*.*" --sort=-v:refname | head -n 1)
+
+            if [[ -z "$LATEST_TAG" ]]; then
+              NEW_VERSION="assistant-v0.0.1"
+            else
+              VERSION="${LATEST_TAG#assistant-v}"
+              MAJOR=$(echo "$VERSION" | cut -d. -f1)
+              MINOR=$(echo "$VERSION" | cut -d. -f2)
+              PATCH=$(echo "$VERSION" | cut -d. -f3)
+              PATCH=$((PATCH + 1))
+              NEW_VERSION="assistant-v${MAJOR}.${MINOR}.${PATCH}"
+            fi
+          fi
+
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Building version: $NEW_VERSION"
+
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./mobile
+          file: ./mobile/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.ASSISTANT_IMAGE_NAME }}:${{ steps.version.outputs.new_version }}
+            ${{ secrets.ASSISTANT_IMAGE_NAME }}:latest
+          build-args: |
+            VITE_BASE_URL_WEB=${{ vars.VITE_BASE_URL_WEB }}
+
+  deploy-assistant:
+    name: Deploy assistant web
+    needs: build-and-push-assistant
+    if: |
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            VERSION="${{ needs.build-and-push-assistant.outputs.version }}"
+            echo "Deploying assistant web version: $VERSION"
+            echo "Pulling image: ${{ secrets.ASSISTANT_IMAGE_NAME }}:$VERSION"
+            docker pull ${{ secrets.ASSISTANT_IMAGE_NAME }}:$VERSION
+
+            cd /home/${{ secrets.VPS_USER }}/opt/assistant || exit 1
+
+            if grep -q "^ASSISTANT_IMAGE_TAG=" .env 2>/dev/null; then
+              sed -i "s/^ASSISTANT_IMAGE_TAG=.*/ASSISTANT_IMAGE_TAG=$VERSION/" .env
+            else
+              echo "ASSISTANT_IMAGE_TAG=$VERSION" >> .env
+            fi
+
+            echo "Updated .env with ASSISTANT_IMAGE_TAG=$VERSION"
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
+            echo "Deployed assistant web version $VERSION successfully"

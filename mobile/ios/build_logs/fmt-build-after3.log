@@ -1,0 +1,71 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace pishkar.xcworkspace -scheme fmt -configuration Debug -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 17,OS=26.4" build
+
+Build settings from command line:
+    SDKROOT = iphonesimulator26.4
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'fmt' in project 'Pods' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c++ -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x objective-c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -V
+
+Build description signature: 308ed278163c5f9c7c99940b31f6a18c
+Build description path: /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/XCBuildData/308ed278163c5f9c7c99940b31f6a18c.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache
+    cd /Users/amir/Desktop/Pishkar/mobile/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -o /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache
+
+WriteAuxiliaryFile /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-project-headers.hmap (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    write-file /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-project-headers.hmap
+
+WriteAuxiliaryFile /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt.LinkFileList (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    write-file /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt.LinkFileList
+
+WriteAuxiliaryFile /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-own-target-headers.hmap (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    write-file /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    write-file /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+'-std=c++20' '-stdlib=libc++' -fmodules -fno-cxx-modules '-fmodules-cache-path=/Users/amir/Library/Developer/Xcode/DerivedData/ModuleCache.noindex' '-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG' -fpascal-strings -O0 -fno-common '-DPOD_CONFIGURATION_DEBUG=1' '-DDEBUG=1' '-DCOCOAPODS=1' -g -iquote /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-generated-files.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-own-target-headers.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-all-target-headers.hmap -iquote /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-project-headers.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt/include -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Private -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Private/fmt -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Public -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Public/fmt -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources-normal/arm64 -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources/arm64 -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources -F/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt
+
+CompileC /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    
+    Using response file: /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache -target arm64-apple-ios15.1-simulator -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/amir/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -w -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Index.noindex/DataStore @/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -include /Users/amir/Desktop/Pishkar/mobile/ios/Pods/Target\ Support\ Files/fmt/fmt-prefix.pch -MMD -MT dependencies -MF /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.d --serialize-diagnostics /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.dia -c /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc -o /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o
+
+Libtool /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt/libfmt.a normal (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only arm64 -D -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -L/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt -filelist /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt.LinkFileList -dependency_info /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt_libtool_dependency_info.dat -o /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt/libfmt.a
+
+** BUILD SUCCEEDED **
+

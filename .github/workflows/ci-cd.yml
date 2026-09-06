@@ -1,0 +1,288 @@
+name: CI → Build, Push & Deploy
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'server/Src/Server.WebAPI/**'
+      - 'landing/**'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'server/Src/Server.WebAPI/**'
+      - 'landing/**'
+
+permissions:
+  contents: write  # Required to push git tags
+  pull-requests: read  # Required for paths-filter on PRs
+
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      server: ${{ steps.filter.outputs.server }}
+      landing: ${{ steps.filter.outputs.landing }}
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+      
+      - name: Detect changed paths
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            server:
+              - 'server/Src/Server.WebAPI/**'
+            landing:
+              - 'landing/**'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  integration-tests:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.server == 'true' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+
+      - name: Set up Docker (for Testcontainers)
+        run: docker version
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore & run integration tests 🧪
+        run: dotnet test --filter "Severity=Critical" server/Tests/Server.IntegrationTest/Server.IntegrationTest.csproj --configuration Release
+
+  build-and-push:
+    needs: integration-tests
+    if: needs.detect-changes.outputs.server == 'true' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true))
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.new_version }}
+    env:
+      IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Calculate next version 🔢
+        id: version
+        run: |
+          # Get the latest tag matching v*.*.* pattern
+          LATEST_TAG=$(git tag -l "v*.*.*" --sort=-v:refname | head -n 1)
+          
+          if [ -z "$LATEST_TAG" ]; then
+            # No existing tags, start with v0.0.20
+            NEW_VERSION="v0.0.20"
+          else
+            # Parse the version components
+            VERSION=${LATEST_TAG#v}
+            MAJOR=$(echo $VERSION | cut -d. -f1)
+            MINOR=$(echo $VERSION | cut -d. -f2)
+            PATCH=$(echo $VERSION | cut -d. -f3)
+            
+            # Increment patch version by default
+            # Use commit message keywords for major/minor bumps:
+            # - [major] or BREAKING CHANGE → increment major
+            # - [minor] or feat: → increment minor
+            # - Otherwise → increment patch
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            
+            # if echo "$COMMIT_MSG" | grep -qiE "\[major\]|BREAKING CHANGE"; then
+            #   MAJOR=$((MAJOR + 1))
+            #   MINOR=0
+            #   PATCH=0
+            # elif echo "$COMMIT_MSG" | grep -qiE "\[minor\]|^feat:"; then
+            #   MINOR=$((MINOR + 1))
+            #   PATCH=0
+            # else
+            #   PATCH=$((PATCH + 1))
+            # fi
+            PATCH=$((PATCH + 1))
+            
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+          
+          echo "Previous version: $LATEST_TAG"
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create and push git tag 🏷️
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image 📦
+        id: build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./server
+          file: ./server/Src/Server.WebAPI/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.IMAGE_NAME }}:${{ steps.version.outputs.new_version }}
+            ${{ secrets.IMAGE_NAME }}:latest
+
+  deploy:
+    needs: build-and-push
+    if: needs.detect-changes.outputs.server == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH 🚀
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            VERSION="${{ needs.build-and-push.outputs.version }}"
+            echo "Deploying version: $VERSION"
+            echo "Pulling image: ${{ secrets.IMAGE_NAME }}:$VERSION"
+            docker pull ${{ secrets.IMAGE_NAME }}:$VERSION
+            
+            cd /home/${{ secrets.VPS_USER }}/opt/pishkar || exit 1
+            
+            # Update IMAGE_TAG in .env file with the new version
+            if grep -q "^IMAGE_TAG=" .env 2>/dev/null; then
+              sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$VERSION/" .env
+            else
+              echo "IMAGE_TAG=$VERSION" >> .env
+            fi
+            
+            echo "Updated .env with IMAGE_TAG=$VERSION"
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
+            echo "✅ Deployed version $VERSION successfully"
+
+  build-and-push-landing:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.landing == 'true' && (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true))
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.new_version }}
+    env:
+      IMAGE_NAME: ${{ secrets.LANDING_IMAGE_NAME }}
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Calculate next version 🔢
+        id: version
+        run: |
+          # Get the latest tag matching landing-v*.*.* pattern
+          LATEST_TAG=$(git tag -l "landing-v*.*.*" --sort=-v:refname | head -n 1)
+          
+          if [ -z "$LATEST_TAG" ]; then
+            # No existing tags, start with landing-v0.0.1
+            NEW_VERSION="landing-v0.0.1"
+          else
+            # Parse the version components
+            VERSION=${LATEST_TAG#landing-v}
+            MAJOR=$(echo $VERSION | cut -d. -f1)
+            MINOR=$(echo $VERSION | cut -d. -f2)
+            PATCH=$(echo $VERSION | cut -d. -f3)
+            
+            # Increment patch version by default
+            PATCH=$((PATCH + 1))
+            
+            NEW_VERSION="landing-v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+          
+          echo "Previous version: $LATEST_TAG"
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create and push git tag 🏷️
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image 📦
+        id: build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./landing
+          file: ./landing/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.LANDING_IMAGE_NAME }}:${{ steps.version.outputs.new_version }}
+            ${{ secrets.LANDING_IMAGE_NAME }}:latest
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
+
+  deploy-landing:
+    needs: build-and-push-landing
+    if: needs.detect-changes.outputs.landing == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy landing to VPS via SSH 🚀
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            VERSION="${{ needs.build-and-push-landing.outputs.version }}"
+            echo "Deploying landing version: $VERSION"
+            echo "Pulling image: ${{ secrets.LANDING_IMAGE_NAME }}:$VERSION"
+            docker pull ${{ secrets.LANDING_IMAGE_NAME }}:$VERSION
+            
+            cd /home/${{ secrets.VPS_USER }}/opt/landing || exit 1
+            
+            # Update LANDING_IMAGE_TAG in .env file with the new version
+            if grep -q "^LANDING_IMAGE_TAG=" .env 2>/dev/null; then
+              sed -i "s/^LANDING_IMAGE_TAG=.*/LANDING_IMAGE_TAG=$VERSION/" .env
+            else
+              echo "LANDING_IMAGE_TAG=$VERSION" >> .env
+            fi
+            
+            echo "Updated .env with LANDING_IMAGE_TAG=$VERSION"
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
+            echo "✅ Deployed landing version $VERSION successfully"

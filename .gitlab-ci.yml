@@ -1,0 +1,69 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"   # required by docker:dind
+
+# Use Docker image with Docker CLI
+image: docker:24
+
+services:
+  - docker:24-dind
+
+.before_script_common: &before_script_common
+  - echo "Logging into Docker Hub..."
+  - echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+build_server_image:
+  stage: build
+  only:
+    - develop   # run when commits/merge requests land on develop
+  script:
+    - *before_script_common
+
+    # Define Docker Hub image name
+    - export DOCKERHUB_IMAGE="mrsekiro/pishkar-webapi"
+
+    # Tags
+    - export IMAGE_TAG_COMMIT="$DOCKERHUB_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - export IMAGE_TAG_LATEST="$DOCKERHUB_IMAGE:latest"
+
+    # Build image from root, Dockerfile in server/Dockerfile
+    - docker build -f server/Dockerfile -t "$IMAGE_TAG_COMMIT" -t "$IMAGE_TAG_LATEST" .
+
+    # Push both tags
+    - docker push "$IMAGE_TAG_COMMIT"
+    - docker push "$IMAGE_TAG_LATEST"
+  artifacts:
+    when: on_success
+    reports:
+      dotenv: build.env
+  after_script:
+    # Store the latest tag for downstream jobs (optional but clean)
+    - echo "DOCKERHUB_IMAGE=mrsekiro/pishkar-webapi" >> build.env
+    - echo "IMAGE_TAG_LATEST=mrsekiro/pishkar-webapi:latest" >> build.env
+
+deploy_to_vps:
+  stage: deploy
+  needs:
+    - job: build_server_image
+      artifacts: true
+  only:
+    - develop
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client docker-cli
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    # Simplify: disable host key checking (you can later switch to known_hosts)
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+  script:
+    - echo "Deploying to VPS at $DEPLOY_HOST..."
+    - ssh "$DEPLOY_USER@$DEPLOY_HOST" "
+        cd $DEPLOY_PATH &&
+        docker compose pull &&
+        docker compose up -d server.webapi
+      "

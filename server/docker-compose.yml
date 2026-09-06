@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  server.webapi:
+    image: ${DOCKER_REGISTRY-}serverwebapi
+    build:
+      context: .
+      dockerfile: Src/Server.WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=mongodb://mongo:27017/pishkar
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=pishkar
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  mongodata:

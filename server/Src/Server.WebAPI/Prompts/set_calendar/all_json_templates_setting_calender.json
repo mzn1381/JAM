@@ -1,0 +1,177 @@
+{
+  "calendar_event_templates": [
+    {
+      "type": "timed",
+      "frequency": "none",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Project Kickoff Meeting",
+          "description": "Initial meeting with stakeholders",
+          "startDate": "2025-11-20T15:00:00.000Z",
+          "endDate": "2025-11-20T16:30:00.000Z",
+          "allDay": false,
+          "location": "Meeting Room 101",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "alarms": [
+            { "minutesBefore": 30, "method": "popup" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "timed",
+      "frequency": "daily",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Daily Standup",
+          "description": "Quick daily team meeting",
+          "startDate": "2025-11-17T09:00:00.000Z",
+          "endDate": "2025-11-17T09:15:00.000Z",
+          "allDay": false,
+          "location": "Zoom",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "recurrenceRule": {
+            "frequency": "DAILY",
+            "interval": 1,
+            "count": 20,
+            "until": "2025-12-15T23:59:59.000Z"
+          },
+          "alarms": [
+            { "minutesBefore": 10, "method": "popup" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "timed",
+      "frequency": "weekly",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Weekly Team Sync",
+          "description": "Weekly catch-up on project updates",
+          "startDate": "2025-11-17T10:00:00.000Z",
+          "endDate": "2025-11-17T11:00:00.000Z",
+          "allDay": false,
+          "location": "Conference Room A",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "recurrenceRule": {
+            "frequency": "WEEKLY",
+            "interval": 1,
+            "byDay": ["MO", "WE", "FR"],
+            "count": 12,
+            "until": "2026-02-28T23:59:59.000Z"
+          },
+          "alarms": [
+            { "minutesBefore": 15, "method": "popup" },
+            { "minutesBefore": 60, "method": "email" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "timed",
+      "frequency": "monthly",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Monthly Management Meeting",
+          "description": "Discuss monthly goals and KPIs",
+          "startDate": "2025-11-20T14:00:00.000Z",
+          "endDate": "2025-11-20T15:30:00.000Z",
+          "allDay": false,
+          "location": "Office Boardroom",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "recurrenceRule": {
+            "frequency": "MONTHLY",
+            "interval": 1,
+            "byMonthDay": [20],
+            "count": 6,
+            "until": "2026-04-20T23:59:59.000Z"
+          },
+          "alarms": [
+            { "minutesBefore": 30, "method": "popup" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "timed",
+      "frequency": "yearly",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Annual Company Review",
+          "description": "Company-wide performance review",
+          "startDate": "2025-12-01T09:00:00.000Z",
+          "endDate": "2025-12-01T12:00:00.000Z",
+          "allDay": false,
+          "location": "Head Office",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "recurrenceRule": {
+            "frequency": "YEARLY",
+            "interval": 1,
+            "count": 3,
+            "until": "2028-12-01T23:59:59.000Z"
+          },
+          "alarms": [
+            { "minutesBefore": 60, "method": "popup" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "allDay",
+      "frequency": "none",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Company Holiday",
+          "description": "National holiday observed",
+          "startDate": "2025-12-25T00:00:00.000Z",
+          "endDate": "2025-12-25T23:59:59.000Z",
+          "allDay": true,
+          "location": "All Offices",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "alarms": [
+            { "minutesBefore": 1440, "method": "popup" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "allDay",
+      "frequency": "yearly",
+      "template": {
+        "intent": "create_calendar_event",
+        "event": {
+          "title": "Annual Company Retreat",
+          "description": "Team-building and strategy retreat",
+          "startDate": "2026-03-01T00:00:00.000Z",
+          "endDate": "2026-03-01T23:59:59.000Z",
+          "allDay": true,
+          "location": "Resort Location",
+          "timezone": "Asia/Tehran",
+          "calendarId": "primary",
+          "recurrenceRule": {
+            "frequency": "YEARLY",
+            "interval": 1,
+            "count": 5,
+            "until": "2030-03-01T23:59:59.000Z"
+          },
+          "alarms": [
+            { "minutesBefore": 2880, "method": "popup" }
+          ]
+        }
+      }
+    }
+  ]
+}

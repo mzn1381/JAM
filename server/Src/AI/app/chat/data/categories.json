@@ -1,0 +1,420 @@
+{
+  
+  "classifier_hint": "Notes:\n- If the user asks about Paziresh24 (پذیرش۲۴), online appointment booking (نوبت‌دهی آنلاین), or the P24 system — even informational questions — choose category appointment.\n- If the user asks to check or retrieve information (بگو/بگیر/استعلام/چک کن) about vehicle violations (خلافی/خلافی خودرو), bills (قبوض), postal parcels (پست), cheques (چک), or license plates (پلاک), choose category inquiry — NOT chitchat.\n- If the user asks to register, sign up, create an account, or get information about registration in Arad (آراد), choose category registry_in_arad — NOT chitchat or unknown.\n- If the current message is a continuation, correction, or completion of a previous request, and there is no explicit goal change, choose the same intent category as before.\n- Previous assistant responses, including JSON responses, may indicate the current request type and should be considered together with the user's latest message.",
+  "categories": [
+    {
+      "name": "appointment",
+      "description": "Any request related to Paziresh24 (پذیرش۲۴ / P24) — both doctor search & appointment booking (جستجوی پزشک و رزرو نوبت) and FAQ questions about how Paziresh24 works (cancel appointment/لغو نوبت, payment/پرداخت, insurance/بیمه, online visit/ویزیت آنلاین, emergency/اورژانس, etc.)",
+      "extra_prompt_hints": "\n- This assistant is Persian; ask all clarification questions in fluent Persian (فارسی).\n- If city (شهر) is not present in the user's message or conversation history, you must ask for it (is_complete=false).\n- If sort preference (sort_by) is not clear from text, you may ask once; but if the user provided city and the request is clear, you may proceed without sort_by (is_complete=true).\n- Valid sort_by values: nearest_turn (nearest appointment/نزدیک‌ترین نوبت), best_score (best/highest rating/بهترین/بالاترین امتیاز), popular (most popular/محبوب‌ترین), cheapest (cheapest/ارزان‌ترین).\n- Valid freeturn values: today (امروز), tomorrow (فردا), this_week (this week/این هفته), next_week (next week/هفته آینده).\n- Valid turn_type values: non-consult (in-person/حضوری / physical appointment/نوبت فیزیکی), consult (online/آنلاین / internet visit/ویزیت اینترنتی).\n- Valid gender values: female (خانم), male (آقا).\n- query must be Persian text including symptoms, illness, or medical specialty (e.g. پیچ خوردگی پا, چشم‌پزشک, دندان‌پزشک, فیزیوتراپ).\n- city must be a Persian city name (e.g. تهران, شیراز, قم, اصفهان, مشهد).\n",
+      "apis": [
+        {
+          "name": "paziresh24_SearchDoctor",
+          "description": "Search for a doctor and find available appointments on Paziresh24 (پذیرش۲۴)",
+          "example_phrases": [
+            "یه دکتر برای معاینه پام پیدا کن",
+            "یه نوبت چشم‌پزشک تو قم برای هفته بعد پیدا کن",
+            "بهترین فیزیوتراپ‌های تهران",
+            "برای سرماخوردگی یه نوبت پزشک در شیراز",
+            "دکتر دندان‌پزشک با بالاترین امتیاز",
+            "نوبت فوری دکتر در تهران"
+          ],
+          "slots": {
+            "city": {
+              "description": "City name in Persian (شهر — e.g. تهران, شیراز, قم, اصفهان, مشهد, کرج)",
+              "type": "string",
+              "required": true,
+              "example": "تهران"
+            },
+            "query": {
+              "description": "Symptoms, illness, or medical specialty in Persian (علائم/بیماری/تخصص — e.g. پیچ خوردگی پا, چشم‌پزشک, دندان‌پزشک, قلب)",
+              "type": "string",
+              "required": true,
+              "example": "چشم‌پزشک"
+            },
+            "sort_by": {
+              "description": "Result sort priority: nearest_turn=nearest appointment (نزدیک‌ترین نوبت), best_score=highest rating (بالاترین امتیاز), popular=most popular (محبوب‌ترین), cheapest=cheapest (ارزان‌ترین)",
+              "type": "string",
+              "required": false,
+              "example": "nearest_turn"
+            },
+            "freeturn": {
+              "description": "Appointment time filter: today (امروز), tomorrow (فردا), this_week (this week/این هفته), next_week (next week/هفته آینده)",
+              "type": "string",
+              "required": false,
+              "example": "tomorrow"
+            },
+            "turn_type": {
+              "description": "Visit type: non-consult=in-person (حضوری), consult=online (آنلاین)",
+              "type": "string",
+              "required": false,
+              "example": "non-consult"
+            },
+            "gender": {
+              "description": "Doctor gender: female (خانم), male (آقا)",
+              "type": "string",
+              "required": false,
+              "example": "female"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "android",
+      "description": "Device commands: set alarm (زنگ هشدار), phone call (تماس), send SMS (پیامک), send email (ایمیل), and calendar events (تقویم)",
+      "extra_prompt_hints": "Handle requests related to device features: alarms (زنگ هشدار), phone calls (تماس), SMS (پیامک), email (ایمیل), and calendar events (تقویم). Follow-up messages that refine a previous device action (e.g. «رسمی‌ترش کن», «طولانی‌تر بنویس») should update the same action's slots from conversation history.",
+      "apis": [
+        {
+          "name": "post_api_android_MakeCall",
+          "description": "Make a phone call",
+          "example_phrases": [
+            "call John",
+            "make a call to Mary",
+            "dial the office number"
+          ],
+          "slots": {
+            "contact": {
+              "description": "The contact to call",
+              "type": "string",
+              "required": false,
+              "example": "Ali"
+            },
+            "phoneNumber": {
+              "description": "The phone number to call",
+              "type": "string",
+              "required": false,
+              "example": "09121234567"
+            }
+          }
+        },
+        {
+          "name": "post_api_android_SetAlarm",
+          "description": "Set an alarm",
+          "example_phrases": [
+            "set an alarm for 7:30 AM",
+            "wake me up at 6:00",
+            "remind me to call mom at 8 PM"
+          ],
+          "slots": {
+            "hour": {
+              "description": "The hour for the alarm (0-23)",
+              "type": "integer",
+              "required": true,
+              "example": "7"
+            },
+            "minutes": {
+              "description": "The minutes for the alarm (0-59)",
+              "type": "integer",
+              "required": true,
+              "example": "30"
+            },
+            "message": {
+              "description": "An optional message for the alarm",
+              "type": "string",
+              "required": false,
+              "example": "Workout"
+            },
+            "days": {
+              "description": "An optional list of integers representing the days of the week (1-7) for the alarm to repeat on",
+              "type": "list",
+              "required": false,
+              "example": "\n                        [1, 2, 3, 4, 5] (for weekdays)\n                        [6, 7] (for weekends)\n                        [1, 2, 3, 4, 5, 6, 7] (for every day)\n                    "
+            }
+          }
+        },
+        {
+          "name": "post_api_android_SendEmail",
+          "description": "Send an email",
+          "example_phrases": [
+            "send an email to Sarah",
+            "email the project report to my manager",
+            "compose an email to my team"
+          ],
+          "slots": {
+            "email": {
+              "description": "The email address of the recipient",
+              "type": "string",
+              "required": true,
+              "example": "sarah@example.com"
+            },
+            "subject": {
+              "description": "The subject of the email",
+              "type": "string",
+              "required": true,
+              "example": "Project Update"
+            },
+            "body": {
+              "description": "The body content of the email",
+              "type": "string",
+              "required": true,
+              "example": "Hi Sarah, here is the latest update on the project..."
+            }
+          }
+        },
+        {
+          "name": "post_api_android_SendSMS",
+          "description": "Send an SMS message",
+          "example_phrases": [
+            "send a text to Mike",
+            "text my friend about the meeting",
+            "message my sister"
+          ],
+          "slots": {
+            "contactName": {
+              "description": "The name of the contact to send the SMS to",
+              "type": "string",
+              "required": true,
+              "example": "Mike"
+            },
+            "phoneNumber": {
+              "description": "The phone number to send the SMS to (optional if contactName is provided)",
+              "type": "string",
+              "required": false,
+              "example": "09121234567"
+            },
+            "message": {
+              "description": "The content of the SMS message",
+              "type": "string",
+              "required": false,
+              "example": "Hey Mike, are we still on for the meeting tomorrow?"
+            }
+          }
+        },
+        {
+          "name": "post_api_android_SetCalendar",
+          "description": "Set a calendar event",
+          "example_phrases": [
+            "schedule a meeting with the team on Friday at 3 PM",
+            "add a dentist appointment to my calendar for next Tuesday at 10 AM",
+            "create a calendar event for my birthday party on June 15th"
+          ],
+          "slots": {
+            "title": {
+              "description": "The title of the calendar event",
+              "type": "string",
+              "required": true,
+              "example": "Team Meeting"
+            },
+            "description": {
+              "description": "An optional description for the calendar event",
+              "type": "string",
+              "required": false,
+              "example": "Discuss project milestones and next steps"
+            },
+            "startDate": {
+              "description": "The start date and time of the calendar event in ISO format (e.g., '2026-06-12T15:00:00')",
+              "type": "string",
+              "required": true,
+              "example": "2026-06-12T15:00:00"
+            },
+            "endDate": {
+              "description": "The end date and time of the calendar event in ISO format (e.g., '2026-06-12T16:00:00')",
+              "type": "string",
+              "required": false,
+              "example": "2026-06-12T16:00:00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "inquiry",
+      "description": "Inquiries (استعلام): utility bills (قبوض), postal tracking (پست), cheque (چک), vehicle violations (خلافی خودرو), and license plates (پلاک)",
+      "extra_prompt_hints": "\n- Before extracting slots, make sure the inquiry type is fully clear from the text or conversation history.\n- If only a bill ID (شناسه قبض), tracking code (کد رهگیری), or number is given and the type (water/آب, electricity/برق, gas/گاز, postal/پست, cheque/چک, ...) is not specified, set is_complete=false.\n- If a required slot is missing, ask a clarification question in Persian (فارسی).\n- Also extract national ID (کد ملی), mobile number (شماره موبایل), bill ID (شناسه قبض), tracking code (کد رهگیری), and license plate (پلاک) from conversation history.\n",
+      "apis": [
+        {
+          "name": "post_api_sw1_PostalTracking",
+          "description": "Postal parcel tracking service (استعلام مرسولات پستی): easily check the status of your postal packages at any time. Enter the tracking code to get full details including shipping type, origin post office, origin and destination, sender and recipient, weight, cost, and all route events from barcode creation to final delivery. This secure and easy-to-use service presents all package movement details in a clear, understandable response — ideal for tracking packages without technical complexity.",
+          "example_phrases": [
+            "وضعیت مرسوله پستی من 193790506611397610037147",
+            "استعلام بسته پستی "
+          ],
+          "slots": {
+            "trackingCode": {
+              "description": "Tracking code for the postal item",
+              "type": "string",
+              "required": true,
+              "example": "193790506611397610037147"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_ChequeInfo",
+          "description": "Sayad cheque ID inquiry service (استعلام شناسه چک صیادی): get complete and accurate cheque information in seconds. Enter the cheque ID to receive details such as holder name, IBAN (شبا), serial number, issue date, and cheque type securely and reliably. Enables individuals and businesses to make financial and commercial decisions with speed, accuracy, and full transparency.",
+          "example_phrases": [
+            "استعلام چک صیادی با شناسه 111110010007700",
+            "اطلاعات چک صیادی 111110010007700"
+          ],
+          "slots": {
+            "chequeID": {
+              "description": "Sayad cheque ID (شناسه چک صیادی)",
+              "type": "string",
+              "required": true,
+              "example": "111110010007700"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_VehicleViolation",
+          "description": "Vehicle violation inquiry web service (استعلام خلافی خودرو): check the amount of vehicle traffic violations.",
+          "example_phrases": [
+            "استعلام خلافی خودرو با پلاک ایران 11 – 1111 ب 11 و شماره ملی 1234567890 و شماره تلفن 09121234567",
+            "خلافی خودرو بگیر"
+          ],
+          "slots": {
+            "nationalCode": {
+              "description": "National ID code",
+              "type": "string",
+              "required": true,
+              "example": "1234567890"
+            },
+            "mobile": {
+              "description": "Mobile phone number",
+              "type": "string",
+              "required": true,
+              "example": "09121234567"
+            },
+            "plateNumber": {
+              "description": "License plate in format (پلاک): ایران 11 – 1111 ب 11",
+              "type": "string",
+              "required": true,
+              "example": "ایران 11 – 1111 ب 11"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_ActivePlates",
+          "description": "Active license plates list service (لیست پلاک‌های فعال): simple and secure access to all active plates belonging to a person. Enter national ID (کد ملی) and mobile number (شماره موبایل) to see the full list of plates, active or revoked status, revocation date, and related details. Useful for vehicle management, ownership history review, and asset control.",
+          "example_phrases": [
+            "استعلام پلاک‌های فعال",
+            "لیست پلاک‌های فعال من را نشان بده"
+          ],
+          "slots": {
+            "nationalCode": {
+              "description": "National ID code",
+              "type": "string",
+              "required": true,
+              "example": "1234567890"
+            },
+            "mobile": {
+              "description": "Mobile phone number",
+              "type": "string",
+              "required": true,
+              "example": "09121234567"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_WatterBill",
+          "description": "Water bill payment status service (قبض آب): checks subscriber water bill payment status and provides accurate information on debts and payments. Helps manage payments and prevent water service disconnection.",
+          "example_phrases": [
+            "تطابق کارت بانکی",
+            "استعلام کارت با کد ملی"
+          ],
+          "slots": {
+            "billID": {
+              "description": "Bill ID (شناسه قبض)",
+              "type": "string",
+              "required": true,
+              "example": "1100151403410"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_PowerBill",
+          "description": "Electricity bill service (قبض برق): provides information on electricity bill payment status and subscriber debts. Helps subscribers stay informed about consumption and payments for better bill management.",
+          "example_phrases": [
+            "استعلام قبض برق",
+            "رسید قبض برق"
+          ],
+          "slots": {
+            "billID": {
+              "description": "Bill ID (شناسه قبض)",
+              "type": "string",
+              "required": true,
+              "example": "1100151403410"
+            }
+          }
+        },
+        {
+          "name": "post_api_sw1_GasBill",
+          "description": "Gas bill service (قبض گاز): accurately provides gas bill payment status and subscriber debts. Useful for consumption control, payment management, and preventing gas service disconnection.",
+          "example_phrases": [
+            "استعلام قبض گاز",
+            "رسید قبض گاز"
+          ],
+          "slots": {
+            "billID": {
+              "description": "Bill ID (شناسه قبض)",
+              "type": "string",
+              "required": true,
+              "example": "1100151403410"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "greeting",
+      "description": "Greetings and salutations (سلام، احوال‌پرسی، درود)",
+      "extra_prompt_hints": "",
+      "apis": []
+    },
+    {
+      "name": "chitchat",
+      "description": "General conversation without a specific service request (گفت‌وگوی عمومی)",
+      "extra_prompt_hints": "",
+      "apis": []
+    },
+    {
+      "name": "unknown",
+      "description": "Unclear or unknown intent (intent نامشخص)",
+      "extra_prompt_hints": "",
+      "apis": []
+    },
+    {
+  "name": "registery_arad",
+  "description": "Requests related to registration in Arad (ثبت‌نام در آراد), including starting, completing, or asking about the Arad registration process.",
+  "extra_prompt_hints": "\n- Choose this category when the user explicitly asks to register, sign up, create an account, or complete registration in Arad (آراد).\n- Informational questions about the Arad registration process should also use this category, but must not trigger the registration API unless the user explicitly requests registration.\n- Extract slot values from both the current message and conversation history.\n- If a required slot is missing, set is_complete=false and ask only one concise clarification question in Persian.\n- Do not invent personal information.\n- If the user provides a correction, update the existing slot instead of retaining both values.\n- Registration is a write action and must require explicit user confirmation before final execution.\n",
+  "apis": [
+    {
+      "name": "post_api_sw1_RegisterUser",
+      "description": "Register a user in Arad (ثبت‌نام کاربر در آراد)",
+      "example_phrases": [
+        "می‌خوام در آراد ثبت‌نام کنم",
+        "منو تو آراد ثبت‌نام کن",
+        "برای من حساب آراد بساز",
+        "ثبت‌نام آراد رو انجام بده",
+        "چطور می‌تونم در آراد ثبت‌نام کنم؟"
+      ],
+      "slots": {
+        "firstName": {
+          "description": "User's first name (نام)",
+          "type": "string",
+          "required": true,
+          "example": "علی"
+        },
+        "lastName": {
+          "description": "User's last name (نام خانوادگی)",
+          "type": "string",
+          "required": true,
+          "example": "محمدی"
+        },
+        "nationalCode": {
+          "description": "Iranian national ID code consisting of 10 digits (کد ملی)",
+          "type": "string",
+          "required": true,
+          "example": "1234567890"
+        },
+        "mobile": {
+          "description": "Iranian mobile number associated with the user (شماره موبایل)",
+          "type": "string",
+          "required": true,
+          "example": "09121234567"
+        }
+      }
+    }
+  ]
+}
+  ]
+}

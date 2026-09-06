@@ -1,0 +1,60 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "AI FastAPI: Debug",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}/server/Src/AI",
+      "envFile": "${workspaceFolder}/server/Src/AI/.env",
+      "python": "${workspaceFolder}/server/Src/AI/.venv/Scripts/python.exe",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "AI FastAPI: Run with Reload",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000",
+        "--reload"
+      ],
+      "cwd": "${workspaceFolder}/server/Src/AI",
+      "envFile": "${workspaceFolder}/server/Src/AI/.env",
+      "python": "${workspaceFolder}/server/Src/AI/.venv/Scripts/python.exe",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+     {
+      "name": "AI FastAPI - Mac os: Debug",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}/server/Src/AI",
+      "envFile": "${workspaceFolder}/server/Src/AI/.env",
+      "python": "${workspaceFolder}/server/Src/AI/venv/bin/python",
+      "justMyCode": true,
+      "console": "integratedTerminal"
+    },
+  ]
+}

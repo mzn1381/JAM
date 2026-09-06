@@ -1,0 +1,76 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'pishkar' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    # Xcode/iOS 26 toolchain: fmt's consteval format string machinery breaks
+    # when building the `fmt` pod; force-disable consteval in fmt.
+    installer.pods_project.targets.each do |t|
+      next unless t.name == 'fmt'
+      t.build_configurations.each do |bc|
+        bc.build_settings['OTHER_CPLUSPLUSFLAGS'] ||= ['$(inherited)']
+        flags = bc.build_settings['OTHER_CPLUSPLUSFLAGS']
+        flags = [flags] if flags.is_a?(String)
+        # fmt enables `consteval` when `__cpp_lib_is_constant_evaluated` is
+        # available; Apple Clang in this environment fails compiling fmt's own
+        # sources with it enabled, so we undefine the feature-test macro.
+        flags << '-U__cpp_lib_is_constant_evaluated' unless flags.any? { |f| f.include?('__cpp_lib_is_constant_evaluated') }
+        bc.build_settings['OTHER_CPLUSPLUSFLAGS'] = flags
+      end
+    end
+
+    # Also patch fmt headers so its own sources don't try to use `consteval`
+    # (fails on the current Apple Clang + iOS 26 SDK toolchain).
+    fmt_base_h = File.join(__dir__, 'Pods', 'fmt', 'include', 'fmt', 'base.h')
+    if File.exist?(fmt_base_h)
+      require 'fileutils'
+      contents = File.read(fmt_base_h)
+      marker = 'FMT_USE_CONSTEVAL 0  // patched by Podfile'
+      unless contents.include?(marker)
+        begin
+          FileUtils.chmod('u+w', fmt_base_h)
+        rescue
+          # ignore (best effort)
+        end
+        contents = contents.sub(
+          %r{// Detect consteval, C\+\+20 constexpr extensions and std::is_constant_evaluated\.\n#if !defined\(__cpp_lib_is_constant_evaluated\).*?\n#endif\n\n#if FMT_USE_CONSTEVAL\n.*?\n#endif\n}m,
+          <<~'PATCHED'
+            // Detect consteval, C++20 constexpr extensions and std::is_constant_evaluated.
+            #define FMT_USE_CONSTEVAL 0  // patched by Podfile
+            #define FMT_CONSTEVAL
+            #define FMT_CONSTEXPR20
+          PATCHED
+        )
+        File.write(fmt_base_h, contents)
+      end
+    end
+  end
+end

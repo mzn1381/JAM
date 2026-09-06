@@ -1,0 +1,230 @@
+name: 🤖 AI → Build & Release Docker Image
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'server/Src/AI/**'
+      - '.github/workflows/ai-release.yml'
+
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'server/Src/AI/**'
+      - '.github/workflows/ai-release.yml'
+
+  workflow_dispatch:
+    inputs:
+      version_override:
+        description: >-
+          Optional version tag such as ai-v1.2.3.
+          Leave empty to increment the latest patch version.
+        required: false
+        type: string
+
+permissions:
+  contents: write  # Required to push git tags
+  pull-requests: read  # Required for paths-filter on PRs
+
+jobs:
+  validate:
+    name: 🧪 Validate AI project
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server/Src/AI
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: server/Src/AI/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile Python sources
+        run: python -m compileall app main.py
+
+  build-and-push-ai:
+    name: 📦 Build and Push AI Image
+    needs: validate
+    if: |
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server/Src/AI
+    outputs:
+      version: ${{ steps.version.outputs.new_version }}
+    env:
+      IMAGE_NAME: ${{ secrets.LANDING_IMAGE_NAME }}
+    steps:
+      - name: Checkout code 🎈
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: server/Src/AI/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile Python sources
+        run: python -m compileall app main.py
+
+      - name: Calculate next version 🔢
+        id: version
+        env:
+          VERSION_OVERRIDE: ${{ inputs.version_override || '' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "$VERSION_OVERRIDE" ]]; then
+            if [[ ! "$VERSION_OVERRIDE" =~ ^ai-v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "Invalid version: $VERSION_OVERRIDE"
+              echo "Expected format: ai-v1.2.3"
+              exit 1
+            fi
+
+            if git rev-parse --verify --quiet "refs/tags/$VERSION_OVERRIDE"; then
+              echo "Tag already exists: $VERSION_OVERRIDE"
+              exit 1
+            fi
+
+            NEW_VERSION="$VERSION_OVERRIDE"
+            echo "Using manually supplied version: $NEW_VERSION"
+          else
+            LATEST_TAG=$(
+              git tag -l "ai-v*.*.*" \
+                --sort=-v:refname |
+              head -n 1
+            )
+
+            if [[ -z "$LATEST_TAG" ]]; then
+              NEW_VERSION="ai-v1.0.20"
+            else
+              VERSION="${LATEST_TAG#ai-v}"
+
+              MAJOR=$(echo "$VERSION" | cut -d. -f1)
+              MINOR=$(echo "$VERSION" | cut -d. -f2)
+              PATCH=$(echo "$VERSION" | cut -d. -f3)
+
+              PATCH=$((PATCH + 1))
+              NEW_VERSION="ai-v${MAJOR}.${MINOR}.${PATCH}"
+            fi
+
+            echo "Previous version: ${LATEST_TAG:-none}"
+            echo "Automatically generated version: $NEW_VERSION"
+          fi
+
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      # - name: Calculate next version 🔢
+      #   id: version
+      #   run: |
+      #     # Get the latest tag matching ai-v*.*.* pattern
+      #     LATEST_TAG=$(git tag -l "ai-v*.*.*" --sort=-v:refname | head -n 1)
+          
+      #     if [ -z "$LATEST_TAG" ]; then
+      #       # No existing tags, start with ai-v1.0.20
+      #       NEW_VERSION="ai-v1.0.20"
+      #     else
+      #       # Parse the version components
+      #       VERSION=${LATEST_TAG#ai-v}
+      #       MAJOR=$(echo $VERSION | cut -d. -f1)
+      #       MINOR=$(echo $VERSION | cut -d. -f2)
+      #       PATCH=$(echo $VERSION | cut -d. -f3)
+            
+      #       # Increment patch version by default
+      #       PATCH=$((PATCH + 1))
+            
+      #       NEW_VERSION="ai-v${MAJOR}.${MINOR}.${PATCH}"
+      #     fi
+          
+      #     echo "Previous version: $LATEST_TAG"
+      #     echo "New version: $NEW_VERSION"
+      #     echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create and push git tag 🏷️
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.new_version }}
+          git push origin ${{ steps.version.outputs.new_version }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./server/Src/AI
+          file: ./server/Src/AI/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.AI_IMAGE_NAME }}:${{ steps.version.outputs.new_version }}
+            ${{ secrets.AI_IMAGE_NAME }}:latest
+
+  deploy-ai:
+    needs: build-and-push-ai
+    if: |
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH 🚀
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_SSH_PORT || 22 }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            VERSION="${{ needs.build-and-push-ai.outputs.version }}"
+            echo "Deploying version: $VERSION"
+            echo "Pulling image: ${{ secrets.AI_IMAGE_NAME }}:$VERSION"
+            docker pull ${{ secrets.AI_IMAGE_NAME }}:$VERSION
+            
+            cd /home/${{ secrets.VPS_USER }}/opt/ai || exit 1
+            
+            # Update IMAGE_TAG in .env file with the new version
+            if grep -q "^IMAGE_TAG=" .env 2>/dev/null; then
+              sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$VERSION/" .env
+            else
+              echo "IMAGE_TAG=$VERSION" >> .env
+            fi
+            
+            echo "Updated .env with IMAGE_TAG=$VERSION"
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
+            echo "✅ Deployed version $VERSION successfully"

@@ -1,0 +1,130 @@
+{
+  "app": {
+    "name": "دستیار هوشمند پیشکار",
+    "panel": "پنل مدیریت سازمانی",
+    "logo": "img"
+  },
+  "menu": {
+    "dashboard": "داشبورد",
+    "apiUsage": "مصرف API",
+    "reports": "گزارش ها",
+    "packages": "پکیج ها",
+    "billing": "صورت حساب",
+    "apiKeys": "کلیدهای API",
+    "settings": "تنظیمات"
+  },
+  "header": {
+    "title": "داشبورد کاربری",
+    "docs": "مستندات",
+    "guide": "راهنما",
+    "subscription": "وضعیت اشتراک ویژه",
+    "userName": "کاربر مهمان",
+    "userRole": "مدیر سیستم"
+  },
+  "login": {
+    "title": "ورود به پنل مدیریت",
+    "subtitle": "برای ادامه ایمیل و رمز عبور خود را وارد کنید",
+    "emailLabel": "ایمیل",
+    "passwordLabel": "رمز عبور",
+    "emailPlaceholder": "name@example.com",
+    "passwordPlaceholder": "رمز عبور",
+    "submit": "ورود",
+    "emailRequired": "ایمیل الزامی است",
+    "emailInvalid": "فرمت ایمیل معتبر نیست",
+    "passwordRequired": "رمز عبور الزامی است",
+    "showPassword": "نمایش رمز عبور",
+    "hidePassword": "پنهان کردن رمز عبور",
+    "userNameLabel": "نام کاربری",
+    "userNamePlaceholder": "نام کاربری خود را وارد کنید",
+    "userNameRequired": "نام کاربری الزامی است",
+    "userNameFormat": "نام کاربری فقط می تواند شامل حروف و اعداد لاتین باشد"
+  },
+  "dashboard": {
+    "thisMonth": "این ماه",
+    "today": "امروز",
+    "successRequests": "درخواست های موفق",
+    "activeUsers": "کاربران فعال",
+    "apiCalls": "API Calls",
+    "remainingPackageTitle": "وضعیت بسته مصرفی",
+    "remainingCalls": "فراخوانی باقی مانده",
+    "remainingMessages": "پیام باقی مانده",
+    "remainingSessions": "نشست باقی مانده",
+    "totalAvailable": "مجموع موجود",
+    "remaining": "باقیمانده",
+    "consumed": "مصرف شده",
+    "purchased": "خریداری شده",
+    "buyNewPackage": "خرید بسته جدید",
+    "modelsDistribution": "توزیع مدل های هوش مصنوعی",
+    "dailyUsage": "نمودار مصرف روزانه",
+    "upgradeService": "ارتقای سرویس",
+    "support": "پشتیبانی",
+    "logout": "خروج",
+    "footer": "تمامی حقوق برای شرکت تسهیل گران فناوری پیشکار محفوض است"
+  },
+  "language": {
+    "fa": "فا",
+    "en": "EN"
+  },
+  "documentation": {
+    "title": "مستندات API",
+    "navigation": "مستندات",
+    "backToApp": "بازگشت به پنل مدیریت",
+    "openNavigation": "باز کردن فهرست مستندات",
+    "closeNavigation": "بستن فهرست مستندات",
+    "pages": {
+      "chatApiWeb": "پیشکار به عنوان سرویس — API چت در وب"
+    }
+  },
+  "apiKeys": {
+    "title": "کلیدهای API",
+    "yourApiKeys": "کلیدهای API شما",
+    "addNewKey": "افزودن کلید جدید",
+    "keyName": "نام کلید",
+    "enterKeyName": "نام کلید را وارد کنید",
+    "createKey": "ایجاد کلید",
+    "createKeyRequired": "نام کلید API الزامی است",
+    "cancel": "انصراف",
+    "close": "بستن",
+    "name": "نام",
+    "createdAt": "تاریخ ایجاد",
+    "lastUsed": "آخرین استفاده",
+    "expiration": "انقضا",
+    "status": "وضعیت",
+    "actions": "عملیات",
+    "delete": "حذف",
+    "initialLoading": "در حال بارگذاری کلیدهای API...",
+    "errorTitle": "بارگذاری کلیدهای API انجام نشد",
+    "retry": "تلاش مجدد",
+    "emptyState": "هیچ کلید API ثبت نشده است. برای ایجاد، روی «افزودن کلید جدید» کلیک کنید.",
+    "organizationError": "شناسه سازمان در دسترس نیست. لطفا با راهبر سامانه تماس بگیرید.",
+    "deleteDialogTitle": "حذف کلید API",
+    "deleteDialogMessage": "آیا از حذف «{{name}}» مطمئن هستید؟",
+    "deleteSuccess": "کلید API با موفقیت حذف شد.",
+    "createSuccessTitle": "کلید API ایجاد شد",
+    "createSuccessDescription": "این کلید فقط یک بار نمایش داده می شود. آن را کپی کرده و در محل امن نگهداری کنید.",
+    "apiKeyValue": "کلید API تولیدشده",
+    "copyKey": "کپی",
+    "copied": "کلید API در کلیپ بورد کپی شد.",
+    "copyFailed": "کپی کلید API انجام نشد. لطفا به صورت دستی کپی کنید.",
+    "unknownDate": "نامشخص",
+    "neverUsed": "هرگز",
+    "noExpiration": "بدون انقضا",
+    "creating": "در حال ایجاد...",
+    "deleting": "در حال حذف...",
+    "statusValues": {
+      "active": "فعال",
+      "revoked": "لغوشده",
+      "expired": "منقضی شده"
+    }
+  },
+  "support": {
+    "title": "پشتیبانی",
+    "description": "اگر هر مشکلی وجود داشت، با شماره تلفن یا ایمیل پشتیبانی با ما در تماس باشید.",
+    "phone": "شماره تلفن پشتیبانی",
+    "email": "ایمیل پشتیبانی",
+    "contact": "تماس با پشتیبانی"
+  },
+  "common": {
+    "openMenu": "باز کردن منو"
+  }
+}

@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Environment variables
+.env
+*.env
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# FastAPI / Uvicorn
+*.db
+*.sqlite3
+
+# Docker
+*.pid
+*.tar
+*.img
+*.container
+*.lock
+*.sock
+
+# Mypy / Pylint / Pyright / pytest
+.mypy_cache/
+.pytest_cache/
+.pyright/
+
+# S3 cache or secrets
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# Other
+logs/
+*.bak
+
+
+mongo_data/
+.langgraph_api
+
+#chainlit
+.chainlit/
+.files/
+
+chat.log
+
+# Generated FAQ vector index (rebuilt from CSV)
+app/chat/knowledge/faq_vectors/

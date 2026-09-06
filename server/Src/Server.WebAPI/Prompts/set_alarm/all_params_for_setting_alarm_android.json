@@ -1,0 +1,13 @@
+{
+  "alarm": {
+    "hour": 9,                     // REQUIRED, integer 0-23
+    "minutes": 30,                 // REQUIRED, integer 0-59
+    "message": "Wake up!",         // OPTIONAL, string
+    "days": [1, 3, 5],             // OPTIONAL, array of integers (Calendar.MONDAY = 1 ... Calendar.SUNDAY = 7)
+    "vibrate": true,               // OPTIONAL, boolean
+    "ringtone": "content://settings/system/alarm_alert", // OPTIONAL, string (URI)
+    "skipUI": true,                // OPTIONAL, boolean, skip Clock app UI
+    "isPersistent": false,         // OPTIONAL, boolean, persists across reboot
+    "countdownMillis": 3600000     // OPTIONAL, integer, time in milliseconds for countdown alarm
+  }
+}

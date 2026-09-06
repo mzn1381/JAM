@@ -1,0 +1,11 @@
+{
+    // "java.configuration.updateBuildConfiguration": "automatic",
+    // "java.compile.nullAnalysis.mode": "disabled",
+    // "java.import.gradle.enabled": false,
+    // "java.configuration.maven.enabled": false,
+    // "java.project.importOnFirstTimeStartup": "never",
+    // "java.errors.incompleteClasspath.severity": "ignore",
+    "cSpell.enableFiletypes": {
+        "gradle": false
+    }
+}

@@ -1,0 +1,441 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace pishkar.xcworkspace -scheme fmt -configuration Debug -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 17,OS=26.4" build
+
+Build settings from command line:
+    SDKROOT = iphonesimulator26.4
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'fmt' in project 'Pods' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x objective-c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -x c++ -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -V
+
+Build description signature: f26c75df43310def348af859d6c30f47
+Build description path: /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/XCBuildData/f26c75df43310def348af859d6c30f47.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache
+    cd /Users/amir/Desktop/Pishkar/mobile/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -o /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache
+
+WriteAuxiliaryFile /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    write-file /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+'-std=c++20' '-stdlib=libc++' -fmodules -fno-cxx-modules '-fmodules-cache-path=/Users/amir/Library/Developer/Xcode/DerivedData/ModuleCache.noindex' '-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG' -fpascal-strings -O0 -fno-common '-DPOD_CONFIGURATION_DEBUG=1' '-DDEBUG=1' '-DCOCOAPODS=1' -g -iquote /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-generated-files.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-own-target-headers.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-all-target-headers.hmap -iquote /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/fmt-project-headers.hmap -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt/include -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Private -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Private/fmt -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Public -I/Users/amir/Desktop/Pishkar/mobile/ios/Pods/Headers/Public/fmt -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources-normal/arm64 -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources/arm64 -I/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/DerivedSources -F/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Products/Debug-iphonesimulator/fmt -U__cpp_lib_is_constant_evaluated
+
+CompileC /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    
+    Using response file: /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache -target arm64-apple-ios15.1-simulator -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/amir/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -w -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Winfinite-recursion -Wmove -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wrange-loop-analysis -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Index.noindex/DataStore @/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -include /Users/amir/Desktop/Pishkar/mobile/ios/Pods/Target\ Support\ Files/fmt/fmt-prefix.pch -MMD -MT dependencies -MF /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.d --serialize-diagnostics /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.dia -c /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc -o /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:59:24: error: call to consteval function 'fmt::basic_format_string<char, fmt::basic_string_view<char> &, const char (&)[3]>::basic_format_string<FMT_COMPILE_STRING, 0>' is not a constant expression
+   59 |     fmt::format_to(it, FMT_STRING("{}{}"), message, SEP);
+      |                        ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:41:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:779:54: note: subexpression not valid in a constant expression
+  779 |     format_str_.remove_prefix(detail::to_unsigned(it - begin()));
+      |                                                   ~~~^~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2761:5: note: in call to 'this->context_.advance_to(&"{}{}"[1])'
+ 2761 |     context_.advance_to(begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2756:5: note: in call to 'this->on_format_specs(0, &"{}{}"[1], &"{}{}"[1])'
+ 2756 |     on_format_specs(id, begin, begin);  // Call parse() on empty specs.
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2581:5: note: in call to 'handler.on_replacement_field(0, &"{}{}"[1])'
+ 2581 |     handler.on_replacement_field(handler.on_arg_id(), begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2613:21: note: in call to 'parse_replacement_field<char, fmt::detail::format_string_checker<char, fmt::basic_string_view<char>, char[3]> &>(&"{}{}"[1], &"{}{}"[4], checker(s))'
+ 2613 |         begin = p = parse_replacement_field(p - 1, end, handler);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2884:7: note: in call to 'parse_format_string<true, char, fmt::detail::format_string_checker<char, fmt::basic_string_view<char>, char[3]>>({&"{}{}"[0], 4}, checker(s))'
+ 2884 |       detail::parse_format_string<true>(str_, checker(s));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:59:24: note: in call to 'basic_format_string<FMT_COMPILE_STRING, 0>([] {
+    struct __attribute__((visibility("hidden")))  FMT_COMPILE_STRING : fmt::detail::compile_string {
+        using char_type [[maybe_unused]] = fmt::remove_cvref_t<decltype("{}{}"[0])>;
+        [[maybe_unused]] constexpr operator fmt::basic_string_view<char_type>() const {
+            return fmt::detail_exported::compile_string_to_view<char_type>("{}{}");
+        }
+    };
+    return FMT_COMPILE_STRING();
+}())'
+   59 |     fmt::format_to(it, FMT_STRING("{}{}"), message, SEP);
+      |                        ^~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1807 |     /* Use the hidden visibility as a workaround for a GCC bug (#1973). */    \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1808 |     /* Use a macro-like name to avoid shadowing warnings. */                  \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |     struct FMT_VISIBILITY("hidden") FMT_COMPILE_STRING : base {               \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1810 |       using char_type FMT_MAYBE_UNUSED = fmt::remove_cvref_t<decltype(s[0])>; \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1811 |       FMT_MAYBE_UNUSED FMT_CONSTEXPR explicit                                 \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |       operator fmt::basic_string_view<char_type>() const {                    \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1813 |         return fmt::detail_exported::compile_string_to_view<char_type>(s);    \
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1814 |       }                                                                       \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1815 |     };                                                                        \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1816 |     return FMT_COMPILE_STRING();                                              \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1817 |   }()
+      |   ~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:60:22: error: call to consteval function 'fmt::basic_format_string<char, const char (&)[7], int &>::basic_format_string<FMT_COMPILE_STRING, 0>' is not a constant expression
+   60 |   fmt::format_to(it, FMT_STRING("{}{}"), ERROR_STR, error_code);
+      |                      ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:41:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:779:54: note: subexpression not valid in a constant expression
+  779 |     format_str_.remove_prefix(detail::to_unsigned(it - begin()));
+      |                                                   ~~~^~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2761:5: note: in call to 'this->context_.advance_to(&"{}{}"[1])'
+ 2761 |     context_.advance_to(begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2756:5: note: in call to 'this->on_format_specs(0, &"{}{}"[1], &"{}{}"[1])'
+ 2756 |     on_format_specs(id, begin, begin);  // Call parse() on empty specs.
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2581:5: note: in call to 'handler.on_replacement_field(0, &"{}{}"[1])'
+ 2581 |     handler.on_replacement_field(handler.on_arg_id(), begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2613:21: note: in call to 'parse_replacement_field<char, fmt::detail::format_string_checker<char, char[7], int> &>(&"{}{}"[1], &"{}{}"[4], checker(s))'
+ 2613 |         begin = p = parse_replacement_field(p - 1, end, handler);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2884:7: note: in call to 'parse_format_string<true, char, fmt::detail::format_string_checker<char, char[7], int>>({&"{}{}"[0], 4}, checker(s))'
+ 2884 |       detail::parse_format_string<true>(str_, checker(s));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:60:22: note: in call to 'basic_format_string<FMT_COMPILE_STRING, 0>([] {
+    struct __attribute__((visibility("hidden")))  FMT_COMPILE_STRING : fmt::detail::compile_string {
+        using char_type [[maybe_unused]] = fmt::remove_cvref_t<decltype("{}{}"[0])>;
+        [[maybe_unused]] constexpr operator fmt::basic_string_view<char_type>() const {
+            return fmt::detail_exported::compile_string_to_view<char_type>("{}{}");
+        }
+    };
+    return FMT_COMPILE_STRING();
+}())'
+   60 |   fmt::format_to(it, FMT_STRING("{}{}"), ERROR_STR, error_code);
+      |                      ^~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1807 |     /* Use the hidden visibility as a workaround for a GCC bug (#1973). */    \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1808 |     /* Use a macro-like name to avoid shadowing warnings. */                  \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |     struct FMT_VISIBILITY("hidden") FMT_COMPILE_STRING : base {               \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1810 |       using char_type FMT_MAYBE_UNUSED = fmt::remove_cvref_t<decltype(s[0])>; \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1811 |       FMT_MAYBE_UNUSED FMT_CONSTEXPR explicit                                 \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |       operator fmt::basic_string_view<char_type>() const {                    \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1813 |         return fmt::detail_exported::compile_string_to_view<char_type>(s);    \
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1814 |       }                                                                       \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1815 |     };                                                                        \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1816 |     return FMT_COMPILE_STRING();                                              \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1817 |   }()
+      |   ~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1387:35: error: call to consteval function 'fmt::basic_format_string<char, unsigned int &>::basic_format_string<FMT_COMPILE_STRING, 0>' is not a constant expression
+ 1387 |         out = fmt::format_to(out, FMT_STRING("{:x}"), value);
+      |                                   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:41:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:779:54: note: subexpression not valid in a constant expression
+  779 |     format_str_.remove_prefix(detail::to_unsigned(it - begin()));
+      |                                                   ~~~^~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2761:5: note: in call to 'this->context_.advance_to(&"{:x}"[2])'
+ 2761 |     context_.advance_to(begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2591:15: note: in call to 'handler.on_format_specs(0, &"{:x}"[2], &"{:x}"[4])'
+ 2591 |       begin = handler.on_format_specs(adapter.arg_id, begin + 1, end);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2613:21: note: in call to 'parse_replacement_field<char, fmt::detail::format_string_checker<char, unsigned int> &>(&"{:x}"[1], &"{:x}"[4], checker(s))'
+ 2613 |         begin = p = parse_replacement_field(p - 1, end, handler);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2884:7: note: in call to 'parse_format_string<true, char, fmt::detail::format_string_checker<char, unsigned int>>({&"{:x}"[0], 4}, checker(s))'
+ 2884 |       detail::parse_format_string<true>(str_, checker(s));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1387:35: note: in call to 'basic_format_string<FMT_COMPILE_STRING, 0>([] {
+    struct __attribute__((visibility("hidden")))  FMT_COMPILE_STRING : fmt::detail::compile_string {
+        using char_type [[maybe_unused]] = fmt::remove_cvref_t<decltype("{:x}"[0])>;
+        [[maybe_unused]] constexpr operator fmt::basic_string_view<char_type>() const {
+            return fmt::detail_exported::compile_string_to_view<char_type>("{:x}");
+        }
+    };
+    return FMT_COMPILE_STRING();
+}())'
+ 1387 |         out = fmt::format_to(out, FMT_STRING("{:x}"), value);
+      |                                   ^~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1807 |     /* Use the hidden visibility as a workaround for a GCC bug (#1973). */    \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1808 |     /* Use a macro-like name to avoid shadowing warnings. */                  \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |     struct FMT_VISIBILITY("hidden") FMT_COMPILE_STRING : base {               \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1810 |       using char_type FMT_MAYBE_UNUSED = fmt::remove_cvref_t<decltype(s[0])>; \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1811 |       FMT_MAYBE_UNUSED FMT_CONSTEXPR explicit                                 \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |       operator fmt::basic_string_view<char_type>() const {                    \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1813 |         return fmt::detail_exported::compile_string_to_view<char_type>(s);    \
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1814 |       }                                                                       \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1815 |     };                                                                        \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1816 |     return FMT_COMPILE_STRING();                                              \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1817 |   }()
+      |   ~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1391:33: error: call to consteval function 'fmt::basic_format_string<char, unsigned int &>::basic_format_string<FMT_COMPILE_STRING, 0>' is not a constant expression
+ 1391 |       out = fmt::format_to(out, FMT_STRING("{:08x}"), value);
+      |                                 ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:41:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:779:54: note: subexpression not valid in a constant expression
+  779 |     format_str_.remove_prefix(detail::to_unsigned(it - begin()));
+      |                                                   ~~~^~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2761:5: note: in call to 'this->context_.advance_to(&"{:08x}"[2])'
+ 2761 |     context_.advance_to(begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2591:15: note: in call to 'handler.on_format_specs(0, &"{:08x}"[2], &"{:08x}"[6])'
+ 2591 |       begin = handler.on_format_specs(adapter.arg_id, begin + 1, end);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2613:21: note: in call to 'parse_replacement_field<char, fmt::detail::format_string_checker<char, unsigned int> &>(&"{:08x}"[1], &"{:08x}"[6], checker(s))'
+ 2613 |         begin = p = parse_replacement_field(p - 1, end, handler);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2884:7: note: in call to 'parse_format_string<true, char, fmt::detail::format_string_checker<char, unsigned int>>({&"{:08x}"[0], 6}, checker(s))'
+ 2884 |       detail::parse_format_string<true>(str_, checker(s));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1391:33: note: in call to 'basic_format_string<FMT_COMPILE_STRING, 0>([] {
+    struct __attribute__((visibility("hidden")))  FMT_COMPILE_STRING : fmt::detail::compile_string {
+        using char_type [[maybe_unused]] = fmt::remove_cvref_t<decltype("{:08x}"[0])>;
+        [[maybe_unused]] constexpr operator fmt::basic_string_view<char_type>() const {
+            return fmt::detail_exported::compile_string_to_view<char_type>("{:08x}");
+        }
+    };
+    return FMT_COMPILE_STRING();
+}())'
+ 1391 |       out = fmt::format_to(out, FMT_STRING("{:08x}"), value);
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1807 |     /* Use the hidden visibility as a workaround for a GCC bug (#1973). */    \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1808 |     /* Use a macro-like name to avoid shadowing warnings. */                  \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |     struct FMT_VISIBILITY("hidden") FMT_COMPILE_STRING : base {               \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1810 |       using char_type FMT_MAYBE_UNUSED = fmt::remove_cvref_t<decltype(s[0])>; \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1811 |       FMT_MAYBE_UNUSED FMT_CONSTEXPR explicit                                 \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |       operator fmt::basic_string_view<char_type>() const {                    \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1813 |         return fmt::detail_exported::compile_string_to_view<char_type>(s);    \
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1814 |       }                                                                       \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1815 |     };                                                                        \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1816 |     return FMT_COMPILE_STRING();                                              \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1817 |   }()
+      |   ~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1394:33: error: call to consteval function 'fmt::basic_format_string<char, int>::basic_format_string<FMT_COMPILE_STRING, 0>' is not a constant expression
+ 1394 |       out = fmt::format_to(out, FMT_STRING("p{}"),
+      |                                 ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:41:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:779:54: note: subexpression not valid in a constant expression
+  779 |     format_str_.remove_prefix(detail::to_unsigned(it - begin()));
+      |                                                   ~~~^~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2761:5: note: in call to 'this->context_.advance_to(&"p{}"[2])'
+ 2761 |     context_.advance_to(begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2756:5: note: in call to 'this->on_format_specs(0, &"p{}"[2], &"p{}"[2])'
+ 2756 |     on_format_specs(id, begin, begin);  // Call parse() on empty specs.
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2581:5: note: in call to 'handler.on_replacement_field(0, &"p{}"[2])'
+ 2581 |     handler.on_replacement_field(handler.on_arg_id(), begin);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2613:21: note: in call to 'parse_replacement_field<char, fmt::detail::format_string_checker<char, int> &>(&"p{}"[2], &"p{}"[3], checker(s))'
+ 2613 |         begin = p = parse_replacement_field(p - 1, end, handler);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/base.h:2884:7: note: in call to 'parse_format_string<true, char, fmt::detail::format_string_checker<char, int>>({&"p{}"[0], 3}, checker(s))'
+ 2884 |       detail::parse_format_string<true>(str_, checker(s));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:1394:33: note: in call to 'basic_format_string<FMT_COMPILE_STRING, 0>([] {
+    struct __attribute__((visibility("hidden")))  FMT_COMPILE_STRING : fmt::detail::compile_string {
+        using char_type [[maybe_unused]] = fmt::remove_cvref_t<decltype("p{}"[0])>;
+        [[maybe_unused]] constexpr operator fmt::basic_string_view<char_type>() const {
+            return fmt::detail_exported::compile_string_to_view<char_type>("p{}");
+        }
+    };
+    return FMT_COMPILE_STRING();
+}())'
+ 1394 |       out = fmt::format_to(out, FMT_STRING("p{}"),
+      |                                 ^~~~~~~~~~~~~~~~~
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc:8:
+In file included from /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format-inl.h:27:
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1827:23: note: expanded from macro 'FMT_STRING'
+ 1827 | #define FMT_STRING(s) FMT_STRING_IMPL(s, fmt::detail::compile_string, )
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/include/fmt/format.h:1806:3: note: expanded from macro 'FMT_STRING_IMPL'
+ 1806 |   [] {                                                                        \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1807 |     /* Use the hidden visibility as a workaround for a GCC bug (#1973). */    \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1808 |     /* Use a macro-like name to avoid shadowing warnings. */                  \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |     struct FMT_VISIBILITY("hidden") FMT_COMPILE_STRING : base {               \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1810 |       using char_type FMT_MAYBE_UNUSED = fmt::remove_cvref_t<decltype(s[0])>; \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1811 |       FMT_MAYBE_UNUSED FMT_CONSTEXPR explicit                                 \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |       operator fmt::basic_string_view<char_type>() const {                    \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1813 |         return fmt::detail_exported::compile_string_to_view<char_type>(s);    \
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1814 |       }                                                                       \
+      |       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1815 |     };                                                                        \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1816 |     return FMT_COMPILE_STRING();                                              \
+      |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1817 |   }()
+      |   ~~~
+5 errors generated.
+
+PrecompileModule /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/ExplicitPrecompiledModules/UIKit-4J5MOMBM5TPR2ANDMDUNKFQ06.scan
+    cd /
+    builtin-precompileModule /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/ExplicitPrecompiledModules/UIKit-4J5MOMBM5TPR2ANDMDUNKFQ06.scan
+
+CompileC /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt-dummy.o /Users/amir/Desktop/Pishkar/mobile/ios/Pods/Target\ Support\ Files/fmt/fmt-dummy.m normal arm64 objective-c com.apple.compilers.llvm.clang.1_0.compiler (in target 'fmt' from project 'Pods')
+    cd /Users/amir/Desktop/Pishkar/mobile/ios/Pods
+    
+    Using response file: /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/e6072d4f65d7061329687fe24e3d63a7-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -ivfsstatcache /Users/amir/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.4-23E237-686eebb5dc1d8ecb277353a59184f4aa.sdkstatcache -target arm64-apple-ios15.1-simulator -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/amir/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wno-implicit-atomic-properties -Werror\=deprecated-objc-isa-usage -Wno-objc-interface-ivars -Werror\=objc-root-class -Wno-arc-repeated-use-of-weak -Wimplicit-retain-self -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -w -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wdeprecated-implementations -Wno-implicit-fallthrough -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.4.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Wno-sign-conversion -Winfinite-recursion -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Index.noindex/DataStore @/Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/e6072d4f65d7061329687fe24e3d63a7-common-args.resp -include /Users/amir/Desktop/Pishkar/mobile/ios/Pods/Target\ Support\ Files/fmt/fmt-prefix.pch -MMD -MT dependencies -MF /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt-dummy.d --serialize-diagnostics /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt-dummy.dia -c /Users/amir/Desktop/Pishkar/mobile/ios/Pods/Target\ Support\ Files/fmt/fmt-dummy.m -o /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt-dummy.o -index-unit-output-path /Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/fmt-dummy.o
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileC /Users/amir/Library/Developer/Xcode/DerivedData/pishkar-cvdyhuqfcpfrzkbjisywjcqmtgdq/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/fmt.build/Objects-normal/arm64/format.o /Users/amir/Desktop/Pishkar/mobile/ios/Pods/fmt/src/format.cc normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'fmt' from project 'Pods')
+	Building workspace pishkar with scheme fmt and configuration Debug
+(2 failures)

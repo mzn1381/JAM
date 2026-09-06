@@ -1,0 +1,84 @@
+{
+  "examples": [
+    {
+      "scenario": "Valid Alarm",
+      "description": "User provides time and optional parameters",
+      "output": {
+        "intent": "set_alarm",
+        "alarm": {
+          "hour": 0,
+          "minutes": 0,
+          "message": "Optional message",
+          "days": [1,2,3,4,5,6,7],
+          "vibrate": true,
+          "ringtone": "content://settings/system/alarm_alert",
+          "skipUI": false,
+          "isPersistent": false,
+          "countdownMillis": 0
+        },
+        "source_text": "Original user message"
+      },
+      "example": {
+        "intent": "set_alarm",
+        "alarm": {
+          "hour": 9,
+          "minutes": 30,
+          "message": "Wake up!",
+          "days": [1,3,5],
+          "vibrate": true,
+          "ringtone": "content://settings/system/alarm_alert",
+          "skipUI": true,
+          "isPersistent": false,
+          "countdownMillis": 0
+        },
+        "source_text": "Set an alarm for 9:30 on Monday, Wednesday, Friday with vibrate and skip UI"
+      }
+    },
+    {
+      "scenario": "Missing Time",
+      "description": "User mentions alarm but missing hour/minutes",
+      "output": {
+        "intent": "set_alarm",
+        "missing": ["hour", "minutes"],
+        "message_to_user": "What time should I set the alarm for?",
+        "source_text": "Original user message"
+      },
+      "example": {
+        "intent": "set_alarm",
+        "missing": ["hour", "minutes"],
+        "message_to_user": "What time should I set the alarm for?",
+        "source_text": "Set an alarm tomorrow morning"
+      }
+    },
+    {
+      "scenario": "Partial Missing Info",
+      "description": "User provides hour but missing minutes",
+      "output": {
+        "intent": "set_alarm",
+        "missing": ["minutes"],
+        "message_to_user": "What minutes should I set the alarm for?",
+        "source_text": "Original user message"
+      },
+      "example": {
+        "intent": "set_alarm",
+        "missing": ["minutes"],
+        "message_to_user": "What minutes should I set the alarm for?",
+        "source_text": "Set an alarm at 7"
+      }
+    },
+    {
+      "scenario": "Not an Alarm Request",
+      "description": "User message is unrelated to alarm",
+      "output": {
+        "intent": "none",
+        "message_to_user": "I can only help you set alarms. Please provide an alarm request.",
+        "source_text": "Original user message"
+      },
+      "example": {
+        "intent": "none",
+        "message_to_user": "I can only help you set alarms. Please provide an alarm request.",
+        "source_text": "What's the weather today?"
+      }
+    }
+  ]
+}

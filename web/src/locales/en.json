@@ -1,0 +1,130 @@
+{
+  "app": {
+    "name": "Pishkar AI Assistant",
+    "panel": "Organization Management Panel",
+    "logo": "img"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "apiUsage": "API Usage",
+    "reports": "Reports",
+    "packages": "Packages",
+    "billing": "Billing",
+    "apiKeys": "API Keys",
+    "settings": "Settings"
+  },
+  "header": {
+    "title": "User Dashboard",
+    "docs": "Docs",
+    "guide": "Guide",
+    "subscription": "Premium Subscription",
+    "userName": "Guest User",
+    "userRole": "System Admin"
+  },
+  "login": {
+    "title": "Sign In To Admin Panel",
+    "subtitle": "Enter your email and password to continue",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "emailPlaceholder": "name@example.com",
+    "passwordPlaceholder": "Password",
+    "submit": "Login",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email format is invalid",
+    "passwordRequired": "Password is required",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "userNameLabel": "Username",
+    "userNamePlaceholder": "Enter your username",
+    "userNameRequired": "Username is required",
+    "userNameFormat": "Username can only contain Latin letters and numbers"
+  },
+  "dashboard": {
+    "thisMonth": "This Month",
+    "today": "Today",
+    "successRequests": "Successful Requests",
+    "activeUsers": "Active Users",
+    "apiCalls": "API Calls",
+    "remainingPackageTitle": "Package Status",
+    "remainingCalls": "Remaining Calls",
+    "remainingMessages": "Remaining Messages",
+    "remainingSessions": "Remaining Sessions",
+    "totalAvailable": "Total Available",
+    "remaining": "Remaining",
+    "consumed": "Consumed",
+    "purchased": "Purchased",
+    "buyNewPackage": "Buy New Package",
+    "modelsDistribution": "AI Models Distribution",
+    "dailyUsage": "Daily Usage Chart",
+    "upgradeService": "Upgrade Service",
+    "support": "Support",
+    "logout": "Logout",
+    "footer": "All rights reserved for Pishkar Technology Facilitators Company."
+  },
+  "language": {
+    "fa": "FA",
+    "en": "EN"
+  },
+  "documentation": {
+    "title": "API Documentation",
+    "navigation": "Documentation",
+    "backToApp": "Back to admin panel",
+    "openNavigation": "Open documentation navigation",
+    "closeNavigation": "Close documentation navigation",
+    "pages": {
+      "chatApiWeb": "AI as a Service — Chat API in Web"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "yourApiKeys": "Your API Keys",
+    "addNewKey": "Add New Key",
+    "keyName": "Key Name",
+    "enterKeyName": "Enter key name",
+    "createKey": "Create Key",
+    "createKeyRequired": "API key name is required",
+    "cancel": "Cancel",
+    "close": "Close",
+    "name": "Name",
+    "createdAt": "Created At",
+    "lastUsed": "Last Used",
+    "expiration": "Expiration",
+    "status": "Status",
+    "actions": "Actions",
+    "delete": "Delete",
+    "initialLoading": "Loading API keys...",
+    "errorTitle": "Unable to load API keys",
+    "retry": "Retry",
+    "emptyState": "No API keys found. Click \"Add New Key\" to create one.",
+    "organizationError": "Organization ID is missing. Please contact your system administrator.",
+    "deleteDialogTitle": "Delete API Key",
+    "deleteDialogMessage": "Are you sure you want to delete \"{{name}}\"?",
+    "deleteSuccess": "API key deleted successfully.",
+    "createSuccessTitle": "API Key Created",
+    "createSuccessDescription": "This key is shown only once. Copy and store it securely.",
+    "apiKeyValue": "Generated API Key",
+    "copyKey": "Copy",
+    "copied": "API key copied to clipboard.",
+    "copyFailed": "Unable to copy API key. Please copy it manually.",
+    "unknownDate": "Unknown",
+    "neverUsed": "Never",
+    "noExpiration": "No expiration",
+    "creating": "Creating...",
+    "deleting": "Deleting...",
+    "statusValues": {
+      "active": "Active",
+      "revoked": "Revoked",
+      "expired": "Expired"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "description": "If you experience any problem, please contact us using the support phone number or email.",
+    "phone": "Support phone number",
+    "email": "Support email",
+    "contact": "Contact Support"
+  },
+  "common": {
+    "openMenu": "Open menu"
+  }
+}

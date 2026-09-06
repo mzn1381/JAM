@@ -1,0 +1,265 @@
+18:09:50 | INFO     | app | app started!
+18:10:08 | INFO     | app | app started!
+15:41:08 | INFO     | handler | Initializing ChatHandler
+15:41:10 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+15:41:10 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+15:41:24 | INFO     | handler | New session created: 42fb8342-6e59-48da-bba7-48ae870aa18c
+15:41:24 | DEBUG    | handler | [42fb8342-6e59-48da-bba7-48ae870aa18c] User: سلام
+15:41:24 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+15:41:24 | INFO     | metrics | metric=safeguard_pass | session_id=42fb8342-6e59-48da-bba7-48ae870aa18c | total_passes=1
+15:41:24 | DEBUG    | safeguard | Safeguard passed | session_id=42fb8342-6e59-48da-bba7-48ae870aa18c | input='سلام'
+15:41:25 | INFO     | intent_classifier | Intent: greeting | confidence: 1.0 | reasoning: این پیام یک سلام و احوال‌پرسی است. | input: 'سلام'
+15:41:25 | INFO     | builder | Routing to: greeting
+15:41:25 | INFO     | greeting | Greeting response: سلام! خوش اومدی. امروز دوست داری کمکت کنم با چی کار کنی؟
+15:41:25 | DEBUG    | history_recorder | [42fb8342-6e59-48da-bba7-48ae870aa18c] Recorded assistant reply to history
+15:41:25 | DEBUG    | handler | [42fb8342-6e59-48da-bba7-48ae870aa18c] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:41:45 | INFO     | handler | New session created: ae10e5e0-ecf0-4c07-a130-dcd1a700df50
+15:41:45 | DEBUG    | handler | [ae10e5e0-ecf0-4c07-a130-dcd1a700df50] User: میخوام یه آلارم تنظیم کنم
+15:41:45 | INFO     | normalizer | Normalized input: 'میخوام یه آلارم تنظیم کنم' -> 'میخوام یه الارم تنظیم کنم'
+15:41:45 | INFO     | metrics | metric=safeguard_pass | session_id=ae10e5e0-ecf0-4c07-a130-dcd1a700df50 | total_passes=2
+15:41:45 | DEBUG    | safeguard | Safeguard passed | session_id=ae10e5e0-ecf0-4c07-a130-dcd1a700df50 | input='میخوام یه الارم تنظیم کنم'
+15:41:46 | INFO     | intent_classifier | Intent: android | confidence: 0.9 | reasoning: کاربر درخواست تنظیم زنگ هشدار کرده است. | input: 'میخوام یه الارم تنظیم کنم'
+15:41:46 | INFO     | builder | Routing to: android
+15:41:52 | DEBUG    | history_recorder | [ae10e5e0-ecf0-4c07-a130-dcd1a700df50] Recorded assistant reply to history
+15:41:52 | DEBUG    | handler | [ae10e5e0-ecf0-4c07-a130-dcd1a700df50] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:43:25 | INFO     | handler | Initializing ChatHandler
+15:43:26 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+15:43:26 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+15:43:30 | INFO     | handler | New session created: a135b9f3-7708-4685-b552-8aed03e14229
+15:43:30 | DEBUG    | handler | [a135b9f3-7708-4685-b552-8aed03e14229] User: سلام
+15:43:30 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+15:43:30 | INFO     | metrics | metric=safeguard_pass | session_id=a135b9f3-7708-4685-b552-8aed03e14229 | total_passes=1
+15:43:30 | DEBUG    | safeguard | Safeguard passed | session_id=a135b9f3-7708-4685-b552-8aed03e14229 | input='سلام'
+15:43:32 | INFO     | intent_classifier | Intent: greeting | confidence: 1.0 | reasoning: کاربر تنها یک احوال‌پرسی کرده است. | input: 'سلام'
+15:43:32 | INFO     | builder | Routing to: greeting
+15:43:32 | INFO     | greeting | Greeting response: سلام! خوبی؟ اگر کاری داری بگو تا باهم انجامش بدیم.
+15:43:32 | DEBUG    | history_recorder | [a135b9f3-7708-4685-b552-8aed03e14229] Recorded assistant reply to history
+15:43:32 | DEBUG    | handler | [a135b9f3-7708-4685-b552-8aed03e14229] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:43:41 | INFO     | handler | New session created: 3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9
+15:43:41 | DEBUG    | handler | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] User: پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن
+15:43:41 | DEBUG    | normalizer | Input unchanged after normalization: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:43:41 | INFO     | metrics | metric=safeguard_pass | session_id=3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9 | total_passes=2
+15:43:41 | DEBUG    | safeguard | Safeguard passed | session_id=3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9 | input='پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:43:43 | INFO     | intent_classifier | Intent: appointment | confidence: 0.95 | reasoning: کاربر به دنبال رزرو نوبت دکتر برای معاینه پاهایش است که مشخص می‌کند این درخواست در دسته‌بندی نوبت‌دهی قرار دارد. | input: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:43:43 | INFO     | builder | Routing to: appointment
+15:43:45 | INFO     | paziresh_router | Paziresh sub-intent: reservation | confidence: 0.9 | reasoning: کاربر به دنبال پیدا کردن دکتر برای معاینه پای پیچ‌خورده‌اش است که نشان‌دهنده درخواست رزرو نوبت است. | input: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:43:45 | INFO     | progress | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] start | درخواست نوبت پزشکی شما را بررسی می‌کنم...
+15:43:45 | INFO     | appointment | Selected API: paziresh24_SearchDoctor
+15:43:45 | INFO     | progress | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] api_select | سرویس جستجوی پزشک در پذیرش۲۴ انتخاب شد.
+15:43:46 | DEBUG    | appointment | Slot fill result | complete=True | slots=[FilledSlot(name='city', value='قم'), FilledSlot(name='query', value='پیچ خوردگی پا')] | missing=[]
+15:43:46 | INFO     | appointment | Slots complete: [FilledSlot(name='city', value='قم'), FilledSlot(name='query', value='پیچ خوردگی پا')]
+15:43:46 | INFO     | progress | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] slots_complete | اطلاعات لازم جمع‌آوری شد (شهر قم، جستجو: پیچ خوردگی پا).
+15:43:46 | INFO     | progress | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] api_call | در حال جستجو در پذیرش۲۴...
+15:43:46 | INFO     | appointment | Calling paziresh24_SearchDoctor with slots: {'city': 'قم', 'query': 'پیچ خوردگی پا'}
+15:43:46 | INFO     | paziresh24 | SearchDoctor request | city='قم' slug='qom' | query='پیچ خوردگی پا' | params={'semantic_search': 'false', 'text': 'پیچ خوردگی پا', 'page': '1', 'limit': '3'}
+15:43:46 | DEBUG    | paziresh24 | SearchDoctor URL base=https://apigw.paziresh24.com/seapi/v1/search/qom
+15:43:46 | INFO     | paziresh24 | SearchDoctor response | http=200 | elapsed=0.35s | final_url=https://apigw.paziresh24.com/seapi/v1/search/qom?semantic_search=false&text=%D9%BE%DB%8C%DA%86+%D8%AE%D9%88%D8%B1%D8%AF%DA%AF%DB%8C+%D9%BE%D8%A7&page=1&limit=3
+15:43:46 | INFO     | paziresh24 | SearchDoctor parsed | format=search.result | top_keys=['search', 'order_items', 'categories', 'filters', 'selected_filters', 'seo_info', 'footers', 'promoted_online_visit'] | total=16 | result_count=3
+15:43:46 | DEBUG    | paziresh24 | Parsed response via search.result | total=16 | returned=3
+15:43:46 | INFO     | appointment | API response length: 576 chars
+15:43:46 | DEBUG    | history_recorder | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] Recorded assistant reply to history
+15:43:46 | DEBUG    | handler | [3e2e02fc-3882-471e-bf9f-1e9f3b5ff8f9] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:44:20 | INFO     | handler | New session created: 26505d3d-ce91-496c-9eb7-c91af34089c2
+15:44:20 | DEBUG    | handler | [26505d3d-ce91-496c-9eb7-c91af34089c2] User: استعلام قبض من رو بگیر
+15:44:20 | DEBUG    | normalizer | Input unchanged after normalization: 'استعلام قبض من رو بگیر'
+15:44:20 | INFO     | metrics | metric=safeguard_pass | session_id=26505d3d-ce91-496c-9eb7-c91af34089c2 | total_passes=3
+15:44:20 | DEBUG    | safeguard | Safeguard passed | session_id=26505d3d-ce91-496c-9eb7-c91af34089c2 | input='استعلام قبض من رو بگیر'
+15:44:21 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.95 | reasoning: کاربر درخواست استعلام قبض را دارد که در دسته استعلام‌ها قرار می‌گیرد. | input: 'استعلام قبض من رو بگیر'
+15:44:21 | INFO     | builder | Routing to: inquiry
+15:44:21 | INFO     | inquiry_resolver | Inquiry unresolved: generic request without type
+15:44:23 | INFO     | inquiry_resolver | Inquiry unresolved by LLM | api='' | confidence=0.5 | reason=نوع قبض مشخص نشده است.
+15:44:23 | INFO     | inquiry | Inquiry type not resolved | reason=نوع قبض مشخص نشده است.
+15:44:23 | DEBUG    | history_recorder | [26505d3d-ce91-496c-9eb7-c91af34089c2] Recorded assistant reply to history
+15:44:23 | DEBUG    | handler | [26505d3d-ce91-496c-9eb7-c91af34089c2] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:45:24 | INFO     | handler | New session created: 14300829-2f34-4065-9795-ee6becd1eb8d
+15:45:24 | DEBUG    | handler | [14300829-2f34-4065-9795-ee6becd1eb8d] User: آب
+15:45:24 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+15:45:24 | INFO     | metrics | metric=safeguard_pass | session_id=14300829-2f34-4065-9795-ee6becd1eb8d | total_passes=4
+15:45:24 | DEBUG    | safeguard | Safeguard passed | session_id=14300829-2f34-4065-9795-ee6becd1eb8d | input='اب'
+15:45:25 | WARNING  | intent_classifier | Intent classifier returned invalid category: 'unknown'
+15:45:25 | INFO     | intent_classifier | Intent: chitchat | confidence: 0.1 | reasoning: پیام نامشخص است و نمی‌توان به طور واضحی تشخیصی داد. | input: 'اب'
+15:45:25 | INFO     | builder | Routing to: chitchat
+15:45:25 | INFO     | chitchat | Chitchat for input: 'اب'
+15:45:27 | DEBUG    | history_recorder | [14300829-2f34-4065-9795-ee6becd1eb8d] Recorded assistant reply to history
+15:45:27 | DEBUG    | handler | [14300829-2f34-4065-9795-ee6becd1eb8d] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:50:33 | INFO     | handler | Initializing ChatHandler
+15:50:34 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+15:50:34 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+15:52:43 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: سلام
+15:52:43 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+15:52:43 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+15:52:43 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='سلام'
+15:52:45 | INFO     | intent_classifier | Intent: greeting | confidence: 0.9 | reasoning: کاربران معمولاً با سلام و احوالپرسی شروع به مکالمه می‌کنند. | input: 'سلام'
+15:52:45 | INFO     | builder | Routing to: greeting
+15:52:45 | INFO     | greeting | Greeting response: سلام عزیز! من اینجام تا کمکت کنم. دوست داری از چی شروع کنیم؟
+15:52:45 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+15:52:45 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:52:52 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن
+15:52:52 | DEBUG    | normalizer | Input unchanged after normalization: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:52:52 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+15:52:52 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:52:54 | INFO     | intent_classifier | Intent: appointment | confidence: 0.95 | reasoning: کاربر درخواست جستجوی پزشک برای معاینه پاش را دارد که به دسته 'رزرو نوبت' مربوط می‌شود. | input: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:52:54 | INFO     | builder | Routing to: appointment
+15:52:55 | INFO     | paziresh_router | Paziresh sub-intent: reservation | confidence: 0.9 | reasoning: کاربر به دنبال پیدا کردن پزشک برای معاینه پا در شهر قم است که نشان‌دهنده درخواست رزرو نوبت است. | input: 'پام پیچ خورده، یه دکتر برای معاینه تو قم پیدا کن'
+15:52:55 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] start | درخواست نوبت پزشکی شما را بررسی می‌کنم...
+15:52:55 | INFO     | appointment | Selected API: paziresh24_SearchDoctor
+15:52:55 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] api_select | سرویس جستجوی پزشک در پذیرش۲۴ انتخاب شد.
+15:52:56 | DEBUG    | appointment | Slot fill result | complete=True | slots=[FilledSlot(name='city', value='قم'), FilledSlot(name='query', value='پیچ خوردگی پا')] | missing=[]
+15:52:56 | INFO     | appointment | Slots complete: [FilledSlot(name='city', value='قم'), FilledSlot(name='query', value='پیچ خوردگی پا')]
+15:52:56 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] slots_complete | اطلاعات لازم جمع‌آوری شد (شهر قم، جستجو: پیچ خوردگی پا).
+15:52:56 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] api_call | در حال جستجو در پذیرش۲۴...
+15:52:56 | INFO     | appointment | Calling paziresh24_SearchDoctor with slots: {'city': 'قم', 'query': 'پیچ خوردگی پا'}
+15:52:56 | INFO     | paziresh24 | SearchDoctor request | city='قم' slug='qom' | query='پیچ خوردگی پا' | params={'semantic_search': 'false', 'text': 'پیچ خوردگی پا', 'page': '1', 'limit': '3'}
+15:52:56 | DEBUG    | paziresh24 | SearchDoctor URL base=https://apigw.paziresh24.com/seapi/v1/search/qom
+15:52:57 | INFO     | paziresh24 | SearchDoctor response | http=200 | elapsed=0.70s | final_url=https://apigw.paziresh24.com/seapi/v1/search/qom?semantic_search=false&text=%D9%BE%DB%8C%DA%86+%D8%AE%D9%88%D8%B1%D8%AF%DA%AF%DB%8C+%D9%BE%D8%A7&page=1&limit=3
+15:52:57 | INFO     | paziresh24 | SearchDoctor parsed | format=search.result | top_keys=['search', 'order_items', 'categories', 'filters', 'selected_filters', 'seo_info', 'footers', 'promoted_online_visit'] | total=16 | result_count=3
+15:52:57 | DEBUG    | paziresh24 | Parsed response via search.result | total=16 | returned=3
+15:52:57 | INFO     | appointment | API response length: 565 chars
+15:52:57 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+15:52:57 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:53:27 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: استعلام قبض من رو بگیر
+15:53:27 | DEBUG    | normalizer | Input unchanged after normalization: 'استعلام قبض من رو بگیر'
+15:53:27 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+15:53:27 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='استعلام قبض من رو بگیر'
+15:53:28 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.9 | reasoning: کاربر درخواست استعلام قبض کرده است، بنابراین این درخواست در دسته استعلام قرار می‌گیرد. | input: 'استعلام قبض من رو بگیر'
+15:53:28 | INFO     | builder | Routing to: inquiry
+15:53:28 | INFO     | inquiry_resolver | Inquiry unresolved: generic request without type
+15:53:30 | INFO     | inquiry_resolver | Inquiry unresolved by LLM | api='' | confidence=0.5 | reason=نوع قبض و شماره آن مشخص نشده است.
+15:53:30 | INFO     | inquiry | Inquiry type not resolved | reason=نوع قبض و شماره آن مشخص نشده است.
+15:53:30 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+15:53:30 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:53:59 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: آب
+15:53:59 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+15:53:59 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=4
+15:53:59 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='اب'
+15:54:00 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.8 | reasoning: کاربر خواسته است که قبض آب خود را استعلام بگیرد که به دسته استعلامات مربوط می‌شود. | input: 'اب'
+15:54:00 | INFO     | builder | Routing to: inquiry
+15:54:00 | INFO     | inquiry_resolver | Inquiry resolved by short bill reply | api=post_api_sw1_WatterBill
+15:54:00 | INFO     | inquiry | Selected API: post_api_sw1_WatterBill | reason=short_bill_type_reply
+15:54:02 | DEBUG    | inquiry | Missing slots: ['billID']
+15:54:02 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+15:54:02 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+15:55:10 | INFO     | handler | Initializing ChatHandler
+15:55:11 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+15:55:11 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+16:02:32 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: سلام
+16:02:56 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+16:02:56 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+16:02:56 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='سلام'
+16:02:58 | INFO     | intent_classifier | Intent: greeting | confidence: 0.9 | reasoning: این یک سلام و احوال‌پرسی است که در دسته‌بندی خوش‌آمدگویی قرار می‌گیرد. | input: 'سلام'
+16:02:58 | INFO     | builder | Routing to: greeting
+16:02:58 | INFO     | greeting | Greeting response: سلام! خوش اومدی. امروز دوست داری کمکت کنم با چی کار کنی؟
+16:02:58 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+16:03:40 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+16:04:04 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: استعلام قبض من رو بگیر
+16:04:27 | DEBUG    | normalizer | Input unchanged after normalization: 'استعلام قبض من رو بگیر'
+16:04:27 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+16:04:27 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='استعلام قبض من رو بگیر'
+16:04:29 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.9 | reasoning: کاربر درخواست استعلام قبض کرده است که مربوط به مبلغ قبوض می‌شود. | input: 'استعلام قبض من رو بگیر'
+16:04:29 | INFO     | builder | Routing to: inquiry
+16:04:29 | INFO     | inquiry_resolver | Inquiry unresolved: generic request without type
+16:04:30 | INFO     | inquiry_resolver | Inquiry unresolved by LLM | api='' | confidence=0.5 | reason=نوع قبض (آب، برق، گاز) مشخص نشده است.
+16:04:30 | INFO     | inquiry | Inquiry type not resolved | reason=نوع قبض (آب، برق، گاز) مشخص نشده است.
+16:04:30 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+16:05:20 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+16:05:34 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: آب
+16:05:46 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+16:05:46 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+16:05:46 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='اب'
+16:05:47 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.9 | reasoning: کاربر درخواست استعلام قبض آب را دارد که دسته استعلامات است. | input: 'اب'
+16:05:47 | INFO     | builder | Routing to: inquiry
+16:05:47 | INFO     | inquiry_resolver | Inquiry resolved by short bill reply | api=post_api_sw1_WatterBill
+16:05:47 | INFO     | inquiry | Selected API: post_api_sw1_WatterBill | reason=short_bill_type_reply
+16:05:49 | DEBUG    | inquiry | Missing slots: ['billID']
+16:05:49 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+16:06:02 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+16:06:15 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: برام دکتر پیدا کن
+16:06:15 | DEBUG    | normalizer | Input unchanged after normalization: 'برام دکتر پیدا کن'
+16:06:15 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=4
+16:06:15 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='برام دکتر پیدا کن'
+16:06:16 | INFO     | intent_classifier | Intent: appointment | confidence: 0.9 | reasoning: کاربر درخواست پیدا کردن دکتر دارد که به دسته نوبت‌دهی آنلاین مربوط می‌شود. | input: 'برام دکتر پیدا کن'
+16:06:16 | INFO     | builder | Routing to: appointment
+16:06:17 | INFO     | paziresh_router | Paziresh sub-intent: reservation | confidence: 0.9 | reasoning: کاربر درخواست پیدا کردن دکتر را کرده است، بنابراین این درخواست در دسته رزرو قرار می‌گیرد. | input: 'برام دکتر پیدا کن'
+16:06:17 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] start | درخواست نوبت پزشکی شما را بررسی می‌کنم...
+16:06:17 | INFO     | appointment | Selected API: paziresh24_SearchDoctor
+16:06:17 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] api_select | سرویس جستجوی پزشک در پذیرش۲۴ انتخاب شد.
+16:06:18 | DEBUG    | appointment | Slot fill result | complete=False | slots=[] | missing=['city', 'query']
+16:06:18 | INFO     | appointment | Missing slots: ['city', 'query']
+16:06:18 | INFO     | progress | [550e8400-e29b-41d4-a716-446655440000] slots_incomplete | برای ادامه به این اطلاعات نیاز دارم: city, query
+16:06:18 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+16:06:18 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+10:58:18 | INFO     | handler | Initializing ChatHandler
+10:58:20 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+10:58:20 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+11:04:45 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: سلام
+11:04:45 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+11:04:45 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+11:04:45 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='سلام'
+11:07:08 | INFO     | handler | Initializing ChatHandler
+11:07:09 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+11:07:16 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+11:07:21 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: سلام
+11:07:21 | DEBUG    | normalizer | Input unchanged after normalization: 'سلام'
+11:07:21 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+11:07:21 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='سلام'
+11:09:26 | INFO     | intent_classifier | Intent: greeting | confidence: 0.9 | reasoning: کاربر در حال سلام و احوال‌پرسی است. | input: 'سلام'
+11:09:26 | INFO     | builder | Routing to: greeting
+11:09:26 | INFO     | greeting | Greeting response: سلام! آماده‌ام هر سوال یا درخواستی داری جواب بدم.
+11:09:26 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+11:09:26 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+11:13:10 | INFO     | handler | Initializing ChatHandler
+11:13:12 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+11:13:34 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+11:13:37 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: استعلام قبض من رو بگیر
+11:13:37 | DEBUG    | normalizer | Input unchanged after normalization: 'استعلام قبض من رو بگیر'
+11:13:37 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+11:13:37 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='استعلام قبض من رو بگیر'
+11:15:41 | INFO     | intent_classifier | Intent: inquiry | confidence: 0.9 | reasoning: کاربر درخواست استعلام قبض کرده است که مربوط به دسته استعلام‌ها می‌شود. | input: 'استعلام قبض من رو بگیر'
+11:16:05 | INFO     | builder | Routing to: inquiry
+11:23:46 | INFO     | inquiry_resolver | Inquiry unresolved: generic request without type
+11:29:10 | INFO     | inquiry_resolver | Inquiry unresolved by LLM | api='' | confidence=0.5 | reason=نوع قبض مشخص نشده است.
+11:29:17 | INFO     | inquiry | Inquiry type not resolved | reason=نوع قبض مشخص نشده است.
+11:29:34 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] Recorded assistant reply to history
+11:29:39 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+12:24:00 | INFO     | handler | Initializing ChatHandler
+12:24:01 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+12:24:04 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+12:24:10 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام تو آراد ثبت نام کنم
+12:24:19 | INFO     | normalizer | Normalized input: 'می خوام تو آراد ثبت نام کنم' -> 'می خوام تو اراد ثبت نام کنم'
+12:24:19 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+12:24:19 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام تو اراد ثبت نام کنم'
+12:25:33 | INFO     | intent_classifier | Intent: registery_arad | confidence: 0.95 | reasoning: کاربر به وضوح درخواست ثبت‌نام در آراد را دارد. | input: 'می خوام تو اراد ثبت نام کنم'
+12:26:19 | INFO     | builder | Routing to: registery_arad
+12:26:28 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\pishkar-develop\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 207, in tick
+    run_with_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 709, in invoke
+    input = step.invoke(input, config)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_write.py", line 84, in _write
+    self.do_write(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_write.py", line 126, in do_write
+    write(_assemble_writes(writes))
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_write.py", line 181, in _assemble_writes
+    if ww := w.mapper(w.value):
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\graph\state.py", line 1492, in _get_updates
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: Expected dict, got  NOOOOOOOOOO !!!!
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
+During task with name 'registery_arad' and id 'd08a4244-c181-ecd5-5dae-0196ff2e0881'

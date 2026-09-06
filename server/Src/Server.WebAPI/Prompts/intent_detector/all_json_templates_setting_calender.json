@@ -1,0 +1,18 @@
+{
+    "outputs": [{
+            "intent": "none",
+            "confidence": 0.05
+        },
+        {
+            "intent": "Pishkar",
+            "confidence": 0.96,
+            "message": "I am a pishkar"
+        },
+        { "intent": "create_calendar", "confidence": 0.86 },
+        { "intent": "create_alarm", "confidence": 0.86 }
+
+
+
+
+    ]
+}

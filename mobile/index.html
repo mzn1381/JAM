@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
+    <link rel="shortcut icon" href="/favicon.ico?v=1" />
+    <title>پیشکار</title>
+    <style>
+      /* Vazirmatn – matches the fontFamily names used by the shared theme. */
+      @font-face {
+        font-family: 'Vazirmatn-Thin';
+        src: url('/fonts/Vazirmatn-Thin.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-ExtraLight';
+        src: url('/fonts/Vazirmatn-ExtraLight.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-Light';
+        src: url('/fonts/Vazirmatn-Light.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-Regular';
+        src: url('/fonts/Vazirmatn-Regular.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-Medium';
+        src: url('/fonts/Vazirmatn-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-SemiBold';
+        src: url('/fonts/Vazirmatn-SemiBold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-Bold';
+        src: url('/fonts/Vazirmatn-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-ExtraBold';
+        src: url('/fonts/Vazirmatn-ExtraBold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn-Black';
+        src: url('/fonts/Vazirmatn-Black.ttf') format('truetype');
+        font-display: swap;
+      }
+      /* Also expose a single weighted family for any generic usage. */
+      @font-face {
+        font-family: 'Vazirmatn';
+        src: url('/fonts/Vazirmatn-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Vazirmatn';
+        src: url('/fonts/Vazirmatn-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      html,
+      body,
+      #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overflow: hidden;
+        background-color: #f8f7f7;
+        font-family: 'Vazirmatn-Regular', 'Vazirmatn', sans-serif;
+        max-width: 768px;
+        margin: 0 auto;
+      }
+      #root {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/config.js"></script>
+    <script type="module" src="/index.web.tsx"></script>
+  </body>
+</html>
