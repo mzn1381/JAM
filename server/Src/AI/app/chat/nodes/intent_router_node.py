@@ -57,7 +57,7 @@ def _resolve_category(result: _IntentRouterStructuredOutput) -> tuple[str, float
     return category, confidence, result.reasoning
 
 
-def intent_classifier_node(state: GraphState, llm) -> GraphState:
+def intent_router_node(state: GraphState, llm) -> GraphState:
     prompt = _build_prompt(state)
     result = llm.complete_structured_output(
         prompt,

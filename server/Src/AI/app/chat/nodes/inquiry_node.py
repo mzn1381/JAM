@@ -18,6 +18,7 @@ _API_MAP = {
     "post_api_sw1_GasBill": ApiIrTools.post_api_sw1_GasBill,
 }
 
+
 _INQUIRY_GENERATION_PROMPT = """
 Inquiry results have been received from the service. Based on the raw data below, write a fluent, clear, and helpful response in Persian (فارسی) for the user.
 
@@ -81,6 +82,9 @@ def inquiry_node(state: GraphState, llm) -> GraphState:
         raw_result = _call_inquiry_api(api_name, slots_dic)
         generated_response = _generate_inquiry_response(state, llm, api_name, raw_result)
 
+        
+        
+        
         state.final_response = generated_response
         state.response = GraphResult(toolType=ResponseType.TEXT, text=generated_response)
     else:

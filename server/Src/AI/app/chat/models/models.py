@@ -121,6 +121,8 @@ class IntentCategory(str, Enum):
     APPOINTMENT = "appointment"
     UNKNOWN = "unknown"
     REGISTERY_ARAD = "registery_arad"
+    RAG="rag"
+    ACTION="action"
 
 
 class PazireshSubIntent(str, Enum):

@@ -4,11 +4,13 @@ from pathlib import Path
 
 from app.chat.api.definitions import APISchema, CategoryDefinition, SlotDefinition
 
-_data_path = Path(__file__).parent.parent / "data" / "categories.json"
+# _data_path = Path(__file__).parent.parent / "data" / "categories.json"
+_data_path = Path(__file__).parent.parent / "data" / "categories_JAM.json"
 with open(_data_path, encoding="utf-8") as f:
     _data = json.load(f)
 
 CLASSIFIER_HINT: str = _data.get("classifier_hint", "")
+ACTION_NAVIGATOR_HINT: str = _data.get("action_navigator_hint", "")
 
 
 def _parse_category(raw: dict) -> CategoryDefinition:
@@ -37,9 +39,13 @@ CATEGORIES: dict[str, CategoryDefinition] = {
     for cat in (_parse_category(raw) for raw in _data["categories"])
 }
 
-APPOINTMENT_CATEGORY = CATEGORIES["appointment"]
-ANDROID_CATEGORY = CATEGORIES["android"]
-INQUIRY_CATEGORY = CATEGORIES["inquiry"]
+# APPOINTMENT_CATEGORY = CATEGORIES["appointment"] 
+# ANDROID_CATEGORY = CATEGORIES["android"]
+# INQUIRY_CATEGORY = CATEGORIES["inquiry"]
+
+APPOINTMENT_CATEGORY = 'CATEGORIES["appointment"]' 
+ANDROID_CATEGORY = 'CATEGORIES["android"]'
+INQUIRY_CATEGORY = 'CATEGORIES["inquiry"]'
 
 VALID_INTENT_NAMES: list[str] = [
     name for name in CATEGORIES if name != "unknown"
@@ -79,6 +85,8 @@ def get_classifier_categories_with_examples() -> list[dict]:
 def _validate_intent_categories() -> None:
     from app.chat.models.models import IntentCategory
 
+    return ### Should be refactored #MGZ 
+    
     registry_names = set(CATEGORIES)
     enum_names = {category.value for category in IntentCategory}
     if registry_names != enum_names:

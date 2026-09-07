@@ -263,3 +263,335 @@ Traceback (most recent call last):
 langgraph.errors.InvalidUpdateError: Expected dict, got  NOOOOOOOOOO !!!!
 For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
 During task with name 'registery_arad' and id 'd08a4244-c181-ecd5-5dae-0196ff2e0881'
+17:02:58 | INFO     | handler | Initializing ChatHandler
+17:03:00 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:03:52 | INFO     | handler | Initializing ChatHandler
+17:03:53 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:04:23 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:04:28 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام تو آراد ثبت نام کنم
+17:04:28 | INFO     | normalizer | Normalized input: 'می خوام تو آراد ثبت نام کنم' -> 'می خوام تو اراد ثبت نام کنم'
+17:04:28 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:04:28 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام تو اراد ثبت نام کنم'
+17:04:30 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر تمایل به ثبت نام در اراد دارد که نشان‌دهنده یک اقدام مشخص است. | input: 'می خوام تو اراد ثبت نام کنم'
+17:04:30 | INFO     | builder | Routing to: action
+17:04:30 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:04:30 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 195, in action_navigator_node
+    prompt = _build_action_navigator_prompt(state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _build_action_navigator_prompt() missing 1 required positional argument: 'flows'
+During task with name 'action_navigator' and id '52650a5a-90eb-d3e7-3012-5534c9a71afa'
+17:06:12 | INFO     | handler | Initializing ChatHandler
+17:06:13 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:06:17 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:06:19 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام تو آراد ثبت نام کنم
+17:06:19 | INFO     | normalizer | Normalized input: 'می خوام تو آراد ثبت نام کنم' -> 'می خوام تو اراد ثبت نام کنم'
+17:06:19 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:06:19 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام تو اراد ثبت نام کنم'
+17:11:47 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر قصد انجام عمل ثبت نام در اراد را دارد. | input: 'می خوام تو اراد ثبت نام کنم'
+17:12:39 | INFO     | builder | Routing to: action
+17:12:51 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:12:51 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 195, in action_navigator_node
+    prompt = _build_action_navigator_prompt(state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _build_action_navigator_prompt() missing 1 required positional argument: 'flows'
+During task with name 'action_navigator' and id '51fd3afd-96dd-f226-275e-7c8adadad76c'
+17:12:51 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: آب
+17:12:51 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+17:12:51 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:12:51 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='اب'
+17:14:46 | INFO     | handler | Initializing ChatHandler
+17:14:47 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:14:49 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:14:50 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام تو آراد ثبت نام کنم
+17:14:50 | INFO     | normalizer | Normalized input: 'می خوام تو آراد ثبت نام کنم' -> 'می خوام تو اراد ثبت نام کنم'
+17:14:50 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:14:50 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام تو اراد ثبت نام کنم'
+17:14:54 | INFO     | intent_classifier | Intent: action | confidence: 0.95 | reasoning: کاربر قصد ثبت نام در اراد را دارد که نشان‌دهنده یک درخواست اجرایی است. | input: 'می خوام تو اراد ثبت نام کنم'
+17:14:54 | INFO     | builder | Routing to: action
+17:15:36 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:16:15 | INFO     | intent_classifier | flow_name: Create User|flow_id: 4f2dae60-bc45-4f4e-aedd-3b3322c9d83f | confidence: 0.9 | reasoning: کاربر درخواست ثبت نام در اراد را دارد که با جریان موجود مطابقت دارد. | input: 'می خوام تو اراد ثبت نام کنم'
+17:16:17 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 210, in action_navigator_node
+    state.flow = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    ^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1095, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "GraphState" object has no field "flow"
+During task with name 'action_navigator' and id 'e2260f8a-9634-65f0-7760-0dd7dbf7bed1'
+17:16:17 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: آب
+17:16:17 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+17:16:17 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:16:17 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='اب'
+17:16:26 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر خواهان ثبت نام در اراد است که یک اقدام مشخص می باشد. | input: 'اب'
+17:16:26 | INFO     | builder | Routing to: action
+17:16:33 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:17:06 | INFO     | intent_classifier | flow_name: Create User|flow_id: 4f2dae60-bc45-4f4e-aedd-3b3322c9d83f | confidence: 0.9 | reasoning: کاربر درخواست ثبت نام در اراد را دارد و این با جریان موجود "Create User" مطابقت دارد. | input: 'اب'
+17:17:08 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 210, in action_navigator_node
+    state.flow = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    ^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1095, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "GraphState" object has no field "flow"
+During task with name 'action_navigator' and id '944dc12e-6991-4734-ba41-2386f38b4032'
+17:17:08 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: برام دکتر پیدا کن
+17:17:08 | DEBUG    | normalizer | Input unchanged after normalization: 'برام دکتر پیدا کن'
+17:17:08 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+17:17:08 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='برام دکتر پیدا کن'
+17:17:47 | INFO     | handler | Initializing ChatHandler
+17:17:49 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:18:08 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:18:10 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام تو آراد ثبت نام کنم
+17:18:10 | INFO     | normalizer | Normalized input: 'می خوام تو آراد ثبت نام کنم' -> 'می خوام تو اراد ثبت نام کنم'
+17:18:10 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:18:10 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام تو اراد ثبت نام کنم'
+17:18:15 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر قصد دارد در یک سیستم یا سرویس مشخص (اراد) ثبت نام کند که نشان‌دهنده یک عمل اجرایی است. | input: 'می خوام تو اراد ثبت نام کنم'
+17:18:15 | INFO     | builder | Routing to: action
+17:18:26 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:18:28 | INFO     | intent_classifier | flow_name: Create User|flow_id: 4f2dae60-bc45-4f4e-aedd-3b3322c9d83f | confidence: 0.9 | reasoning: درخواست کاربر برای ثبت نام در اراد به وضوح با نام و توضیحات جریان "Create User" مطابقت دارد. | input: 'می خوام تو اراد ثبت نام کنم'
+17:18:30 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 210, in action_navigator_node
+    state.flow_response_mgz = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1095, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "GraphState" object has no field "flow_response_mgz"
+During task with name 'action_navigator' and id 'aca5b323-40e9-a792-58b4-e3f56128255f'
+17:18:30 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: آب
+17:18:30 | INFO     | normalizer | Normalized input: 'آب' -> 'اب'
+17:18:30 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:18:30 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='اب'
+17:18:45 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر قصد دارد فعالیتی خاص یعنی ثبت نام در اراد را انجام دهد. | input: 'اب'
+17:18:45 | INFO     | builder | Routing to: action
+17:18:45 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:18:47 | INFO     | intent_classifier | flow_name: Create User|flow_id: 4f2dae60-bc45-4f4e-aedd-3b3322c9d83f | confidence: 0.9 | reasoning: درخواست شما برای ثبت نام در اراد مشخص است و با جریان موجود "Create User" همخوانی دارد. | input: 'اب'
+17:18:47 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 210, in action_navigator_node
+    state.flow_response_mgz = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1095, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "GraphState" object has no field "flow_response_mgz"
+During task with name 'action_navigator' and id 'b6ceaa19-5940-6ca4-c419-55b43e765894'
+17:18:47 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: برام دکتر پیدا کن
+17:18:47 | DEBUG    | normalizer | Input unchanged after normalization: 'برام دکتر پیدا کن'
+17:18:47 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+17:18:47 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='برام دکتر پیدا کن'
