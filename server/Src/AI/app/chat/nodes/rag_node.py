@@ -6,10 +6,10 @@ from app.chat.models.models import GraphState, GraphResult, ResponseType, ToolCa
 logger = get_logger("inquiry")
 
 _API_MAP = {
-    "post_api_sw1_RegisterUser": ApiRagTools.post_api_sw1_call_rag,
+    "post_api_sw1_call_rag": ApiRagTools.post_api_sw1_call_rag,
 }
 
-_INQUIRY_GENERATION_PROMPT = """
+_RAG_GENERATION_PROMPT = """
 
 """
 
@@ -22,7 +22,7 @@ def rag_node(state: GraphState, llm) -> GraphState:
         #     json=data,
         # )
         
-    rag_api_name = "post_api_sw1_RegisterUser"
+    rag_api_name = "post_api_sw1_call_rag"
     func = _API_MAP[rag_api_name]    
     res = func.invoke(state.user_input)
     

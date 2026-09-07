@@ -595,3 +595,326 @@ During task with name 'action_navigator' and id 'b6ceaa19-5940-6ca4-c419-55b43e7
 17:18:47 | DEBUG    | normalizer | Input unchanged after normalization: 'برام دکتر پیدا کن'
 17:18:47 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
 17:18:47 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='برام دکتر پیدا کن'
+17:34:16 | INFO     | handler | Initializing ChatHandler
+17:34:17 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:34:17 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:35:02 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: خرید vps در آراد به چه شکل است ؟
+17:35:02 | INFO     | normalizer | Normalized input: 'خرید vps در آراد به چه شکل است ؟' -> 'خرید vps در اراد به چه شکل است ؟'
+17:35:02 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:35:02 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='خرید vps در اراد به چه شکل است ؟'
+17:35:03 | INFO     | intent_classifier | Intent: rag | confidence: 0.9 | reasoning: کاربر در حال پرسش درباره نحوه خرید VPS در اراد است و درخواست اطلاعات دارد. | input: 'خرید vps در اراد به چه شکل است ؟'
+17:35:03 | INFO     | builder | Routing to: rag
+17:35:03 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:35:03 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2984, in stream
+    loop.after_tick()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_loop.py", line 692, in after_tick
+    self.updated_channels = apply_writes(
+                            ^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 319, in apply_writes
+    if channels[chan].update(vals) and next_version is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\channels\last_value.py", line 64, in update
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: At key 'session_id': Can receive only one value per step. Use an Annotated key to handle multiple values.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE
+17:35:03 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام vps بخرم
+17:35:03 | DEBUG    | normalizer | Input unchanged after normalization: 'می خوام vps بخرم'
+17:35:03 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:35:03 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام vps بخرم'
+17:35:04 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر قصد خرید VPS را دارد که نشان‌دهنده یک عمل خاص است. | input: 'می خوام vps بخرم'
+17:35:04 | INFO     | builder | Routing to: action
+17:35:04 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:35:04 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 198, in action_navigator_node
+    prompt = _build_action_navigator_prompt(state,mock_flows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 148, in _build_action_navigator_prompt
+    flow_categories = get_flow_categories(flows)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 123, in get_flow_categories
+    return [
+           ^
+TypeError: 'NoneType' object is not iterable
+During task with name 'action_navigator' and id 'db3e4215-1527-ea7c-4575-fec872dab99f'
+17:35:04 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام یک vps بسازم 
+17:35:04 | INFO     | normalizer | Normalized input: 'می خوام یک vps بسازم ' -> 'می خوام یک vps بسازم'
+17:35:04 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+17:35:04 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام یک vps بسازم'
+17:35:06 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر به وضوح قصد خرید یا ساخت یک VPS را دارد که نشان‌دهنده یک درخواست عمل است. | input: 'می خوام یک vps بسازم'
+17:35:06 | INFO     | builder | Routing to: action
+17:35:06 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:35:06 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 198, in action_navigator_node
+    prompt = _build_action_navigator_prompt(state,mock_flows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 148, in _build_action_navigator_prompt
+    flow_categories = get_flow_categories(flows)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 123, in get_flow_categories
+    return [
+           ^
+TypeError: 'NoneType' object is not iterable
+During task with name 'action_navigator' and id '12ecc694-7da1-f149-f405-e6868299cdf5'
+17:35:50 | INFO     | handler | Initializing ChatHandler
+17:35:52 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:35:52 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:36:03 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: خرید vps در آراد به چه شکل است ؟
+17:36:04 | INFO     | normalizer | Normalized input: 'خرید vps در آراد به چه شکل است ؟' -> 'خرید vps در اراد به چه شکل است ؟'
+17:36:04 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:36:04 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='خرید vps در اراد به چه شکل است ؟'
+17:36:37 | INFO     | intent_classifier | Intent: rag | confidence: 0.85 | reasoning: کاربر سؤال اطلاعاتی در مورد خرید VPS دارد که نیاز به توضیح یا اطلاعات بیشتر است و هیچ درخواست اجرایی مشخصی ندارد. | input: 'خرید vps در اراد به چه شکل است ؟'
+17:36:51 | INFO     | builder | Routing to: rag
+17:36:56 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:38:56 | INFO     | handler | Initializing ChatHandler
+17:38:57 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:38:57 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:39:02 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: خرید vps در آراد به چه شکل است ؟
+17:39:02 | INFO     | normalizer | Normalized input: 'خرید vps در آراد به چه شکل است ؟' -> 'خرید vps در اراد به چه شکل است ؟'
+17:39:02 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:39:02 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='خرید vps در اراد به چه شکل است ؟'
+17:39:15 | INFO     | intent_classifier | Intent: rag | confidence: 0.9 | reasoning: کاربر در حال پرسش عمومی در مورد نحوه خرید VPS در اراد است و درخواست عملی ندارد. | input: 'خرید vps در اراد به چه شکل است ؟'
+17:39:15 | INFO     | builder | Routing to: rag
+17:39:15 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:39:42 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2984, in stream
+    loop.after_tick()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_loop.py", line 692, in after_tick
+    self.updated_channels = apply_writes(
+                            ^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 319, in apply_writes
+    if channels[chan].update(vals) and next_version is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\channels\last_value.py", line 64, in update
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: At key 'session_id': Can receive only one value per step. Use an Annotated key to handle multiple values.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE
+17:39:42 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام vps بخرم
+17:39:42 | DEBUG    | normalizer | Input unchanged after normalization: 'می خوام vps بخرم'
+17:39:42 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:39:42 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام vps بخرم'
+17:40:28 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر به‌طور مستقیم قصد خرید VPS را دارد که نشان‌دهنده یک اقدام مشخص است. | input: 'می خوام vps بخرم'
+17:40:33 | INFO     | builder | Routing to: action
+17:40:43 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:40:43 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 198, in action_navigator_node
+    prompt = _build_action_navigator_prompt(state,mock_flows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 148, in _build_action_navigator_prompt
+    flow_categories = get_flow_categories(flows)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 123, in get_flow_categories
+    return [
+           ^
+TypeError: 'NoneType' object is not iterable
+During task with name 'action_navigator' and id '5c6076e4-7ab2-f07e-e43b-3ec1b8b4bae4'
+17:40:43 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام یک vps بسازم 
+17:40:43 | INFO     | normalizer | Normalized input: 'می خوام یک vps بسازم ' -> 'می خوام یک vps بسازم'
+17:40:43 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+17:40:43 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام یک vps بسازم'
+17:41:06 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر در حال بیان تمایل به خرید یا ساخت یک VPS است که نشان‌دهنده قصد اجرای یک عمل خاص می‌باشد. | input: 'می خوام یک vps بسازم'
+17:41:07 | INFO     | builder | Routing to: action
+17:41:10 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:42:05 | INFO     | handler | Initializing ChatHandler
+17:42:07 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+17:42:07 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+17:42:07 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: خرید vps در آراد به چه شکل است ؟
+17:42:07 | INFO     | normalizer | Normalized input: 'خرید vps در آراد به چه شکل است ؟' -> 'خرید vps در اراد به چه شکل است ؟'
+17:42:07 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=1
+17:42:07 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='خرید vps در اراد به چه شکل است ؟'
+17:42:25 | INFO     | intent_classifier | Intent: rag | confidence: 0.9 | reasoning: کاربر در مورد اطلاعات و نحوه خرید VPS سوال کرده است که به نوعی درخواست جستجوی اطلاعات است. | input: 'خرید vps در اراد به چه شکل است ؟'
+17:42:25 | INFO     | builder | Routing to: rag
+17:42:25 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:42:31 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2984, in stream
+    loop.after_tick()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_loop.py", line 692, in after_tick
+    self.updated_channels = apply_writes(
+                            ^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 319, in apply_writes
+    if channels[chan].update(vals) and next_version is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\channels\last_value.py", line 64, in update
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: At key 'session_id': Can receive only one value per step. Use an Annotated key to handle multiple values.
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_CONCURRENT_GRAPH_UPDATE
+17:42:36 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام vps بخرم
+17:42:36 | DEBUG    | normalizer | Input unchanged after normalization: 'می خوام vps بخرم'
+17:42:36 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=2
+17:42:36 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام vps بخرم'
+17:42:50 | INFO     | intent_classifier | Intent: action | confidence: 0.95 | reasoning: کاربر در حال درخواست خرید VPS است که نشان‌دهنده قصد اجرای یک عمل مشخص است. | input: 'می خوام vps بخرم'
+17:42:50 | INFO     | builder | Routing to: action
+17:42:51 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+17:44:29 | INFO     | intent_classifier | flow_name: Create VPS Purchase Invoice|flow_id: 8b1e4a12-2f6d-4c9a-9e3b-7a5c1d8f6b2e | confidence: 0.9 | reasoning: کاربر به خرید vps اشاره کرده است که با ایجاد فاکتور خرید vps مطابقت دارد. | input: 'می خوام vps بخرم'
+17:44:29 | ERROR    | handler | [550e8400-e29b-41d4-a716-446655440000] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 90, in <lambda>
+    workflow_jam.add_node("action_navigator", lambda s: action_navigator_node(s, llm)) ### routing proper api
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\action_navigator_node.py", line 210, in action_navigator_node
+    state.flow_selected = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1095, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "GraphState" object has no field "flow_selected"
+During task with name 'action_navigator' and id '33bf3048-fa1d-2268-485a-8d22c6d0afb5'
+17:44:29 | DEBUG    | handler | [550e8400-e29b-41d4-a716-446655440000] User: می خوام یک vps بسازم 
+17:44:29 | INFO     | normalizer | Normalized input: 'می خوام یک vps بسازم ' -> 'می خوام یک vps بسازم'
+17:44:29 | INFO     | metrics | metric=safeguard_pass | session_id=550e8400-e29b-41d4-a716-446655440000 | total_passes=3
+17:44:29 | DEBUG    | safeguard | Safeguard passed | session_id=550e8400-e29b-41d4-a716-446655440000 | input='می خوام یک vps بسازم'
+17:44:56 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر صراحتاً اعلام کرده است که می‌خواهد یک VPS (سرور خصوصی مجازی) بسازد و این یک درخواست عملی برای انجام یک کار مشخص است. | input: 'می خوام یک vps بسازم'
+17:44:56 | INFO     | builder | Routing to: action
+17:45:07 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record

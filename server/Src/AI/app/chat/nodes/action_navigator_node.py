@@ -236,8 +236,7 @@ def get_flows_docs():
         #     json=data,
         # )
         # return response
-        return 
-mock_flows =[
+        return  [
   {
     "name": "Create User",
     "description": "Create user in Arad Cloud",
@@ -339,4 +338,5 @@ mock_flows =[
     "name_key": "null"
   }
 ]
+
 
