@@ -17,14 +17,14 @@
     },
     {
       "name": "greeting",
-      "description": "A standalone greeting or salutation with no accompanying request or question.",
-      "extra_prompt_hints": "\n- Examples: «سلام», «درود», «صبح بخیر», «خداحافظ», «شب بخیر».\n- If combined with any request (e.g., «سلام، خلافی بگیر»), this rule does NOT apply — classify by the request instead (see Rule 1).\n",
+      "description": "Greetings and salutations (سلام، احوال‌پرسی، درود)",
+      "extra_prompt_hints": "",
       "apis": []
     },
     {
       "name": "chitchat",
-      "description": "Standalone social small talk, opinions, or jokes with no execution intent and no informational question.",
-      "extra_prompt_hints": "\n- Examples: «چه خبر؟», «حوصله ندارم», «یه جوک بگو», «امروز حالت چطوره؟».\n- Simple courtesy replies with no new request (e.g., «مرسی», «خیلی ممنون», «باشه») also belong here.\n- Never use this category for inquiries (استعلام) or knowledge questions — see 'action' and 'rag' respectively.\n",
+      "description": "General conversation without a specific service request (گفت‌وگوی عمومی)",
+      "extra_prompt_hints": "",
       "apis": []
     },
     {
