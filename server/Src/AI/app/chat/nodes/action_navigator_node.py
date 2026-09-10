@@ -154,7 +154,7 @@ def get_flows_by_folder(folder_id:str="") -> str:
     
 
 
-def call_flow(flowid: str,session_id:str,flow_name:str,message:str,history: str ) -> str:
+def call_flow(flowid: str,session_id:str,flow_name:str,message:str) -> str:
     api_name = "post_api_sw1_call_flow" ### Should be refactored #MGZ
     func = _API_MAP.get(api_name)
     if not func:
@@ -163,7 +163,7 @@ def call_flow(flowid: str,session_id:str,flow_name:str,message:str,history: str 
 
     try:
         logger.info(f"Calling {api_name} with flow id: {id} and with flow name:{flow_name}")
-        return func.invoke(flowid,session_id,message)
+        return func.invoke(flowid,message,session_id)
     except KeyError as e:
         logger.error(f"Missing field in {id}: {e}")
         return f"اطلاعات ناقص است: {e}"
@@ -195,7 +195,7 @@ def action_navigator_node(state: GraphState, llm) -> GraphState:
     )
     # state.flow_selected = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
 
-    res = call_flow(flow_id,state.session_id,flow_name,state.user_input,state.history)
+    res = call_flow(flow_id,state.session_id,flow_name,state.user_input)
     
     # state.raw_result_api = res
     
