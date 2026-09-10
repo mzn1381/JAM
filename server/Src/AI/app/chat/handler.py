@@ -160,7 +160,7 @@ class ChatHandler:
                 tool_result=None,
                 success=False,
             )
-        except Exception:
+        except Exception as e:
             logger.exception(f"[{session_id}] Chat processing failed")
             return ChatHandlerResult(
                 final_response=SERVICE_UNAVAILABLE_MESSAGE,

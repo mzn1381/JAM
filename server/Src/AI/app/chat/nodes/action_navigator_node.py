@@ -16,6 +16,7 @@ from app.chat.models.models import GraphState, GraphResult, ResponseType, ToolCa
 
 _API_MAP = {
     "post_api_sw1_call_flow": ApiFlowTools.post_api_sw1_call_flow,
+    "get_api_sw1_get_flows": ApiFlowTools.get_api_sw1_get_flows,
 }
 
 
@@ -54,19 +55,6 @@ Output JSON only, no extra text:
 {{"category": "<name>", "confidence": <0-1>, "reasoning": "<short explanation in Persian (فارسی)>"}}"""
 
 
-def _resolve_category(result: _IntentRouterStructuredOutput) -> tuple[str, float, str]:
-    category = result.category
-    if category not in VALID_INTENT_NAMES:
-        logger.warning(f"Intent classifier returned invalid category: {category!r}")
-        category = "chitchat"
-
-    confidence = result.confidence
-    try:
-        confidence = float(confidence) if confidence is not None else 1.0
-    except (TypeError, ValueError):
-        confidence = 1.0
-
-    return category, confidence, result.reasoning
 
 
 
@@ -84,29 +72,6 @@ def _resolve_action(result: _IntentRouterStructuredOutput) -> tuple[str, float, 
         confidence = 1.0
 
     return flow_name,flow_id,confidence,result.reasoning
-
-
-def intent_router_node(state: GraphState, llm) -> GraphState:
-    prompt = _build_prompt(state)
-    result = llm.complete_structured_output(
-        prompt,
-        build_llm_messages(state),
-        _IntentRouterStructuredOutput,
-    )
-    category, confidence, reasoning = _resolve_action(result)
-
-    logger.info(
-        f"Intent: {category} | confidence: {confidence} | "
-        f"reasoning: {reasoning} | input: '{state.user_input}'"
-    )
-
-    state.intent = IntentResult(
-        category=IntentCategory(category),
-        confidence=confidence,
-        reasoning=reasoning,
-    )
-
-    return state
 
 
 
@@ -168,9 +133,28 @@ Output JSON only, no extra text:
 
 
 
+def get_flows_by_folder(folder_id:str="") -> str:
+    api_name = "get_api_sw1_get_flows" ### Should be refactored #MGZ
+    func = _API_MAP.get(api_name)
+    if not func:
+        logger.warning(f"API not found: {api_name}")
+        return f"سرویس '{api_name}' پیدا نشد."
+
+    try:
+        logger.info(f"Calling {api_name} with folder id: {id} ")
+        return func.invoke(folder_id)
+    except KeyError as e:
+        logger.error(f"Missing field in {id}: {e}")
+        return f"اطلاعات ناقص است: {e}"
+    except Exception as e:
+        logger.error(f"Error in {api_name}: {e}")
+        return f"خطا در فراخوانی سرویس: {e}"
 
 
-def _call_flow_api(id: str,name:str,message:str,history: str ) -> str:
+    
+
+
+def call_flow(flowid: str,session_id:str,flow_name:str,message:str,history: str ) -> str:
     api_name = "post_api_sw1_call_flow" ### Should be refactored #MGZ
     func = _API_MAP.get(api_name)
     if not func:
@@ -178,8 +162,8 @@ def _call_flow_api(id: str,name:str,message:str,history: str ) -> str:
         return f"سرویس '{api_name}' پیدا نشد."
 
     try:
-        logger.info(f"Calling {api_name} with flow id: {id} and with flow name:{name}")
-        return func.invoke(id,name,message,{})
+        logger.info(f"Calling {api_name} with flow id: {id} and with flow name:{flow_name}")
+        return func.invoke(flowid,session_id,message)
     except KeyError as e:
         logger.error(f"Missing field in {id}: {e}")
         return f"اطلاعات ناقص است: {e}"
@@ -194,8 +178,10 @@ def _call_flow_api(id: str,name:str,message:str,history: str ) -> str:
 def action_navigator_node(state: GraphState, llm) -> GraphState:
     
     # Calling get api from lang flows to fetch all apis # MGZ 
-    mock_flows = get_flows_docs() #Should be refactored !!! #MGZ
-    prompt = _build_action_navigator_prompt(state,mock_flows)
+    flows = get_flows_by_folder() #Should be refactored !!! #MGZ
+    # flows = get_flows_docs() #Should be refactored !!! #MGZ
+    data = flows['items']
+    prompt = _build_action_navigator_prompt(state,data)
     result = llm.complete_structured_output(
         prompt,
         build_llm_messages(state),
@@ -207,15 +193,15 @@ def action_navigator_node(state: GraphState, llm) -> GraphState:
         f"flow_name: {flow_name}|flow_id: {flow_id} | confidence: {confidence} | "
         f"reasoning: {reasoning} | input: '{state.user_input}'"
     )
-    state.flow_selected = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
+    # state.flow_selected = {"flow_name":flow_name,"flow_id":flow_id,"confidence":confidence,"reasoning":reasoning}
 
-    res = _call_flow_api(flow_id,flow_name,"",state.history)
+    res = call_flow(flow_id,state.session_id,flow_name,state.user_input,state.history)
     
-    state.raw_result_api = res
+    # state.raw_result_api = res
     
     # generated_response = _generate_inquiry_response(state, llm, api_name, raw_result)
 
-    state.final_response = res ### should llm generate final response
+    # state.final_response = res ### should llm generate final response
     # state.response = GraphResult(toolType=ResponseType.TEXT, text=generated_response)
     state.response = GraphResult(toolType=ResponseType.TEXT, text=res)
 

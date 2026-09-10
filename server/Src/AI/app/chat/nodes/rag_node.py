@@ -28,7 +28,8 @@ def rag_node(state: GraphState, llm) -> GraphState:
     
     #  filling state's essentials    
       
-    state.final_response =res
+    # state.final_response =res
+    # state.response_mgz = GraphResult(toolType=ResponseType.TEXT, text='dddddd')
     state.response = GraphResult(toolType=ResponseType.TEXT, text=res)
    
     #    
