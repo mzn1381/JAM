@@ -12,4 +12,5 @@ def history_recorder_node(state: GraphState) -> GraphState:
     else:
         logger.debug(f"[{state.session_id}] No final_response to record")
 
-    return state
+    return {}
+    # return state

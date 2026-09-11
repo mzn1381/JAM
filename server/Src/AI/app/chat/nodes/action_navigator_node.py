@@ -103,7 +103,7 @@ def _format_flow_category(flow: dict) -> str:
 
 
 ################
-def _build_action_navigator_prompt(state: GraphState, flows: list[dict]) -> str:
+def _build_action_navigator_prompt(flows: list[dict]) -> str:
     """
     Builds the prompt for the action-navigator node: given the list of
     currently available LangFlow flows, asks the LLM to pick the single
@@ -162,8 +162,9 @@ def call_flow(flowid: str,session_id:str,flow_name:str,message:str) -> str:
         return f"سرویس '{api_name}' پیدا نشد."
 
     try:
+        data = {"flow_id":flowid,"message":message,"session_id":session_id}
         logger.info(f"Calling {api_name} with flow id: {id} and with flow name:{flow_name}")
-        return func.invoke(flowid,message,session_id)
+        return func.invoke(data)
     except KeyError as e:
         logger.error(f"Missing field in {id}: {e}")
         return f"اطلاعات ناقص است: {e}"
@@ -173,15 +174,59 @@ def call_flow(flowid: str,session_id:str,flow_name:str,message:str) -> str:
 
 
 
+def action_navigator_node(state: GraphState, llm):
+    
+    flows = get_flows_by_folder()
+
+    data = flows["items"]
+
+    prompt = _build_action_navigator_prompt(data)
+
+    result = llm.complete_structured_output(
+        prompt,
+        build_llm_messages(state),
+        _IntentRouterStructuredOutput,
+    )
+
+    flow_name, flow_id, confidence, reasoning = _resolve_action(result)
+
+    logger.info(
+        f"flow_name: {flow_name}|"
+        f"flow_id: {flow_id} | "
+        f"confidence: {confidence} | "
+        f"reasoning: {reasoning} | "
+        f"input: '{state.user_input}'"
+    )
+
+    res = call_flow(
+        flow_id,
+        state.session_id,
+        flow_name,
+        state.user_input
+    )
+
+    text_res_flow = res["output"]["text"]
+
+    response = GraphResult(
+        toolType=ResponseType.TEXT,
+        text=text_res_flow
+    )
+
+    return {
+        "response": response,
+        "final_response": text_res_flow,
+    }
 
 
-def action_navigator_node(state: GraphState, llm) -> GraphState:
+
+
+def action_navigator_node_o(state: GraphState, llm) -> GraphState:
     
     # Calling get api from lang flows to fetch all apis # MGZ 
     flows = get_flows_by_folder() #Should be refactored !!! #MGZ
     # flows = get_flows_docs() #Should be refactored !!! #MGZ
     data = flows['items']
-    prompt = _build_action_navigator_prompt(state,data)
+    prompt = _build_action_navigator_prompt(data)
     result = llm.complete_structured_output(
         prompt,
         build_llm_messages(state),
@@ -200,10 +245,10 @@ def action_navigator_node(state: GraphState, llm) -> GraphState:
     # state.raw_result_api = res
     
     # generated_response = _generate_inquiry_response(state, llm, api_name, raw_result)
-
+    text_res_flow = res["output"]["text"]
     # state.final_response = res ### should llm generate final response
-    # state.response = GraphResult(toolType=ResponseType.TEXT, text=generated_response)
-    state.response = GraphResult(toolType=ResponseType.TEXT, text=res)
+    state.response = GraphResult(toolType=ResponseType.TEXT, text=text_res_flow)
+    state.final_response = GraphResult(toolType=ResponseType.TEXT, text=text_res_flow)
 
     
     # state.action = {IntentResult(
