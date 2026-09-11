@@ -56,5 +56,24 @@
       "justMyCode": true,
       "console": "integratedTerminal"
     },
+    {
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FastAPI Debug mgz",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "apis_temp:app",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8080"
+            ],
+            "jinja": true
+        }
+    ]
+}
   ]
 }
