@@ -918,3 +918,193 @@ During task with name 'action_navigator' and id '33bf3048-fa1d-2268-485a-8d22c6d
 17:44:56 | INFO     | intent_classifier | Intent: action | confidence: 0.9 | reasoning: کاربر صراحتاً اعلام کرده است که می‌خواهد یک VPS (سرور خصوصی مجازی) بسازد و این یک درخواست عملی برای انجام یک کار مشخص است. | input: 'می خوام یک vps بسازم'
 17:44:56 | INFO     | builder | Routing to: action
 17:45:07 | DEBUG    | history_recorder | [550e8400-e29b-41d4-a716-446655440000] No final_response to record
+18:41:10 | INFO     | handler | Initializing ChatHandler
+18:41:12 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+18:41:12 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+18:41:15 | DEBUG    | handler | [80248f17-5332-4283-a856-5a5210598efd] User: فردوسی چه جور آدمی است ؟
+18:41:15 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+18:41:15 | INFO     | metrics | metric=safeguard_pass | session_id=80248f17-5332-4283-a856-5a5210598efd | total_passes=1
+18:41:15 | DEBUG    | safeguard | Safeguard passed | session_id=80248f17-5332-4283-a856-5a5210598efd | input='فردوسی چه جور ادمی است ؟'
+18:42:32 | INFO     | handler | Initializing ChatHandler
+18:42:33 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+18:42:33 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+18:42:35 | DEBUG    | handler | [32a88f42-766c-4c90-b732-69a47f66b7de] User: فردوسی چه جور آدمی است ؟
+18:42:35 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+18:42:35 | INFO     | metrics | metric=safeguard_pass | session_id=32a88f42-766c-4c90-b732-69a47f66b7de | total_passes=1
+18:42:35 | DEBUG    | safeguard | Safeguard passed | session_id=32a88f42-766c-4c90-b732-69a47f66b7de | input='فردوسی چه جور ادمی است ؟'
+18:42:59 | INFO     | intent_classifier | Intent: rag | confidence: 0.99 | reasoning: کاربر پرسش اطلاعاتی دربارهٔ شخصیت فردوسی می‌پرسد؛ هیچ درخواست اجرای عملی یا سرویس خاصی وجود ندارد. | input: 'فردوسی چه جور ادمی است ؟'
+18:43:07 | INFO     | builder | Routing to: rag
+18:43:11 | DEBUG    | history_recorder | [32a88f42-766c-4c90-b732-69a47f66b7de] No final_response to record
+19:05:32 | INFO     | handler | Initializing ChatHandler
+19:05:34 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:05:34 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:05:37 | DEBUG    | handler | [11e335d1-eca6-4e57-9a77-ba9385efbfb8] User: فردوسی چه جور آدمی است ؟
+19:05:37 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:05:37 | INFO     | metrics | metric=safeguard_pass | session_id=11e335d1-eca6-4e57-9a77-ba9385efbfb8 | total_passes=1
+19:05:37 | DEBUG    | safeguard | Safeguard passed | session_id=11e335d1-eca6-4e57-9a77-ba9385efbfb8 | input='فردوسی چه جور ادمی است ؟'
+19:05:45 | INFO     | intent_classifier | Intent: rag | confidence: 0.97 | reasoning: کاربر درباره شخصیت فردوسی سؤال اطلاعاتی می‌کند و درخواست اجرای کاری ندارد؛ بنابراین دسته‌بندی rag مناسب است. | input: 'فردوسی چه جور ادمی است ؟'
+19:05:52 | INFO     | builder | Routing to: rag
+19:05:55 | DEBUG    | history_recorder | [11e335d1-eca6-4e57-9a77-ba9385efbfb8] No final_response to record
+19:06:03 | ERROR    | handler | [11e335d1-eca6-4e57-9a77-ba9385efbfb8] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2967, in stream
+    for _ in runner.tick(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 344, in tick
+    _panic_or_proceed(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_runner.py", line 687, in _panic_or_proceed
+    raise exc
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_executor.py", line 80, in done
+    task.result()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_retry.py", line 617, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 707, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\_internal\_runnable.py", line 447, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\graphs\builder.py", line 89, in <lambda>
+    workflow_jam.add_node("rag", lambda s: rag_node(s, llm)) ## routing rag api == > RAG flow
+                                          ^^^^^^^^^^^^^^^^
+  File "b:\JAM\server\Src\AI\app\chat\nodes\rag_node.py", line 33, in rag_node
+    messages:list = history["data"]["messages"]
+                    ~~~~~~~^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+During task with name 'rag' and id '80b67b0d-9771-9f64-3a1c-33602ff07f10'
+19:07:32 | INFO     | handler | Initializing ChatHandler
+19:07:33 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:07:33 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:07:36 | DEBUG    | handler | [b4381a01-f0c8-487b-aeac-82bf76e56167] User: فردوسی چه جور آدمی است ؟
+19:07:36 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:07:36 | INFO     | metrics | metric=safeguard_pass | session_id=b4381a01-f0c8-487b-aeac-82bf76e56167 | total_passes=1
+19:07:36 | DEBUG    | safeguard | Safeguard passed | session_id=b4381a01-f0c8-487b-aeac-82bf76e56167 | input='فردوسی چه جور ادمی است ؟'
+19:07:38 | INFO     | intent_classifier | Intent: rag | confidence: 0.97 | reasoning: کاربر در حال پرسش دربارهٔ خصوصیات شخصی فردوسی است که یک سؤال اطلاعاتی است و درخواست انجام کاری ندارد. | input: 'فردوسی چه جور ادمی است ؟'
+19:07:38 | INFO     | builder | Routing to: rag
+19:07:38 | DEBUG    | history_recorder | [b4381a01-f0c8-487b-aeac-82bf76e56167] No final_response to record
+19:08:47 | INFO     | handler | Initializing ChatHandler
+19:08:48 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:08:48 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:09:15 | DEBUG    | handler | [32013ba1-da4f-4ef2-9438-21599da9c394] User: فردوسی چه جور آدمی است ؟
+19:09:15 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:09:15 | INFO     | metrics | metric=safeguard_pass | session_id=32013ba1-da4f-4ef2-9438-21599da9c394 | total_passes=1
+19:09:15 | DEBUG    | safeguard | Safeguard passed | session_id=32013ba1-da4f-4ef2-9438-21599da9c394 | input='فردوسی چه جور ادمی است ؟'
+19:09:21 | INFO     | intent_classifier | Intent: rag | confidence: 0.97 | reasoning: کاربر به دنبال اطلاعات دربارهٔ شخصیت فردوسی است و درخواست انجام کاری یا سرویس خاصی ندارد، بنابراین درخواست اطلاعاتی است. | input: 'فردوسی چه جور ادمی است ؟'
+19:09:21 | INFO     | builder | Routing to: rag
+19:09:21 | DEBUG    | history_recorder | [32013ba1-da4f-4ef2-9438-21599da9c394] No final_response to record
+19:10:25 | ERROR    | handler | [32013ba1-da4f-4ef2-9438-21599da9c394] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2964, in stream
+    while loop.tick():
+          ^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_loop.py", line 612, in tick
+    self.tasks = prepare_next_tasks(
+                 ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 491, in prepare_next_tasks
+    if task := prepare_single_task(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 637, in prepare_single_task
+    val = _proc_input(
+          ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 1386, in _proc_input
+    val = proc.mapper(val)
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\graph\state.py", line 1746, in _coerce_state
+    return schema(**input)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for GraphState
+response
+  Input should be a valid dictionary or instance of GraphResult [type=model_type, input_value='مطالب موجود د...د تا کمک کنم.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/model_type
+Before task with name 'history_recorder' and path '('__pregel_pull', 'history_recorder')'
+19:11:00 | INFO     | handler | Initializing ChatHandler
+19:11:01 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:11:01 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:12:19 | DEBUG    | handler | [eb153924-b6b4-4042-b774-02d1b7b1b577] User: فردوسی چه جور آدمی است ؟
+19:12:19 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:12:19 | INFO     | metrics | metric=safeguard_pass | session_id=eb153924-b6b4-4042-b774-02d1b7b1b577 | total_passes=1
+19:12:19 | DEBUG    | safeguard | Safeguard passed | session_id=eb153924-b6b4-4042-b774-02d1b7b1b577 | input='فردوسی چه جور ادمی است ؟'
+19:12:22 | INFO     | intent_classifier | Intent: rag | confidence: 0.97 | reasoning: سؤال کاربر دربارهٔ شخصیت فردوسی است و هدف او دریافت اطلاعات است؛ هیچ درخواست اقدام یا اجرای کاری وجود ندارد. | input: 'فردوسی چه جور ادمی است ؟'
+19:12:22 | INFO     | builder | Routing to: rag
+19:12:22 | DEBUG    | history_recorder | [eb153924-b6b4-4042-b774-02d1b7b1b577] No final_response to record
+19:12:54 | ERROR    | handler | [eb153924-b6b4-4042-b774-02d1b7b1b577] Chat processing failed
+Traceback (most recent call last):
+  File "b:\JAM\server\Src\AI\app\chat\handler.py", line 153, in chat
+    result = self.graph.invoke(turn_input, config=config)  # type: ignore[arg-type]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 3913, in invoke
+    for chunk in self.stream(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\main.py", line 2964, in stream
+    while loop.tick():
+          ^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_loop.py", line 612, in tick
+    self.tasks = prepare_next_tasks(
+                 ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 491, in prepare_next_tasks
+    if task := prepare_single_task(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 637, in prepare_single_task
+    val = _proc_input(
+          ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\pregel\_algo.py", line 1386, in _proc_input
+    val = proc.mapper(val)
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\langgraph\graph\state.py", line 1746, in _coerce_state
+    return schema(**input)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for GraphState
+response
+  Input should be a valid dictionary or instance of GraphResult [type=model_type, input_value='مطالب موجود د...0cشوم کمک کنم.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/model_type
+Before task with name 'history_recorder' and path '('__pregel_pull', 'history_recorder')'
+19:14:53 | INFO     | handler | Initializing ChatHandler
+19:14:54 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:14:54 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:15:05 | DEBUG    | handler | [ea9fa3cd-ac37-41a8-bdd9-9531f514fa82] User: فردوسی چه جور آدمی است ؟
+19:15:05 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:15:05 | INFO     | metrics | metric=safeguard_pass | session_id=ea9fa3cd-ac37-41a8-bdd9-9531f514fa82 | total_passes=1
+19:15:05 | DEBUG    | safeguard | Safeguard passed | session_id=ea9fa3cd-ac37-41a8-bdd9-9531f514fa82 | input='فردوسی چه جور ادمی است ؟'
+19:15:08 | INFO     | intent_classifier | Intent: rag | confidence: 0.97 | reasoning: کاربر پرسشی دربارهٔ ویژگی‌های شخصی فردوسی دارد که صرفاً اطلاعات می‌طلبد و درخواست انجام عمل یا سرویس خاصی ندارد. | input: 'فردوسی چه جور ادمی است ؟'
+19:15:08 | INFO     | builder | Routing to: rag
+19:15:08 | DEBUG    | history_recorder | [ea9fa3cd-ac37-41a8-bdd9-9531f514fa82] No final_response to record
+19:15:31 | DEBUG    | history_recorder | [ea9fa3cd-ac37-41a8-bdd9-9531f514fa82] Recorded assistant reply to history
+19:15:31 | DEBUG    | handler | [ea9fa3cd-ac37-41a8-bdd9-9531f514fa82] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+19:16:46 | INFO     | handler | Initializing ChatHandler
+19:16:47 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:16:47 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:22:11 | INFO     | handler | Initializing ChatHandler
+19:22:12 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:22:12 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:24:00 | DEBUG    | handler | [062fdcfb-955d-4c16-ba65-a1b632ee044d] User: فردوسی چه جور آدمی است ؟
+19:24:00 | INFO     | normalizer | Normalized input: 'فردوسی چه جور آدمی است ؟' -> 'فردوسی چه جور ادمی است ؟'
+19:24:00 | INFO     | metrics | metric=safeguard_pass | session_id=062fdcfb-955d-4c16-ba65-a1b632ee044d | total_passes=1
+19:24:00 | DEBUG    | safeguard | Safeguard passed | session_id=062fdcfb-955d-4c16-ba65-a1b632ee044d | input='فردوسی چه جور ادمی است ؟'
+19:24:05 | INFO     | intent_classifier | Intent: rag | confidence: 0.98 | reasoning: پیام سؤال اطلاعاتی دربارهٔ شخصیت فردوسی است و درخواست اجرا یا خدماتی ندارد؛ بنابراین دسته‌بندی rag می‌شود. | input: 'فردوسی چه جور ادمی است ؟'
+19:24:05 | INFO     | builder | Routing to: rag
+19:24:05 | DEBUG    | history_recorder | [062fdcfb-955d-4c16-ba65-a1b632ee044d] No final_response to record
+19:24:29 | DEBUG    | history_recorder | [062fdcfb-955d-4c16-ba65-a1b632ee044d] Recorded assistant reply to history
+19:24:29 | DEBUG    | handler | [062fdcfb-955d-4c16-ba65-a1b632ee044d] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.

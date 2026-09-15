@@ -10,7 +10,7 @@ load_dotenv()
 
 class ApiRagTools:
     BaseUrl = "http://172.16.1.81:8080" ## this should be refactor and reviewed
-    api_key = "ragflow-ubkayYdBo7TsQsUnmorEPSpxPxTPdLBovcCeCE-3yxs"
+    api_key = "ragflow-ajFHmiBuMNqS4f4ZMPA_6v7OLvLrRyeP6IRd_TQgugw"
     HttpHeader = {
         "Content-Type": "application/json",
         "Authorization": os.getenv("API_DOT_IR_KEY", api_key),

@@ -24,8 +24,8 @@ def rag_node(state: GraphState, llm) -> GraphState:
         #     json=data,
         # )
        
-    chat_id = "49debb20aec811f181c1cd529abfa6e1" # Should be refactored #MGZ     
-    conversation_id = "c1616fc0aec911f181c1cd529abfa6e1" # Should be refactored #MGZ     
+    chat_id = "00589f0ab11d11f1b2daeb8fd4f19719" # Should be refactored #MGZ     
+    conversation_id = "18d6cb92b11d11f1b2daeb8fd4f19719" # Should be refactored #MGZ     
     rag_api_name_get = "get_api_sw1_call_rag"
     func = _API_MAP[rag_api_name_get]    
     data_get_rag = {"chat_id":chat_id,"conversation_id":conversation_id}
@@ -59,11 +59,18 @@ def rag_node(state: GraphState, llm) -> GraphState:
     
     #  filling state's essentials    
       
+      
+      
+    response = GraphResult(
+        toolType=ResponseType.TEXT,
+        text=res["answer"]
+    )
+      
     # state.final_response =res
     # state.response_mgz = GraphResult(toolType=ResponseType.TEXT, text='dddddd')
     # state.response = GraphResult(toolType=ResponseType.TEXT, text=res)
     return {
-        "response": res["answer"],
+        "response":response ,
         "final_response": res["answer"],
     }
     #    
