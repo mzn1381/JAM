@@ -9,7 +9,7 @@ load_dotenv()
 
 
 class ApiFlowTools:
-    BaseUrl = "http://172.16.1.81" ## this should be refactor and reviewed
+    BaseUrl = "http://172.16.1.81:7860" ## this should be refactor and reviewed
     HttpHeader = {
         "Content-Type": "application/json",
         "x-api-key": "sk-DH_flD8gwsMkawfmoGEMnd3t4a-1b-gs67LcUvjjres" # Should Be refactored #MGZ 

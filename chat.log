@@ -1108,3 +1108,30 @@ Before task with name 'history_recorder' and path '('__pregel_pull', 'history_re
 19:24:05 | DEBUG    | history_recorder | [062fdcfb-955d-4c16-ba65-a1b632ee044d] No final_response to record
 19:24:29 | DEBUG    | history_recorder | [062fdcfb-955d-4c16-ba65-a1b632ee044d] Recorded assistant reply to history
 19:24:29 | DEBUG    | handler | [062fdcfb-955d-4c16-ba65-a1b632ee044d] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
+19:34:49 | INFO     | handler | Initializing ChatHandler
+19:34:50 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:34:50 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:34:50 | DEBUG    | handler | [40b88722-d12a-4933-b2ef-e5277d8e353e] User: سلام من را داخل آراد ثبت نام کن 
+19:34:50 | INFO     | normalizer | Normalized input: 'سلام من را داخل آراد ثبت نام کن ' -> 'سلام من را داخل اراد ثبت نام کن'
+19:34:50 | INFO     | metrics | metric=safeguard_pass | session_id=40b88722-d12a-4933-b2ef-e5277d8e353e | total_passes=1
+19:34:50 | DEBUG    | safeguard | Safeguard passed | session_id=40b88722-d12a-4933-b2ef-e5277d8e353e | input='سلام من را داخل اراد ثبت نام کن'
+19:35:14 | INFO     | intent_classifier | Intent: action | confidence: 0.96 | reasoning: کاربر با وجود سلام درخواست ثبت‌نام در سرویس اراد را دارد؛ این یک درخواست اجرای عملیات است که دسته‌بندی action را می‌طلبد. | input: 'سلام من را داخل اراد ثبت نام کن'
+19:35:24 | INFO     | builder | Routing to: action
+19:35:30 | INFO     | intent_classifier | Calling get_api_sw1_get_flows with folder id: <built-in function id> 
+19:35:30 | DEBUG    | history_recorder | [40b88722-d12a-4933-b2ef-e5277d8e353e] No final_response to record
+19:35:33 | ERROR    | intent_classifier | Error in get_api_sw1_get_flows: HTTPConnectionPool(host='172.16.1.81', port=80): Max retries exceeded with url: /api/v1/flows/?remove_example_flows=True&get_all=False&folder_id=4a594c78-e585-437c-93f0-26b62a14f60c&flow_type=workflow&page=1&size=100&x-api-key=sk-DH_flD8gwsMkawfmoGEMnd3t4a-1b-gs67LcUvjjres (Caused by NewConnectionError("HTTPConnection(host='172.16.1.81', port=80): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+19:36:37 | INFO     | handler | Initializing ChatHandler
+19:36:39 | INFO     | faq_retriever | Registering FAQ retriever (lazy vector index)
+19:36:39 | INFO     | checkpointer | Using in-memory LangGraph checkpointer
+19:36:39 | DEBUG    | handler | [baed5c2d-e2ff-4053-ac04-51a27c5faae0] User: سلام من را داخل آراد ثبت نام کن 
+19:36:39 | INFO     | normalizer | Normalized input: 'سلام من را داخل آراد ثبت نام کن ' -> 'سلام من را داخل اراد ثبت نام کن'
+19:36:39 | INFO     | metrics | metric=safeguard_pass | session_id=baed5c2d-e2ff-4053-ac04-51a27c5faae0 | total_passes=1
+19:36:39 | DEBUG    | safeguard | Safeguard passed | session_id=baed5c2d-e2ff-4053-ac04-51a27c5faae0 | input='سلام من را داخل اراد ثبت نام کن'
+19:36:44 | INFO     | intent_classifier | Intent: action | confidence: 0.99 | reasoning: کاربر درخواست ثبت‌نام در سرویس اراد دارد که یک اقدام مشخص است؛ سلام به عنوان خوشامدگویی نادیده گرفته می‌شود. | input: 'سلام من را داخل اراد ثبت نام کن'
+19:36:44 | INFO     | builder | Routing to: action
+19:36:44 | INFO     | intent_classifier | Calling get_api_sw1_get_flows with folder id: <built-in function id> 
+19:36:44 | DEBUG    | history_recorder | [baed5c2d-e2ff-4053-ac04-51a27c5faae0] No final_response to record
+19:36:53 | INFO     | intent_classifier | flow_name: Create User|flow_id: 4f2dae60-bc45-4f4e-aedd-3b3322c9d83f | confidence: 0.94 | reasoning: کاربر درخواست ثبت نام جدید در سرویس اراد دارد که با جریان "Create User" که هدفش ساخت کاربر در Arad Cloud است مطابقت دارد. | input: 'سلام من را داخل اراد ثبت نام کن'
+19:36:53 | INFO     | intent_classifier | Calling post_api_sw1_call_flow with flow id: <built-in function id> and with flow name:Create User
+19:37:03 | DEBUG    | history_recorder | [baed5c2d-e2ff-4053-ac04-51a27c5faae0] Recorded assistant reply to history
+19:37:03 | DEBUG    | handler | [baed5c2d-e2ff-4053-ac04-51a27c5faae0] Bot: متأسفانه در حال حاضر سرویس قادر به پاسخگویی نیست. لطفاً کمی بعد دوباره تلاش کنید.
