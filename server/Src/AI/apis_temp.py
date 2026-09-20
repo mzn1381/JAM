@@ -26,7 +26,8 @@ CHATWOOT_ACCESS_TOKEN = os.getenv("CHATWOOT_ACCESS_TOKEN", "")
 
 # Secret generated for the Agent Bot's webhook.
 CHATWOOT_WEBHOOK_SECRET = os.getenv("CHATWOOT_WEBHOOK_SECRET", "")
-VERIFY_SIGNATURE = os.getenv("VERIFY_SIGNATURE", "true").lower() == "true"
+# VERIFY_SIGNATURE = os.getenv("VERIFY_SIGNATURE", "true").lower() == "true" #MGZ
+VERIFY_SIGNATURE = "false"
 MAX_TIMESTAMP_AGE = int(os.getenv("MAX_TIMESTAMP_AGE", "300"))
 
 
@@ -262,13 +263,13 @@ async def chatwoot_webhook(request: Request):
     raw_body = await request.body()
 
     # --- Authenticate Chatwoot -> Bot ---
-    if VERIFY_SIGNATURE:
-        signature = request.headers.get("X-Chatwoot-Signature", "")
-        timestamp = request.headers.get("X-Chatwoot-Timestamp", "")
+    # if VERIFY_SIGNATURE:
+    #     signature = request.headers.get("X-Chatwoot-Signature", "")
+    #     timestamp = request.headers.get("X-Chatwoot-Timestamp", "")
 
-        if not verify_chatwoot_signature(raw_body, timestamp, signature):
-            logger.warning("Rejected Chatwoot webhook: invalid signature.")
-            raise HTTPException(status_code=401, detail="invalid_signature")
+    #     if not verify_chatwoot_signature(raw_body, timestamp, signature):
+    #         logger.warning("Rejected Chatwoot webhook: invalid signature.")
+    #         raise HTTPException(status_code=401, detail="invalid_signature")
 
     # --- Parse payload ---
     try:
