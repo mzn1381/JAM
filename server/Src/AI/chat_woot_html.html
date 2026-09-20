@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    window.chatwootSettings = {
+        "position": "right",
+        "type": "standard",
+        "launcherTitle": ""
+    };
+    (function(d, t) {
+        var BASE_URL = "http://172.16.1.81:3000";
+        var g = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + "/packs/js/sdk.js";
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function() {
+            window.chatwootSDK.run({
+                websiteToken: 'cA9f9R4QE5KVhC6fqmef9Yto',
+                baseUrl: BASE_URL
+            })
+        }
+    })(document, "script");
+</script>
+
+<body>
+
+</body>
+
+</html>

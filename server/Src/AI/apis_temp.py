@@ -21,19 +21,20 @@ load_dotenv()
 
 
 CHATWOOT_URL = os.getenv("CHATWOOT_URL", "http://172.16.1.81:3000").rstrip("/")
-CHATWOOT_ACCOUNT_ID = os.getenv("CHATWOOT_ACCOUNT_ID", "")
-CHATWOOT_ACCESS_TOKEN = os.getenv("CHATWOOT_ACCESS_TOKEN", "")
+CHATWOOT_ACCOUNT_ID = os.getenv("CHATWOOT_ACCOUNT_ID", "1")
+CHATWOOT_ACCESS_TOKEN = os.getenv("CHATWOOT_ACCESS_TOKEN", "1hgyEiwcnHfRvBp1hchVttaq")
 
 # Secret generated for the Agent Bot's webhook.
-CHATWOOT_WEBHOOK_SECRET = os.getenv("CHATWOOT_WEBHOOK_SECRET", "")
+CHATWOOT_WEBHOOK_SECRET = os.getenv("CHATWOOT_WEBHOOK_SECRET", "LXZJmTdgLPWbhs7xVwoCqu3X")
 VERIFY_SIGNATURE = os.getenv("VERIFY_SIGNATURE", "true").lower() == "true"
 MAX_TIMESTAMP_AGE = int(os.getenv("MAX_TIMESTAMP_AGE", "300"))
 
 
+#AccessToken  1hgyEiwcnHfRvBp1hchVttaq# --------------------------------------------------
+# WebHook.  LXZJmTdgLPWbhs7xVwoCqu3X
 
-
-# --------------------------------------------------
-# Logging
+#AccountID == > 1
+    # Logging
 # --------------------------------------------------
 
 logging.basicConfig(
@@ -69,14 +70,6 @@ handler = ChatHandler(
 # Chatwoot configuration
 # --------------------------------------------------
 
-CHATWOOT_URL = os.getenv("CHATWOOT_URL", "http://172.16.1.81:3000").rstrip("/")
-CHATWOOT_ACCOUNT_ID = os.getenv("CHATWOOT_ACCOUNT_ID", "")
-CHATWOOT_ACCESS_TOKEN = os.getenv("CHATWOOT_ACCESS_TOKEN", "")
-
-# Secret generated for the Agent Bot's webhook (used to verify Chatwoot -> Bot requests)
-CHATWOOT_WEBHOOK_SECRET = os.getenv("CHATWOOT_WEBHOOK_SECRET", "")
-VERIFY_SIGNATURE = os.getenv("VERIFY_SIGNATURE", "true").lower() == "true"
-MAX_TIMESTAMP_AGE = int(os.getenv("MAX_TIMESTAMP_AGE", "300"))
 
 
 # --------------------------------------------------
@@ -230,7 +223,12 @@ def send_chatwoot_message(conversation_id: int, content: str) -> None:
         response = requests.post(
             url,
             json=payload,
-            headers={"api-access-token": CHATWOOT_ACCESS_TOKEN},
+            headers={
+                "Content-Type": "application/json",
+                "api-access-token": CHATWOOT_ACCESS_TOKEN,
+                
+                
+                },
             timeout=15,
         )
         response.raise_for_status()
@@ -250,6 +248,8 @@ def send_chatwoot_message(conversation_id: int, content: str) -> None:
         raise
 
 
+
+
 @app.post("/webhook")
 async def chatwoot_webhook(request: Request):
     """
@@ -260,7 +260,7 @@ async def chatwoot_webhook(request: Request):
     the generated reply back to Chatwoot.
     """
     raw_body = await request.body()
-
+    
     # --- Authenticate Chatwoot -> Bot ---
     if VERIFY_SIGNATURE:
         signature = request.headers.get("X-Chatwoot-Signature", "")
