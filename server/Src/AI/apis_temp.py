@@ -259,6 +259,7 @@ async def chatwoot_webhook(request: Request):
     forwards it to the existing chat service (`handler.chat`), and sends
     the generated reply back to Chatwoot.
     """
+    logger.info("Request is    == > request= %s " , request)
     raw_body = await request.body()
     
     # --- Authenticate Chatwoot -> Bot ---
