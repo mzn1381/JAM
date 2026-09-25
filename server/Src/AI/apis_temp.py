@@ -36,14 +36,78 @@ MAX_TIMESTAMP_AGE = int(os.getenv("MAX_TIMESTAMP_AGE", "300"))
 #AccountID == > 1
     # Logging
 # --------------------------------------------------
+# --------------------------------------------------
+# Logging
+# --------------------------------------------------
+import logging.config
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s",
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+LOG_FILE = os.getenv(
+    "LOG_FILE",
+    os.path.join(BASE_DIR, "chat-api.log")
 )
+
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+
+if LOG_LEVEL not in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
+    LOG_LEVEL = "INFO"
+
+
+logging.config.dictConfig(
+    {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "default": {
+                "format": "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "default",
+                "stream": "ext://sys.stdout",
+            },
+            "file": {
+                "class": "logging.handlers.RotatingFileHandler",
+                "formatter": "default",
+                "filename": LOG_FILE,
+                "maxBytes": 10 * 1024 * 1024,  # 10 MB
+                "backupCount": 5,
+                "encoding": "utf-8",
+            },
+        },
+        "loggers": {
+            "chat-api": {
+                "level": LOG_LEVEL,
+                "handlers": ["console", "file"],
+                "propagate": False,
+            },
+            "uvicorn": {
+                "level": LOG_LEVEL,
+                "handlers": ["console", "file"],
+                "propagate": False,
+            },
+            "uvicorn.error": {
+                "level": LOG_LEVEL,
+                "handlers": ["console", "file"],
+                "propagate": False,
+            },
+            "uvicorn.access": {
+                "level": LOG_LEVEL,
+                "handlers": ["console", "file"],
+                "propagate": False,
+            },
+        },
+        "root": {
+            "level": LOG_LEVEL,
+            "handlers": ["console", "file"],
+        },
+    }
+)
+
 logger = logging.getLogger("chat-api")
-
-
 # --------------------------------------------------
 # FastAPI app
 # --------------------------------------------------
@@ -60,9 +124,12 @@ app = FastAPI(
 # --------------------------------------------------
 
 handler = ChatHandler(
-    base_url=os.getenv("BASE_URL", "https://api.avalai.ir/v1"),
-    api_key=os.getenv("LLM_API_KEY", "aa-kXbFuouhiEH9d49dpB1jX6htMTbdpLKx1z1lNgfN5Fpn229a"),
-    model=os.getenv("LLM_MODEL", "gpt-oss-120b"),
+    # base_url=os.getenv("BASE_URL", "https://api.avalai.ir/v1"),
+    # api_key=os.getenv("LLM_API_KEY", "aa-kXbFuouhiEH9d49dpB1jX6htMTbdpLKx1z1lNgfN5Fpn229a"),
+    # model=os.getenv("LLM_MODEL", "gpt-oss-120b"),
+    base_url=os.getenv("BASE_URL", "http://172.16.1.172:8888/v1"),
+    api_key=os.getenv("LLM_API_KEY", "sk-unsloth-f78779061e4c57dbfe93eae9e0b677c2"),
+    model=os.getenv("LLM_MODEL", "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF"),
 )
 
 
@@ -259,7 +326,6 @@ async def chatwoot_webhook(request: Request):
     forwards it to the existing chat service (`handler.chat`), and sends
     the generated reply back to Chatwoot.
     """
-    logger.info("Request is    == > request= %s " , request)
     raw_body = await request.body()
     
     # --- Authenticate Chatwoot -> Bot ---
@@ -274,6 +340,7 @@ async def chatwoot_webhook(request: Request):
     # --- Parse payload ---
     try:
         payload = json.loads(raw_body.decode("utf-8"))
+        logger.info("Request is    == > payload is = %s " , payload)
     except json.JSONDecodeError:
         logger.exception("Invalid JSON payload.")
         raise HTTPException(status_code=400, detail="invalid_json")
