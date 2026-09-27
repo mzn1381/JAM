@@ -3,38 +3,42 @@ import hmac
 import json
 import logging
 import os
+import threading
 import time
 import uuid
 
 import requests
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from pydantic import BaseModel
+from starlette.requests import ClientDisconnect
 
 from app.chat.handler import ChatHandler
 
 
 # --------------------------------------------------
-# Environment
+# Environment — بدون تغییر
 # --------------------------------------------------
-load_dotenv()
 
+load_dotenv()
 
 CHATWOOT_URL = os.getenv("CHATWOOT_URL", "http://172.16.1.81:3000").rstrip("/")
 CHATWOOT_ACCOUNT_ID = os.getenv("CHATWOOT_ACCOUNT_ID", "1")
-CHATWOOT_ACCESS_TOKEN = os.getenv("CHATWOOT_ACCESS_TOKEN", "1hgyEiwcnHfRvBp1hchVttaq")
+CHATWOOT_ACCESS_TOKEN = os.getenv(
+    "CHATWOOT_ACCESS_TOKEN",
+    "1hgyEiwcnHfRvBp1hchVttaq",
+)
 
-# Secret generated for the Agent Bot's webhook.
-CHATWOOT_WEBHOOK_SECRET = os.getenv("CHATWOOT_WEBHOOK_SECRET", "LXZJmTdgLPWbhs7xVwoCqu3X")
+CHATWOOT_WEBHOOK_SECRET = os.getenv(
+    "CHATWOOT_WEBHOOK_SECRET",
+    "LXZJmTdgLPWbhs7xVwoCqu3X",
+)
 VERIFY_SIGNATURE = os.getenv("VERIFY_SIGNATURE", "true").lower() == "true"
 MAX_TIMESTAMP_AGE = int(os.getenv("MAX_TIMESTAMP_AGE", "300"))
 
 
-#AccessToken  1hgyEiwcnHfRvBp1hchVttaq# --------------------------------------------------
-# WebHook.  LXZJmTdgLPWbhs7xVwoCqu3X
-
-#AccountID == > 1
-    # Logging
+# --------------------------------------------------
+# Logging
 # --------------------------------------------------
 
 logging.basicConfig(
@@ -45,7 +49,7 @@ logger = logging.getLogger("chat-api")
 
 
 # --------------------------------------------------
-# FastAPI app
+# FastAPI
 # --------------------------------------------------
 
 app = FastAPI(
@@ -55,21 +59,36 @@ app = FastAPI(
 
 
 # --------------------------------------------------
-# Chat Handler (single shared instance, reused by
-# both /chat and the Chatwoot /webhook endpoint)
+# Shared Chat Handler — تنظیمات بدون تغییر
 # --------------------------------------------------
 
 handler = ChatHandler(
     base_url=os.getenv("BASE_URL", "https://api.avalai.ir/v1"),
-    api_key=os.getenv("LLM_API_KEY", "aa-kXbFuouhiEH9d49dpB1jX6htMTbdpLKx1z1lNgfN5Fpn229a"),
+    api_key=os.getenv(
+        "LLM_API_KEY",
+        "aa-kXbFuouhiEH9d49dpB1jX6htMTbdpLKx1z1lNgfN5Fpn229a",
+    ),
     model=os.getenv("LLM_MODEL", "gpt-oss-120b"),
 )
 
+# هر دو مسیر /chat و /webhook از همین قفل استفاده می‌کنند.
+# قفل فقط داخل همین Process از دسترسی هم‌زمان به Handler محافظت می‌کند.
+handler_lock = threading.Lock()
 
-# --------------------------------------------------
-# Chatwoot configuration
-# --------------------------------------------------
+# Timeout اتصال و انتظار دریافت داده برای درخواست به Chatwoot.
+# Read timeout سقف کل زمان اجرای درخواست نیست.
+CHATWOOT_HTTP_TIMEOUT = (5.0, 15.0)
 
+MAX_WEBHOOK_BODY_BYTES = 1024 * 1024
+
+# نکات اجرایی:
+# - اگر History در حافظه Handler است، سرویس را با --workers 1 اجرا کنید.
+# - BackgroundTasks صف پایدار نیست؛ با توقف Process ممکن است کار از دست برود.
+# - این نسخه Deduplication و تضمین ترتیب پیام‌های هم‌زمان ندارد.
+# - Timeout و Retry محدود درخواست مدل باید داخل ChatHandler تنظیم شوند.
+#   Thread و Lock نمی‌توانند فراخوانی شبکه گیرکرده داخل Handler را قطع کنند.
+# - اصلاحات زیر Blocking روی Event Loop را حذف می‌کنند و منابع HTTP ارسال
+#   به Chatwoot را می‌بندند؛ رفع همه علل CLOSE_WAIT نیازمند بررسی محیط و Handler است.
 
 
 # --------------------------------------------------
@@ -87,11 +106,44 @@ class ChatResponse(BaseModel):
 
 
 # --------------------------------------------------
+# Shared Chat Execution
+# --------------------------------------------------
+
+def generate_reply(message: str, session_id: str) -> str:
+    waiting_started = time.monotonic()
+
+    with handler_lock:
+        started = time.monotonic()
+
+        logger.info(
+            "Chat processing started | session_id=%s | lock_wait=%.2fs",
+            session_id,
+            started - waiting_started,
+        )
+
+        result = handler.chat(message, session_id)
+        reply = getattr(result, "final_response", None)
+
+        if not isinstance(reply, str) or not reply.strip():
+            raise ValueError("ChatHandler returned an empty or invalid response")
+
+        logger.info(
+            "Chat processing completed | session_id=%s | elapsed=%.2fs",
+            session_id,
+            time.monotonic() - started,
+        )
+
+        return reply
+
+
+# --------------------------------------------------
 # Health Check
 # --------------------------------------------------
 
 @app.get("/health")
-def health():
+async def health():
+    # این مسیر به Thread Pool و قفل Handler وابسته نیست.
+    # فقط زنده‌بودن API را گزارش می‌کند، نه سلامت مدل یا Chatwoot.
     return {
         "status": "ok",
         "webhook_signature_verification": VERIFY_SIGNATURE,
@@ -99,45 +151,42 @@ def health():
 
 
 # --------------------------------------------------
-# Chat Endpoint (unchanged, existing functionality preserved)
+# Chat Endpoint
 # --------------------------------------------------
 
-# @app.post("/chat", response_model=ChatResponse)
-@app.post("/chat")
+@app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
+    # FastAPI مسیر def را در Thread Pool اجرا می‌کند؛
+    # فراخوانی Sync مدل در Event Loop اجرا نمی‌شود.
+    if not request.message.strip():
+        raise HTTPException(status_code=422, detail="empty_message")
+
+    session_id = request.session_id or str(uuid.uuid4())
+
+    if not session_id.strip():
+        raise HTTPException(status_code=422, detail="empty_session_id")
 
     try:
-        # اگر session_id ارسال نشده باشد، یک session جدید ایجاد می‌کنیم
-        session_id = request.session_id or str(uuid.uuid4())
+        reply = generate_reply(request.message, session_id)
 
-        response = handler.chat(
-            request.message,
-            session_id
-        )
-        print("response  ", response)
         return ChatResponse(
             session_id=session_id,
-            response=response.final_response
+            response=reply,
         )
-        # return response.final_response
 
-    except Exception as e:
+    except Exception:
+        logger.exception(
+            "Chat endpoint failed | session_id=%s",
+            session_id,
+        )
         raise HTTPException(
             status_code=500,
-            detail=str(e)
-        )
+            detail="chat_handler_error",
+        ) from None
 
 
 # --------------------------------------------------
-# Chatwoot Webhook Integration
-# --------------------------------------------------
-#
-# Chatwoot -> Bot authentication:
-#   HMAC-SHA256 signature verification using CHATWOOT_WEBHOOK_SECRET.
-#   Signature format: sha256=HMAC_SHA256(secret, "{timestamp}.{raw_body}")
-#
-# Bot -> Chatwoot authentication:
-#   Agent Bot Access Token sent as the "api-access-token" header.
+# Chatwoot Signature Verification
 # --------------------------------------------------
 
 def verify_chatwoot_signature(
@@ -145,9 +194,8 @@ def verify_chatwoot_signature(
     timestamp: str,
     received_signature: str,
 ) -> bool:
-    """
-    Verify the Agent Bot webhook using the Webhook Secret.
-    """
+    # قرارداد امضای کد فعلی حفظ شده است:
+    # sha256=HMAC_SHA256(secret, timestamp + "." + raw_body)
     if not CHATWOOT_WEBHOOK_SECRET:
         logger.error("CHATWOOT_WEBHOOK_SECRET is not configured.")
         return False
@@ -163,7 +211,7 @@ def verify_chatwoot_signature(
         return False
 
     if abs(int(time.time()) - ts) > MAX_TIMESTAMP_AGE:
-        logger.warning("Rejected webhook: timestamp is too old.")
+        logger.warning("Rejected webhook: timestamp outside allowed window.")
         return False
 
     message = timestamp.encode("utf-8") + b"." + raw_body
@@ -174,31 +222,96 @@ def verify_chatwoot_signature(
         hashlib.sha256,
     ).hexdigest()
 
-    expected = "sha256=" + digest
-    return hmac.compare_digest(expected, received_signature)
+    expected = ("sha256=" + digest).encode("ascii")
+
+    # مقایسه bytes برای رد امن Headerهای غیر ASCII.
+    return hmac.compare_digest(
+        expected,
+        received_signature.encode("utf-8"),
+    )
 
 
-def extract_message(payload: dict):
-    """
-    Extract fields from an Agent Bot message_created payload.
+# --------------------------------------------------
+# Webhook Body / Payload Validation
+# --------------------------------------------------
 
-    Returns:
-      event, conversation_id, message_type, content
-    """
-    event = payload.get("event")
-    message_type = payload.get("message_type")
-    content = payload.get("content")
+async def read_webhook_body(request: Request) -> bytes:
+    content_length = request.headers.get("content-length")
 
-    conversation = payload.get("conversation") or {}
-    conversation_id = conversation.get("id")
+    if content_length is not None:
+        try:
+            declared_length = int(content_length)
+        except ValueError:
+            raise HTTPException(
+                status_code=400,
+                detail="invalid_content_length",
+            ) from None
 
-    return event, conversation_id, message_type, content
+        if declared_length < 0:
+            raise HTTPException(
+                status_code=400,
+                detail="invalid_content_length",
+            )
 
+        if declared_length > MAX_WEBHOOK_BODY_BYTES:
+            raise HTTPException(status_code=413, detail="payload_too_large")
+
+    body = bytearray()
+
+    try:
+        # خواندن Body باید await/async باشد؛ request.body() در مسیر def
+        # بدون await، داده درخواست را برنمی‌گرداند.
+        async for chunk in request.stream():
+            if len(body) + len(chunk) > MAX_WEBHOOK_BODY_BYTES:
+                raise HTTPException(status_code=413, detail="payload_too_large")
+
+            body.extend(chunk)
+
+    except ClientDisconnect:
+        logger.info("Webhook client disconnected while sending request body.")
+        raise HTTPException(
+            status_code=400,
+            detail="client_disconnected",
+        ) from None
+
+    return bytes(body)
+
+
+def parse_conversation_id(value: object) -> int:
+    if value is None:
+        raise HTTPException(
+            status_code=400,
+            detail="missing_conversation_id",
+        )
+
+    # bool و float نباید به‌صورت ضمنی به شناسه تبدیل شوند.
+    if isinstance(value, bool):
+        raise HTTPException(status_code=400, detail="invalid_conversation_id")
+
+    if isinstance(value, int):
+        conversation_id = value
+    elif isinstance(value, str) and value.isascii() and value.isdecimal():
+        try:
+            conversation_id = int(value)
+        except ValueError:
+            raise HTTPException(
+                status_code=400,
+                detail="invalid_conversation_id",
+            ) from None
+    else:
+        raise HTTPException(status_code=400, detail="invalid_conversation_id")
+
+    if conversation_id <= 0:
+        raise HTTPException(status_code=400, detail="invalid_conversation_id")
+
+    return conversation_id
+
+
+# --------------------------------------------------
+# Send Message to Chatwoot
+# --------------------------------------------------
 
 def send_chatwoot_message(conversation_id: int, content: str) -> None:
-    """
-    Send an outgoing message using the Agent Bot Access Token.
-    """
     if not CHATWOOT_ACCOUNT_ID:
         raise RuntimeError("CHATWOOT_ACCOUNT_ID is not configured")
 
@@ -219,49 +332,93 @@ def send_chatwoot_message(conversation_id: int, content: str) -> None:
         "content_attributes": {},
     }
 
-    try:
-        response = requests.post(
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "api-access-token": CHATWOOT_ACCESS_TOKEN,
+    }
+
+    started = time.monotonic()
+
+    # Session مشترک بین Threadها نیست.
+    # Response و Session در حالت موفقیت و خطا بسته می‌شوند.
+    #
+    # Retry خودکار POST عمداً غیرفعال است؛ اگر پیام ثبت شده باشد ولی پاسخ
+    # به دست ما نرسد، Retry بدون Idempotency می‌تواند پیام تکراری بسازد.
+    with requests.Session() as session:
+        with session.post(
             url,
             json=payload,
-            headers={
-                "Content-Type": "application/json",
-                "api-access-token": CHATWOOT_ACCESS_TOKEN,
-                
-                
-                },
-            timeout=15,
-        )
-        response.raise_for_status()
+            headers=headers,
+            timeout=CHATWOOT_HTTP_TIMEOUT,
+            allow_redirects=False,
+            stream=True,
+        ) as response:
+            response.raise_for_status()
 
-        logger.info(
-            "Chatwoot reply sent | conversation_id=%s | status=%s",
+            # raise_for_status پاسخ‌های 3xx را خطا محسوب نمی‌کند.
+            if not 200 <= response.status_code < 300:
+                raise requests.HTTPError(
+                    f"Unexpected Chatwoot status: {response.status_code}",
+                    response=response,
+                )
+
+            logger.info(
+                "Chatwoot reply sent | conversation_id=%s | "
+                "status=%s | elapsed=%.2fs",
+                conversation_id,
+                response.status_code,
+                time.monotonic() - started,
+            )
+
+            # Body پاسخ استفاده نمی‌شود؛ خروج از with اتصال آن را آزاد می‌کند.
+
+
+# --------------------------------------------------
+# Background Processing
+# --------------------------------------------------
+
+def process_chatwoot_message(conversation_id: int, content: str) -> None:
+    # این تابع عمداً Sync است؛ Starlette آن را در Thread Pool اجرا می‌کند.
+    session_id = f"chatwoot-{conversation_id}"
+    started = time.monotonic()
+
+    try:
+        reply = generate_reply(content, session_id)
+    except Exception:
+        logger.exception(
+            "Background chat processing failed | conversation_id=%s",
             conversation_id,
-            response.status_code,
         )
+        return
 
-    except requests.RequestException as exc:
-        logger.error(
-            "Chatwoot API error | conversation_id=%s | error=%s",
+    try:
+        send_chatwoot_message(conversation_id, reply)
+    except Exception:
+        logger.exception(
+            "Background reply delivery failed | conversation_id=%s",
             conversation_id,
-            exc,
         )
-        raise
+        return
+
+    logger.info(
+        "Webhook processing completed | conversation_id=%s | elapsed=%.2fs",
+        conversation_id,
+        time.monotonic() - started,
+    )
 
 
-
+# --------------------------------------------------
+# Chatwoot Webhook
+# --------------------------------------------------
 
 @app.post("/webhook")
-async def chatwoot_webhook(request: Request):
-    """
-    Chatwoot Agent Bot webhook endpoint.
+async def chatwoot_webhook(
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
+    raw_body = await read_webhook_body(request)
 
-    Verifies the request signature, extracts the incoming user message,
-    forwards it to the existing chat service (`handler.chat`), and sends
-    the generated reply back to Chatwoot.
-    """
-    raw_body = await request.body()
-    
-    # --- Authenticate Chatwoot -> Bot ---
     if VERIFY_SIGNATURE:
         signature = request.headers.get("X-Chatwoot-Signature", "")
         timestamp = request.headers.get("X-Chatwoot-Timestamp", "")
@@ -270,68 +427,51 @@ async def chatwoot_webhook(request: Request):
             logger.warning("Rejected Chatwoot webhook: invalid signature.")
             raise HTTPException(status_code=401, detail="invalid_signature")
 
-    # --- Parse payload ---
     try:
         payload = json.loads(raw_body.decode("utf-8"))
-    except json.JSONDecodeError:
-        logger.exception("Invalid JSON payload.")
-        raise HTTPException(status_code=400, detail="invalid_json")
+    except (ValueError, RecursionError):
+        raise HTTPException(status_code=400, detail="invalid_json") from None
 
-    event, conversation_id, message_type, content = extract_message(payload)
+    if not isinstance(payload, dict):
+        raise HTTPException(status_code=400, detail="invalid_payload")
 
-    logger.info(
-        "Webhook received | event=%s | conversation_id=%s | "
-        "message_type=%s | content=%r",
-        event,
+    if payload.get("event") != "message_created":
+        return {"status": "ignored", "reason": "event"}
+
+    # جلوگیری از حلقه پاسخ به پیام خروجی خود ربات.
+    if payload.get("message_type") != "incoming":
+        return {"status": "ignored", "reason": "not_incoming"}
+
+    if payload.get("private"):
+        return {"status": "ignored", "reason": "private_message"}
+
+    conversation = payload.get("conversation")
+
+    if not isinstance(conversation, dict):
+        raise HTTPException(status_code=400, detail="invalid_conversation")
+
+    conversation_id = parse_conversation_id(conversation.get("id"))
+    content = payload.get("content")
+
+    if not isinstance(content, str) or not content.strip():
+        return {"status": "ignored", "reason": "empty_or_non_text_content"}
+
+    # هیچ فراخوانی Sync مدل یا requests در این مسیر async اجرا نمی‌شود.
+    background_tasks.add_task(
+        process_chatwoot_message,
         conversation_id,
-        message_type,
         content,
     )
 
-    # Only process actual message_created events.
-    if event != "message_created":
-        return {"status": "ignored", "reason": "event"}
+    logger.info(
+        "Webhook accepted | conversation_id=%s",
+        conversation_id,
+    )
 
-    # Ignore our own outgoing messages to prevent Bot -> Chatwoot -> Bot loop.
-    if message_type != "incoming":
-        return {"status": "ignored", "reason": "not_incoming"}
-
-    if conversation_id is None:
-        logger.error("No conversation_id in Chatwoot payload.")
-        raise HTTPException(status_code=400, detail="missing_conversation_id")
-
-    if not content:
-        logger.warning(
-            "Empty/None content in incoming message, ignoring | conversation_id=%s",
-            conversation_id,
-        )
-        return {"status": "ignored", "reason": "empty_content"}
-
-    # --- Reuse the existing chat service ---
-    # Map each Chatwoot conversation to a stable session_id so that
-    # conversation history/context is preserved across messages.
-    session_id = f"chatwoot-{conversation_id}"
-
-    try:
-        chat_result = handler.chat(content, session_id)
-        reply_text = chat_result.final_response
-    except Exception as exc:
-        logger.exception(
-            "Chat handler failed | conversation_id=%s | error=%s",
-            conversation_id,
-            exc,
-        )
-        raise HTTPException(status_code=500, detail="chat_handler_error")
-
-    # --- Send reply back to Chatwoot ---
-    try:
-        send_chatwoot_message(int(conversation_id), reply_text)
-    except Exception as exc:
-        logger.exception(
-            "Failed to send reply to Chatwoot | conversation_id=%s | error=%s",
-            conversation_id,
-            exc,
-        )
-        raise HTTPException(status_code=502, detail="chatwoot_send_failed")
-
-    return {"status": "ok", "conversation_id": conversation_id}
+    # پاسخ 200 پیش از اجرای Background Task ارسال می‌شود.
+    # accepted فقط پذیرش پردازش است، نه تضمین تولید یا تحویل پاسخ.
+    # خطای Background Task دیگر Status این پاسخ را تغییر نمی‌دهد.
+    return {
+        "status": "accepted",
+        "conversation_id": conversation_id,
+    }
