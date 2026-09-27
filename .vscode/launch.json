@@ -3,19 +3,19 @@
   "configurations": [
     {
       "name": "AI FastAPI: Debug",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "uvicorn",
       "args": [
-        "main:app",
+        "apis_temp:app",
         "--host",
         "127.0.0.1",
         "--port",
-        "8000"
+        "8085"
       ],
       "cwd": "${workspaceFolder}/server/Src/AI",
-      "envFile": "${workspaceFolder}/server/Src/AI/.env",
-      "python": "${workspaceFolder}/server/Src/AI/.venv/Scripts/python.exe",
+      // "envFile": "${workspaceFolder}/server/Src/AI/.env",
+      // "python": "${workspaceFolder}/server/Src/AI/.venv/Scripts/python.exe",
       "justMyCode": true,
       "console": "integratedTerminal"
     },
@@ -56,20 +56,22 @@
       "justMyCode": true,
       "console": "integratedTerminal"
     },
+
     {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "FastAPI Debug mgz",
+            "name": "APIs Temp - Uvicorn Debug",
             "type": "debugpy",
             "request": "launch",
             "module": "uvicorn",
+            "cwd": "/JAM/JAM/server/Src/AI",
             "args": [
                 "apis_temp:app",
                 "--host",
-                "127.0.0.1",
+                "0.0.0.0",
                 "--port",
-                "8080"
+                "8085"
             ],
             "jinja": true
         }
