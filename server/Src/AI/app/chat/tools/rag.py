@@ -9,11 +9,13 @@ load_dotenv()
 
 
 class ApiRagTools:
-    BaseUrl = "http://172.16.1.81:8080" ## this should be refactor and reviewed
-    api_key = "ragflow-ajFHmiBuMNqS4f4ZMPA_6v7OLvLrRyeP6IRd_TQgugw"
+    BaseUrl = "http://172.16.1.81:9080/ragflow" ## this should be refactor and reviewed
+    api_key = "ragflow-iw1DpTqVoHMuzEhqDiXQKpmsfGvPDTz9mmgX1WtwJvQ"
     HttpHeader = {
         "Content-Type": "application/json",
         "Authorization": os.getenv("API_DOT_IR_KEY", api_key),
+        "accept" : "application/json, text/plain, */*",
+        "accept-encoding":"gzip, deflate",
     }
 
     
@@ -28,6 +30,7 @@ class ApiRagTools:
                 
             )
             if response.status_code == 200:
+            #    return response.content.json()
                return response.json()
             return f"Request failed with status code: {response.status_code}"
     

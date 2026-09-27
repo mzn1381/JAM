@@ -24,12 +24,15 @@ def rag_node(state: GraphState, llm) -> GraphState:
         #     json=data,
         # )
        
-    chat_id = "00589f0ab11d11f1b2daeb8fd4f19719" # Should be refactored #MGZ     
-    conversation_id = "18d6cb92b11d11f1b2daeb8fd4f19719" # Should be refactored #MGZ     
+    chat_id = "c0ef54a4b8d211f19c44397fd71b9367"
+    # d7287caab8d711f19c44397fd71b9367# Should be refactored #MGZ     
+    # conversation_id = "55a307e92a8b4e4fbfee843e5b56d750" # Should be refactored #MGZ     
+    conversation_id = "18c7b940b8e311f19c44397fd71b9367" # Should be refactored #MGZ     
     rag_api_name_get = "get_api_sw1_call_rag"
     func = _API_MAP[rag_api_name_get]    
     data_get_rag = {"chat_id":chat_id,"conversation_id":conversation_id}
-    history = func.invoke(data_get_rag)
+    res = func.invoke(data_get_rag)
+    history = res
     messages:list = history["data"]["messages"]
     
     messages.append({
