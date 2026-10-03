@@ -1,0 +1,17 @@
+{
+  "run_id": "20261003T154320Z_0b87acec",
+  "chat_id": "f8c50e20bf2e11f19c44397fd71b9367",
+  "interrupted": false,
+  "planned_scenarios": 5,
+  "planned_user_messages": 5,
+  "recorded_user_messages": 5,
+  "unrecorded_user_messages": 0,
+  "status_counts": {
+    "success": 5
+  },
+  "api_successful_scenarios": 5,
+  "mean_chat_request_latency_seconds": 2.9836,
+  "automatic_retry": false,
+  "answer_quality_evaluation": "not_performed",
+  "note": "Success means API/response success, not factual correctness."
+}

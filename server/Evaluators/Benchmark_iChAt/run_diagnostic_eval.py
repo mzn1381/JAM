@@ -69,8 +69,8 @@ def load_tests(path):
             tests.append(item)
 
     # This runner initially targets exactly the selected diagnostic set.
-    if len(tests) != 12 or sum(len(t["turns"]) for t in tests) != 14:
-        raise ValueError("Expected exactly 12 scenarios and 14 user messages")
+    if not tests:
+        raise ValueError("Test file must contain at least one scenario")
 
     return tests
 
@@ -165,7 +165,9 @@ def chat_payload(question, session_id, history):
     }
 
 
-def make_summary(run_id, records, interrupted):
+def make_summary(run_id, records, interrupted, tests):
+    planned_scenarios = len(tests)
+    planned_user_messages = sum(len(t["turns"]) for t in tests)
     statuses = Counter(r["status"] for r in records)
     latencies = [
         r["latency_seconds"]
@@ -187,10 +189,10 @@ def make_summary(run_id, records, interrupted):
         "run_id": run_id,
         "chat_id": CHAT_ID,
         "interrupted": interrupted,
-        "planned_scenarios": 12,
-        "planned_user_messages": 14,
+        "planned_scenarios": planned_scenarios,
+        "planned_user_messages": planned_user_messages,
         "recorded_user_messages": len(records),
-        "unrecorded_user_messages": 14 - len(records),
+        "unrecorded_user_messages": planned_user_messages - len(records),
         "status_counts": dict(statuses),
         "api_successful_scenarios": complete_scenarios,
         "mean_chat_request_latency_seconds": (
@@ -216,8 +218,9 @@ def main():
 
     tests = load_tests(args.tests)
 
-    print(f"Scenarios: {len(tests)} | User messages: 14")
+    total_messages = sum(len(t["turns"]) for t in tests)
     print(f"RAGFlow: {BASE_URL}")
+    print(f"Scenarios: {len(tests)} | User messages: {total_messages}")    
     print(f"Chat ID: {CHAT_ID}")
     print(f"Pass all history: {PASS_ALL_HISTORY}")
 
@@ -400,8 +403,7 @@ def main():
         write_json(output / "results.json", records)
         write_json(
             output / "summary.json",
-            make_summary(run_id, records, interrupted),
-        )
+            make_summary(run_id, records, interrupted, tests),        )
         print(f"\nSaved: {output.resolve()}")
 
 
