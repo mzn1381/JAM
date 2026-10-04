@@ -15,7 +15,7 @@ URL = "http://localhost:8085/webhook"
 payload = {
     "event": "message_created",
     "message_type": "incoming",
-    "content": "هوش مصنوعی را توضیح بده",
+    "content": "می توانی حد نصاب مناطق محروم را توضیح دهی برای تشکیل کلاس ",
     "conversation": {"id": 22},
 }
 

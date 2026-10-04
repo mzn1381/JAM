@@ -47,7 +47,8 @@ class ApiRagTools:
             "pass_all_history_messages": True,
             "reasoning": 1,
             "stream":False,
-            "session_id": conversation_id
+            "session_id": conversation_id,
+            "isNew":True
         }
     
             response = requests.post(
