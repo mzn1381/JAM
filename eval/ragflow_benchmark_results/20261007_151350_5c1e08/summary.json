@@ -1,0 +1,10 @@
+{
+  "run_id": "20261007_151350_5c1e08",
+  "scenario_count": 149,
+  "total_turns": 155,
+  "successful_turns": 155,
+  "failed_turns": 0,
+  "success_rate": 1.0,
+  "results_file": "ragflow_benchmark_results\\20261007_151350_5c1e08\\results.jsonl",
+  "completed_at": "2026-10-07T15:25:43.273818+00:00"
+}

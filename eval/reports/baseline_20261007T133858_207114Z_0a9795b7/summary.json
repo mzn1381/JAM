@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "reporter_version": "1.0.0",
+  "run_id": "baseline_20261007T133858_207114Z_0a9795b7",
+  "report_created_at_utc": "2026-10-07T13:38:58.207114+00:00",
+  "input_filename": "ragas_results.json",
+  "input_sha256": "0a9795b7f788a8e39d40c7e81d9178371a9822c306f1ef27e16b5a25d1a10685",
+  "reporter_sha256": "172d2be740083c9edeba300a0a5558fd94b187618fbb912ff0a443fde381efb2",
+  "report_environment": {
+    "python": "3.11.16",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "sample_count": 14,
+  "review_sample_count": 14,
+  "review_threshold": 0.8,
+  "citation_index_base": null,
+  "context_count_mean": 8,
+  "context_count_min": 8,
+  "context_count_max": 8,
+  "metrics": {
+    "faithfulness": {
+      "total": 14,
+      "valid": 14,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.8010204081632653,
+      "median": 1.0,
+      "std_sample": 0.3697538018232834,
+      "min": 0.0,
+      "max": 1.0,
+      "zero_count": 2,
+      "below_review_threshold": 4,
+      "status_counts": {
+        "valid": 14,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "context_precision": {
+      "total": 14,
+      "valid": 14,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.6737528344330805,
+      "median": 0.7499999999718749,
+      "std_sample": 0.34851687320097013,
+      "min": 0.0,
+      "max": 0.9999999999666667,
+      "zero_count": 2,
+      "below_review_threshold": 8,
+      "status_counts": {
+        "valid": 14,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "context_recall": {
+      "total": 14,
+      "valid": 14,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.75,
+      "median": 1.0,
+      "std_sample": 0.37977726265637496,
+      "min": 0.0,
+      "max": 1.0,
+      "zero_count": 2,
+      "below_review_threshold": 5,
+      "status_counts": {
+        "valid": 14,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "answer_relevancy": {
+      "total": 14,
+      "valid": 0,
+      "missing": 14,
+      "invalid": 0,
+      "coverage": 0.0,
+      "mean": null,
+      "median": null,
+      "std_sample": null,
+      "min": null,
+      "max": null,
+      "zero_count": 0,
+      "below_review_threshold": 0,
+      "status_counts": {
+        "valid": 0,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 14,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    }
+  },
+  "metadata": {
+    "status": "not_provided"
+  },
+  "notes": [
+    "این گزارش فقط امتیازهای ورودی را تجمیع می‌کند؛ ارزیابی معنایی جدید انجام نشده است.",
+    "میانگین هر معیار فقط بر مقادیر معتبر همان معیار محاسبه شده؛ مقادیر ناموجود یا نامعتبر صفر محسوب نشده‌اند.",
+    "پوشش معتبر، نسبت امتیازهای عددی معتبر به کل نمونه‌هاست؛ این شاخص صحت داوری ارزیاب را تضمین نمی‌کند.",
+    "آستانه بازبینی صرفاً برای اولویت‌بندی بررسی است؛ معادل معیار پذیرش محصول یا تشخیص قطعی خطا نیست.",
+    "نرخ پاسخ صحیح، کامل‌بودن پاسخ و صحت معنایی استنادها با این گزارش اندازه‌گیری نشده‌اند.",
+    "بررسی اختیاری IDها فقط محدوده عددی استناد را کنترل می‌کند، نه پشتیبانی معنایی منبع از ادعا.",
+    "اطلاعات مدل و تنظیمات در metadata توسط کاربر اعلام می‌شود و گزارش‌ساز آن‌ها را مستقلاً تأیید نمی‌کند.",
+    "برای مقایسه معتبر، مجموعه آزمون، منابع و پروتکل ارزیابی باید ثابت و نسخه‌بندی‌شده باشند.",
+    "زمان پاسخ‌گویی، مصرف توکن و هزینه در ساختار فعلی موجود نیست.",
+    "answer_relevancy: هیچ امتیاز معتبر موجود نیست؛ نتیجه‌گیری درباره این معیار ممکن نیست.",
+    "تعداد نمونه‌ها کم است؛ نتایج را توصیفی و مقدماتی بدانید. عدد ۳۰ یک هشدار اجرایی است، نه تضمین کفایت آماری."
+  ]
+}

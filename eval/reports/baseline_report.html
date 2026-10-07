@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>iChAt RAG Baseline</title>
+
+<style>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    margin: 0;
+    padding: 32px;
+    background: #f5f7fa;
+    color: #202124;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.06);
+}
+
+h1 {
+    margin: 0 0 8px;
+}
+
+.subtitle {
+    color: #666;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    border-top: 5px solid #bbb;
+}
+
+.metric-card.high {
+    border-top-color: #2e7d32;
+}
+
+.metric-card.medium {
+    border-top-color: #ed8b00;
+}
+
+.metric-card.low {
+    border-top-color: #c62828;
+}
+
+.metric-card.na {
+    border-top-color: #777;
+}
+
+.metric-title {
+    font-size: 14px;
+    color: #666;
+}
+
+.metric-value {
+    font-size: 34px;
+    font-weight: 700;
+    margin: 12px 0;
+}
+
+.metric-meta {
+    font-size: 13px;
+    color: #777;
+}
+
+.section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #f8f9fa;
+}
+
+.question {
+    max-width: 500px;
+}
+
+.score {
+    display: inline-block;
+    min-width: 58px;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.score.high {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.score.medium {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+.score.low {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.na-text {
+    color: #999;
+}
+
+ul {
+    line-height: 1.8;
+}
+
+@media (max-width: 1000px) {
+    .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>iChAt — RAG Baseline</h1>
+    <div class="subtitle">
+        Generated: 2026-10-07T17:23:07
+    </div>
+</div>
+
+<div class="metric-grid">
+    
+            <div class="metric-card high">
+                <div class="metric-title">
+                    Faithfulness
+                </div>
+                <div class="metric-value">0.801</div>
+                <div class="metric-meta">
+                    Coverage: 100.0%
+                </div>
+            </div>
+            
+            <div class="metric-card medium">
+                <div class="metric-title">
+                    Context Precision
+                </div>
+                <div class="metric-value">0.674</div>
+                <div class="metric-meta">
+                    Coverage: 100.0%
+                </div>
+            </div>
+            
+            <div class="metric-card medium">
+                <div class="metric-title">
+                    Context Recall
+                </div>
+                <div class="metric-value">0.750</div>
+                <div class="metric-meta">
+                    Coverage: 100.0%
+                </div>
+            </div>
+            
+            <div class="metric-card na">
+                <div class="metric-title">
+                    Answer Relevancy
+                </div>
+                <div class="metric-value">N/A</div>
+                <div class="metric-meta">
+                    Coverage: 0.0%
+                </div>
+            </div>
+            
+</div>
+
+<div class="section">
+    <h2>Evaluation Coverage</h2>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Available</th>
+            <th>Missing</th>
+            <th>Coverage</th>
+        </tr>
+
+        <tr><td>faithfulness</td><td>14</td><td>0</td><td>100.0%</td></tr><tr><td>context_precision</td><td>14</td><td>0</td><td>100.0%</td></tr><tr><td>context_recall</td><td>14</td><td>0</td><td>100.0%</td></tr><tr><td>answer_relevancy</td><td>0</td><td>14</td><td>0.0%</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Baseline Notes</h2>
+    <ul>
+        <li>Answer Relevancy has no valid values and must be treated as N/A, not zero.</li><li>Metric coverage is incomplete; baseline comparisons should use both score and coverage.</li><li>No composite overall score is calculated. The four RAGAS metrics represent different quality dimensions.</li><li>This baseline is a snapshot of the current system and should be kept unchanged for future regression comparison.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Case-Level Results</h2>
+
+    <table>
+        <tr>
+            <th>Case</th>
+            <th>Contexts</th>
+            <th>Faithfulness</th>
+            <th>Context Precision</th>
+            <th>Context Recall</th>
+            <th>Answer Relevancy</th>
+            <th>Question</th>
+        </tr>
+
+        
+            <tr>
+                <td>CASE-001</td>
+                <td>8</td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح دو، در حالت معمول و بدون استثنا، حداقل و حداکثر واحد هر نیمسال چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-002</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح سه، در شیوه غیرحضوری و بدون استثنا، حداقل و حداکثر واحد هر نیمسال چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-003</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح چهار، در حالت معمول و بدون استثنا، حداقل و حداکثر واحد هر نیمسال چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-004</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">0.813</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    سطح سه غیرحضوری می‌خونم؛ حالت عادی ترمی چند واحد می‌تونم بردارم؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-005</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score medium">0.750</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    در سطح سه غیرحضوری، سقف معمول انتخاب واحد ۱۶ واحد است، درست است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-006</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="score low">0.500</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    سقف معمول واحد در سطح دو و سطح چهار، بدون استثنا، چقدر است و چند واحد اختلاف دارد؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-007</td>
+                <td>8</td>
+                <td><span class="score low">0.500</span></td>
+                <td><span class="score low">0.375</span></td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح دو، طلبه ممتاز با موافقت گروه علمی‌ـ‌تربیتی، در نخستین نیمسال بعد حداکثر چند واحد می‌تواند بگیرد؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-008</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">0.976</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح دو، اگر در آخرین نیمسال تعداد واحدهای باقی‌مانده کمتر از حداقل باشد، تکلیف سنوات و اثر معدل بر مشروطی و ممتازی چیست؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-009</td>
+                <td>8</td>
+                <td><span class="score medium">0.714</span></td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    در حالت معمول هر ترم حداکثر چند واحد می‌توانم بردارم؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-010</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score low">0.500</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    طبق آیین‌نامه سطح سه، هر نیمسال چند هفته است، چند هفته درسی و چند هفته امتحان دارد و سقف معمول واحد غیرحضوری چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-011</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    در سطح سه غیرحضوری، سقف معمول واحد هر نیمسال چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-012</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score medium">0.625</span></td>
+                <td><span class="score low">0.500</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    اگر حضوری باشم چطور؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-013</td>
+                <td>8</td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="score medium">0.750</span></td>
+                <td><span class="score high">1.000</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    در سطح دو، سقف معمول واحد هر نیمسال چقدر است؟
+                </td>
+            </tr>
+            
+            <tr>
+                <td>CASE-014</td>
+                <td>8</td>
+                <td><span class="score low">0.000</span></td>
+                <td><span class="score medium">0.643</span></td>
+                <td><span class="score low">0.500</span></td>
+                <td><span class="na-text">N/A</span></td>
+                <td class="question">
+                    اصلاح می‌کنم؛ منظورم سطح چهار بود. سقف معمول آن چقدر است؟
+                </td>
+            </tr>
+            
+    </table>
+</div>
+
+</div>
+</body>
+</html>
