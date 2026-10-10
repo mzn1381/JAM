@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "reporter_version": "1.0.0",
+  "run_id": "baseline_20261009T063510_703680Z_c050b056",
+  "report_created_at_utc": "2026-10-09T06:35:10.703680+00:00",
+  "input_filename": "ragas_results2.json",
+  "input_sha256": "c050b056a22346782a1abb4c68e5511190b1caf14b808fb9aba86369ce70d03c",
+  "reporter_sha256": "8a78a5b187fa71ce0794e6969d1f7670a267273ed8a2394cbd08fba81a68e0d7",
+  "report_environment": {
+    "python": "3.11.5",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "sample_count": 155,
+  "review_sample_count": 145,
+  "review_threshold": 0.8,
+  "citation_index_base": null,
+  "context_count_mean": 8,
+  "context_count_min": 8,
+  "context_count_max": 8,
+  "metrics": {
+    "faithfulness": {
+      "total": 155,
+      "valid": 153,
+      "missing": 2,
+      "invalid": 0,
+      "coverage": 0.9870967741935484,
+      "mean": 0.6335356952248365,
+      "median": 0.6666666667,
+      "std_sample": 0.32288320751318905,
+      "min": 0.0,
+      "max": 1.0,
+      "zero_count": 13,
+      "below_review_threshold": 91,
+      "status_counts": {
+        "valid": 153,
+        "absent": 0,
+        "null": 2,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "context_precision": {
+      "total": 155,
+      "valid": 155,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.8865598712445161,
+      "median": 0.95,
+      "std_sample": 0.16452356039429192,
+      "min": 0.0,
+      "max": 1.0,
+      "zero_count": 1,
+      "below_review_threshold": 33,
+      "status_counts": {
+        "valid": 155,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "context_recall": {
+      "total": 155,
+      "valid": 155,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.9141935483903226,
+      "median": 1.0,
+      "std_sample": 0.19912138853892822,
+      "min": 0.0,
+      "max": 1.0,
+      "zero_count": 3,
+      "below_review_threshold": 30,
+      "status_counts": {
+        "valid": 155,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    },
+    "answer_relevancy": {
+      "total": 155,
+      "valid": 155,
+      "missing": 0,
+      "invalid": 0,
+      "coverage": 1.0,
+      "mean": 0.5834078141516129,
+      "median": 0.6111508739,
+      "std_sample": 0.21157177941497488,
+      "min": 0.0,
+      "max": 0.9468978816,
+      "zero_count": 4,
+      "below_review_threshold": 137,
+      "status_counts": {
+        "valid": 155,
+        "absent": 0,
+        "null": 0,
+        "non_finite": 0,
+        "invalid_type": 0,
+        "out_of_range": 0
+      }
+    }
+  },
+  "metadata": {
+    "status": "not_provided"
+  },
+  "notes": [
+    "این گزارش فقط امتیازهای ورودی را تجمیع می‌کند؛ ارزیابی معنایی جدید انجام نشده است.",
+    "میانگین هر معیار فقط بر مقادیر معتبر همان معیار محاسبه شده؛ مقادیر ناموجود یا نامعتبر صفر محسوب نشده‌اند.",
+    "پوشش معتبر، نسبت امتیازهای عددی معتبر به کل نمونه‌هاست؛ این شاخص صحت داوری ارزیاب را تضمین نمی‌کند.",
+    "آستانه بازبینی صرفاً برای اولویت‌بندی بررسی است؛ معادل معیار پذیرش محصول یا تشخیص قطعی خطا نیست.",
+    "نرخ پاسخ صحیح، کامل‌بودن پاسخ و صحت معنایی استنادها با این گزارش اندازه‌گیری نشده‌اند.",
+    "بررسی اختیاری IDها فقط محدوده عددی استناد را کنترل می‌کند، نه پشتیبانی معنایی منبع از ادعا.",
+    "اطلاعات مدل و تنظیمات در metadata توسط کاربر اعلام می‌شود و گزارش‌ساز آن‌ها را مستقلاً تأیید نمی‌کند.",
+    "برای مقایسه معتبر، مجموعه آزمون، منابع و پروتکل ارزیابی باید ثابت و نسخه‌بندی‌شده باشند.",
+    "زمان پاسخ‌گویی، مصرف توکن و هزینه در ساختار فعلی موجود نیست.",
+    "faithfulness: پوشش ناقص است؛ میانگین ممکن است به علت ناموجودبودن غیرتصادفی امتیازها سوگیرانه باشد."
+  ]
+}

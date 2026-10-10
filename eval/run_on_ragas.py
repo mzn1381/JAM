@@ -1,39 +1,59 @@
 import json
-import os
 from pathlib import Path
-from getpass import getpass
 
 from datasets import Dataset
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from ragas import evaluate
+from ragas.embeddings import LangchainEmbeddingsWrapper
+from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import (
     Faithfulness,
     ContextPrecision,
     ContextRecall,
     AnswerRelevancy,
 )
-# from ragas.llms import LangchainLLMWrapper
-from langchain_openai import ChatOpenAI
-# from ragas.embeddings import embedding_factory 
-from ragas.embeddings.base import embedding_factory 
-from openai import OpenAI
-from ragas.llms import llm_factory
+from ragas.run_config import RunConfig
 
-BASE_DIR = Path(__file__).resolve().parent
+
+BASE_DIR = (
+    Path(__file__).resolve().parent
+    if "__file__" in globals()
+    else Path.cwd()
+)
 
 DATASET_PATH = BASE_DIR / "ragas_dataset.jsonl"
-# OUTPUT_PATH = BASE_DIR / "ragas_results.json"
 OUTPUT_PATH = BASE_DIR / "ragas_results2.json"
 
 
 def load_dataset():
+    if not DATASET_PATH.is_file():
+        raise FileNotFoundError(f"Dataset file not found: {DATASET_PATH}")
+
     rows = []
 
-    with DATASET_PATH.open("r", encoding="utf-8") as f:
-        for line in f:
+    with DATASET_PATH.open("r", encoding="utf-8-sig") as f:
+        for line_number, line in enumerate(f, start=1):
             line = line.strip()
 
-            if line:
-                rows.append(json.loads(line))
+            if not line:
+                continue
+
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(
+                    f"Invalid JSON at line {line_number}: {exc}"
+                ) from exc
+
+            if not isinstance(row, dict):
+                raise ValueError(
+                    f"Dataset line {line_number} must contain a JSON object."
+                )
+
+            rows.append(row)
+
+    if not rows:
+        raise ValueError("Dataset is empty.")
 
     return Dataset.from_list(rows)
 
@@ -46,9 +66,7 @@ def get_config():
     print("\n--- Judge LLM ---")
 
     llm_api_key = "sk-unsloth-f78779061e4c57dbfe93eae9e0b677c2"
-
     llm_base_url = "http://172.16.1.172:8888/v1"
-
     llm_model = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF"
 
     if not llm_api_key:
@@ -60,11 +78,13 @@ def get_config():
     if not llm_model:
         raise ValueError("LLM Model Name cannot be empty.")
 
+    print(f"Model: {llm_model}")
+    print(f"Base URL: {llm_base_url}")
+
     print("\n--- Embedding Model ---")
 
     embedding_api_key = "aa-T66Faylc66mbOm8DNIIb7XOQZpLZHuGS3fYPJ1DfffXEYdB4"
     embedding_base_url = "https://api.avalai.ir/v1"
-
     embedding_model = "text-embedding-3-small"
 
     if not embedding_api_key:
@@ -76,6 +96,9 @@ def get_config():
     if not embedding_model:
         raise ValueError("Embedding Model Name cannot be empty.")
 
+    print(f"Model: {embedding_model}")
+    print(f"Base URL: {embedding_base_url}")
+
     return (
         llm_api_key,
         llm_base_url,
@@ -84,76 +107,108 @@ def get_config():
         embedding_base_url,
         embedding_model,
     )
+
+
 def main():
     dataset = load_dataset()
 
     print(f"\nDataset rows: {len(dataset)}")
 
     (
-    llm_api_key,
-    llm_base_url,
-    llm_model,
-    embedding_api_key,
-    embedding_base_url,
-    embedding_model,
+        llm_api_key,
+        llm_base_url,
+        llm_model,
+        embedding_api_key,
+        embedding_base_url,
+        embedding_model,
     ) = get_config()
+
+    run_config = RunConfig(
+        timeout=300,
+        max_retries=3,
+        max_workers=2,
+    )
 
     print("\nInitializing Judge LLM...")
 
-    llm_client = OpenAI(
-    api_key=llm_api_key,
-    base_url=llm_base_url,
-)
+    llm_client = ChatOpenAI(
+        model=llm_model,
+        api_key=llm_api_key,
+        base_url=llm_base_url,
+        temperature=0,
+        timeout=300,
+        max_retries=2,
+    )
 
-    evaluator_llm = llm_factory(
-    llm_model,
-    client=llm_client,
-)
+    evaluator_llm = LangchainLLMWrapper(
+        llm_client,
+        run_config=run_config,
+    )
 
-    embedding_client = OpenAI(
-    api_key=embedding_api_key,
-    base_url=embedding_base_url,
-)
+    print("\nInitializing Embedding Model...")
 
-    evaluator_embeddings = embedding_factory(
-    "openai",
-    model=embedding_model,
-    client=embedding_client,
-)
+    embedding_client = OpenAIEmbeddings(
+        model=embedding_model,
+        api_key=embedding_api_key,
+        base_url=embedding_base_url,
+        check_embedding_ctx_length=False,
+        request_timeout=120,
+        max_retries=3,
+    )
+
+    evaluator_embeddings = LangchainEmbeddingsWrapper(
+        embedding_client,
+        run_config=run_config,
+    )
+
     metrics = [
-    Faithfulness(llm=evaluator_llm),
-    ContextPrecision(llm=evaluator_llm),
-    ContextRecall(llm=evaluator_llm),
-    AnswerRelevancy(
-        llm=evaluator_llm,
-        embeddings=evaluator_embeddings,
-    ),
-]
+        Faithfulness(
+            llm=evaluator_llm,
+        ),
+        ContextPrecision(
+            llm=evaluator_llm,
+        ),
+        ContextRecall(
+            llm=evaluator_llm,
+        ),
+        AnswerRelevancy(
+            llm=evaluator_llm,
+            embeddings=evaluator_embeddings,
+            strictness=1,
+        ),
+    ]
 
     print("\nMetrics:")
     for metric in metrics:
         print(f"  {type(metric).__name__}")
 
+    print(f"\nEvaluating {len(dataset)} dataset rows...")
+
     result = evaluate(
         dataset=dataset,
         metrics=metrics,
+        llm=evaluator_llm,
+        embeddings=evaluator_embeddings,
+        run_config=run_config,
+        raise_exceptions=False,
+        show_progress=True,
     )
 
     print("\n" + "=" * 60)
     print("Evaluation finished")
     print("=" * 60)
-
     print(result)
 
-    result_dict = result.to_pandas().to_dict(orient="records")
+    results_df = result.to_pandas()
 
-    with OUTPUT_PATH.open("w", encoding="utf-8") as f:
-        json.dump(
-            result_dict,
-            f,
-            ensure_ascii=False,
-            indent=2,
-        )
+    # Serialize missing values and NaN scores as valid JSON null values.
+    results_json = results_df.to_json(
+        orient="records",
+        force_ascii=False,
+        indent=2,
+    )
+
+    OUTPUT_PATH.write_text(results_json, encoding="utf-8")
 
     print(f"\nSaved: {OUTPUT_PATH}")
 
